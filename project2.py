@@ -3,7 +3,7 @@ import os
 import sys
 import argparse
 
-from utils import rValue, tValue, kValue, validate_LLM
+from lib.utils import rValue, tValue, kValue, validate_LLM
 from QueryExecutor import QueryExecutor
 
 
@@ -45,7 +45,11 @@ def main():
 
     # Get the top 10 results for the query
     results = executor.getQueryResult(executor.q, 10)
-    print(results[0])
+    for item in results:
+        print(item["title"])
+        print(item["link"])
+        print(item["snippet"])
+        print()
 
 
 if __name__ == "__main__":

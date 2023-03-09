@@ -3,18 +3,14 @@ Query Executor class and methods
 """
 from googleapiclient.discovery import build
 import regex as re
-from typing import List, Tuple
+from typing import List, Tuple, Dict
 import requests
 from bs4 import BeautifulSoup
 from nltk.tokenize import word_tokenize
 
-
-RELATIONS = {
-    1: "Schools_Attended",
-    2: "Work_For",
-    3: "Live_In",
-    4: "Top_Member_Employees",
-}
+from lib.spacy_helper_functions import get_entities, create_entity_pairs
+from lib.utils import ENTITIES_OF_INTEREST, RELATIONS, SEED_PROMPTS
+from EntityExtractor import spaCyExtractor
 
 
 class QueryExecutor:
@@ -45,7 +41,8 @@ class QueryExecutor:
         self.google_engine_id = args.google_engine_id
         self.openai_secret_key = args.openai_secret_key
         self.engine = build("customsearch", "v1", developerKey=args.custom_search_key)
-        self.seenURLs = set()
+        self.seen_urls = set()
+        self.spacy_extractor = spaCyExtractor()
 
     def printQueryParams(self) -> None:
         """
@@ -58,11 +55,12 @@ class QueryExecutor:
 
         print("===== Query Parameters =====:")
         print(f"q: {self.q}")
-        print(f"r: {self.r}")
+        print(f"r: {self.r}, {RELATIONS[self.r]}")
         print(f"t: {self.t}")
         print(f"k: {self.k}")
         print(f"spanbert: {self.spanbert}")
         print(f"gpt3: {self.gpt3}")
+        print("===== ================= =====:\n\n")
 
     def getQueryResult(self, query: str, k) -> List:
         """
@@ -70,14 +68,7 @@ class QueryExecutor:
         Source: https://github.com/googleapis/google-api-python-client/blob/main/samples/customsearch/main.py
         """
 
-        full_res = (
-            self.engine.cse()
-            .list(
-                q=query,
-                cx=self.google_engine_id,
-            )
-            .execute()
-        )
+        full_res = self.engine.cse().list(q=query, cx=self.google_engine_id,).execute()
 
         return full_res["items"][0 : k + 1]
 
@@ -85,15 +76,29 @@ class QueryExecutor:
         """
         Get the tokens from a given URL
         """
+        # TODO: add timeout stuff
+        # TODO: add error handling (to keep going gracefully)
         try:
             page = requests.get(url)
             soup = BeautifulSoup(page.content, "html.parser")
             text = soup.get_text()
             if text != "":
                 text = (text[:10000]) if len(text) > 10000 else text
-                tokens = word_tokenize(text)
-                return tokens
+                return text
             else:
-                return []
+                return None
         except Exception:
             raise Exception("Error processing {}".format(url))
+
+    # def parseResult(self, result: Dict[str, str]) -> List[Tuple[str, str]]:
+    #     """
+    #     Parse the result of a query
+    #     """
+
+    #     url = result["link"]
+    #     entity_pairs = None
+    #     if url not in self.seen_urls:
+    #         self.seen_urls.add(url)
+    #         text = self.processText(url)
+    #         entity_pairs = self.spacy_extractor.extract_entities(text)
+    #     return entity_pairs
