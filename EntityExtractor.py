@@ -1,14 +1,16 @@
 import spacy
 from lib.SpanBERT.spanbert import SpanBERT
-from lib.spacy_help_functions import get_entities, create_entity_pairs
-from utils import ENTITIES_OF_INTEREST, RELATIONS, SEED_PROMPTS
+from lib.spacy_helper_functions import get_entities, create_entity_pairs
+from lib.utils import ENTITIES_OF_INTEREST, RELATIONS, SEED_PROMPTS
 from typing import List, Tuple
 
+spacy.cli.download('en_core_web_sm')
 
 class spaCyExtractor:
-    def __init__(self, model="en_core_web_sm"):
+    def __init__(self, r, model="en_core_web_sm"):
         self.nlp = spacy.load(model)
-        self.spanbert = SpanBERT("./pretrained_spanbert")
+        self.spanbert = SpanBERT("../SpanBERT/pretrained_spanbert")
+        self.r = r
 
     def process(self, text: str) -> spacy.tokens.doc.Doc:
         """

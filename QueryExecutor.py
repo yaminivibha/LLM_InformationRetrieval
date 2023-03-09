@@ -42,7 +42,7 @@ class QueryExecutor:
         self.openai_secret_key = args.openai_secret_key
         self.engine = build("customsearch", "v1", developerKey=args.custom_search_key)
         self.seen_urls = set()
-        self.spacy_extractor = spaCyExtractor()
+        self.spacy_extractor = spaCyExtractor(self.r)
 
     def printQueryParams(self) -> None:
         """
@@ -90,15 +90,15 @@ class QueryExecutor:
         except Exception:
             raise Exception("Error processing {}".format(url))
 
-    # def parseResult(self, result: Dict[str, str]) -> List[Tuple[str, str]]:
-    #     """
-    #     Parse the result of a query
-    #     """
+    def parseResult(self, result: Dict[str, str]) -> List[Tuple[str, str]]:
+        """
+        Parse the result of a query
+        """
 
-    #     url = result["link"]
-    #     entity_pairs = None
-    #     if url not in self.seen_urls:
-    #         self.seen_urls.add(url)
-    #         text = self.processText(url)
-    #         entity_pairs = self.spacy_extractor.extract_entities(text)
-    #     return entity_pairs
+        url = result["link"]
+        entity_pairs = None
+        if url not in self.seen_urls:
+            self.seen_urls.add(url)
+            text = self.processText(url)
+            entity_pairs = self.spacy_extractor.extract_entities(text)
+        return entity_pairs
