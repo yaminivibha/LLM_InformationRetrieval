@@ -100,5 +100,5 @@ class QueryExecutor:
         if url not in self.seen_urls:
             self.seen_urls.add(url)
             text = self.processText(url)
-            entity_pairs = self.spacy_extractor.extract_entities(text)
-        return entity_pairs
+            relation_preds = self.spacy_extractor.get_relations(text)
+        return relation_preds

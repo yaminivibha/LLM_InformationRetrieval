@@ -49,7 +49,7 @@ def main():
         print(item["title"])
         print(item["link"])
         print(item["snippet"])
-        print(f"entity pairs: {executor.parseResult(item)}")
+        print(f"relation pred pairs: {executor.parseResult(item)}")
         break
         print()
 
