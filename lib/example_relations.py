@@ -41,7 +41,7 @@ for sentence in doc.sents:
 
     # Classify Relations for all Candidate Entity Pairs using SpanBERT
     candidate_pairs = [
-        p for p in candidate_pairs if not p["subj"][1] in ["DATE", "LOCATION"]
+        p for p in candidate_pairs if not p["subj"][1] in ["DATE", "LOCATION"] and not p["obj"][1] in ["DATE", "LOCATION"]
     ]  # ignore subject entities with date/location type
     print("Candidate entity pairs:")
     for p in candidate_pairs:
