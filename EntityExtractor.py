@@ -31,7 +31,7 @@ class spaCyExtractor:
         """
         Extract candidate pairs from a given document using spaCy
         """
-        candidate_entity_pairs = set()
+        candidate_entity_pairs = []
         print(ENTITIES_OF_INTEREST[self.r])
         for sentence in doc.sents:
             print("Processing sentence: {}".format(sentence))
@@ -45,7 +45,7 @@ class spaCyExtractor:
             )
             # Filter as we go
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
-            for candidate in candidates: candidate_entity_pairs.add(candidate)
+            for candidate in candidates: candidate_entity_pairs.append(candidate)
 
         print(f"candidate_entity_pairs: {candidate_entity_pairs}")
         return list(candidate_entity_pairs)
