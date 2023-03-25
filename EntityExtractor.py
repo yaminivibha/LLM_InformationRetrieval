@@ -81,6 +81,10 @@ class spaCyExtractor:
         """
         Extract entities and their conf values from a given document using Spacy.
         """
+        if len(candidate_pairs) == 0:
+            print("No candidate pairs found. Returning empty list.")
+            return []
+        
         relation_preds = self.spanbert.predict(
             candidate_pairs
         )  # get predictions: list of (relation, confidence) pairs
