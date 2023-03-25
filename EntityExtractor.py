@@ -9,15 +9,6 @@ from lib.utils import (
 )
 from typing import List, Tuple
 
-entities_of_interest = [
-    "ORGANIZATION",
-    "PERSON",
-    "LOCATION",
-    "CITY",
-    "STATE_OR_PROVINCE",
-    "COUNTRY",
-]
-
 # spacy.cli.download("en_core_web_sm")
 
 
@@ -44,7 +35,7 @@ class spaCyExtractor:
         print(ENTITIES_OF_INTEREST[self.r])
         for sentence in doc.sents:
             print("Processing sentence: {}".format(sentence))
-            print("Tokenized sentence: {}".format([token.text for token in sentence]))
+            # print("Tokenized sentence: {}".format([token.text for token in sentence]))
             ents = get_entities(sentence, ENTITIES_OF_INTEREST[self.r])
             print("spaCy extracted entities: {}".format(ents))
 
@@ -76,11 +67,11 @@ class spaCyExtractor:
         
         for p in candidate_pairs:
             if (
-                p["subj"] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"]
-                and p["obj"] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
+                p["subj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"]
+                and p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
             ):
                 target_candidate_pairs.append(p)
-        
+
         return target_candidate_pairs
 
     #     target_candidate_pairs = [

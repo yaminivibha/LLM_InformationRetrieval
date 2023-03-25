@@ -61,7 +61,7 @@ class QueryExecutor:
             print(f"Method  = spanbert")
         if self.gpt3:
             print(f"Method  = gpt3")
-        print(f"Relation        = {self.r}")
+        print(f"Relation        = {RELATIONS[self.r]}")
         print(f"Threshold       = {self.t}")
         print(f"Query           = {self.q}")
         print(f"# of Tuples     = {self.k}")
@@ -105,8 +105,7 @@ class QueryExecutor:
             for block in html_blocks:
                 # print(f"block: {block}")
                 text += block.get_text()
-
-            print(f"text: {text}")
+            
             if text != "":
                 preprocessed_text = (text[:10000]) if len(text) > 10000 else text
 
