@@ -54,9 +54,9 @@ class spaCyExtractor:
             )
             # Filter as we go
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
-            candidate_entity_pairs.add(*candidates)
+            for candidate in candidates: candidate_entity_pairs.add(candidate)
 
-        print(f"sentence_entity_pairs: {sentence_entity_pairs}")
+        print(f"candidate_entity_pairs: {candidate_entity_pairs}")
         return list(candidate_entity_pairs)
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
@@ -72,14 +72,15 @@ class spaCyExtractor:
             candidate_pairs.append(
                 {"tokens": ep[0], "subj": ep[2], "obj": ep[1]}
             )  # e1=Object, e2=Subject
-
+        print("candidate pairs: {}".format(candidate_pairs))
+        
         for p in candidate_pairs:
             if (
                 p["subj"] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"]
                 and p["obj"] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
             ):
                 target_candidate_pairs.append(p)
-
+        
         return target_candidate_pairs
 
     #     target_candidate_pairs = [
