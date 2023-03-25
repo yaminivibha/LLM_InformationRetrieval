@@ -14,6 +14,7 @@ RELATIONS = {
     3: "Live_In",
     4: "Top_Member_Employees",
 }
+
 SEED_PROMPTS = {
     1: '["Jeff Bezos", "Schools_Attended", "Princeton University"]',
     2: '["Alec Radford", "Work_For", "OpenAI"]',
