@@ -91,11 +91,12 @@ class QueryExecutor:
         try:
             page = requests.get(url)
             soup = BeautifulSoup(page.content, "html.parser")
-            html_blocks = soup.find_all("p", "h1", "h2", "h3", "h4")
+            html_blocks = soup.find_all("p")
             text = ""
             for block in html_blocks:
-                text += " " + block.get_text()
-            
+                print(f"block: {block}")
+                text += block.get_text()
+                
             print(f"text: {text}")
             if text != "":
                 preprocessed_text = (text[:10000]) if len(text) > 10000 else text
