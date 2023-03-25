@@ -24,7 +24,7 @@ class spaCyExtractor:
         """
         doc = self.nlp(text)
         target_candidate_pairs = self.extract_candidate_pairs(doc)
-        entities = self.extract_candidate_pairs(target_candidate_pairs)
+        entities = self.extract_entities(target_candidate_pairs)
         return entities
 
     def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
