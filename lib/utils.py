@@ -21,6 +21,13 @@ SEED_PROMPTS = {
     4: '["Jensen Huang", "Top_Member_Employees", "Nvidia"]',
 }
 
+SUBJ_OBJ_REQUIRED_ENTITIES = {
+	1: {"SUBJ": ["PERSON"], "OBJ": ["ORGANIZATION"]},
+	2: {"SUBJ": ["PERSON"], "OBJ": ["ORGANIZATION"]},
+	3: {"SUBJ": ["PERSON"], "OBJ": ["LOCATION", "CITY", "STATE_OR_PROVINCE", "COUNTRY"]},
+	4: {"SUBJ": ["ORGANIZATION"], "OBJ": ["PERSON"]},
+}
+
 name = {
     1: {"Subject": "PERSON", "Object": "ORGANIZATION"},
 
@@ -47,13 +54,3 @@ def kValue(string) -> int:
     if value < 1:
         raise argparse.ArgumentTypeError("k value has to be an integer greater than 0")
     return value
-
-
-def validate_LLM(args, parser) -> None:
-    if args.spanbert and args.gpt3:
-        raise parser.error("Cannot use both SpanBERT and GPT-3")
-
-    if not args.spanbert and not args.gpt3:
-        raise parser.error("Must use either SpanBERT or GPT-3")
-
-    return

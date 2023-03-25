@@ -8,8 +8,16 @@ from lib.utils import (
     SUBJ_OBJ_REQUIRED_ENTITIES,
 )
 from typing import List, Tuple
+entities_of_interest = [
+    "ORGANIZATION",
+    "PERSON",
+    "LOCATION",
+    "CITY",
+    "STATE_OR_PROVINCE",
+    "COUNTRY",
+]
 
-spacy.cli.download("en_core_web_sm")
+# spacy.cli.download("en_core_web_sm")
 
 
 class Extractor:
@@ -17,39 +25,34 @@ class Extractor:
         self.r = r
         self.nlp = spacy.load(model)
 
-    def process(self, text: str) -> spacy.tokens.doc.Doc:
-        """
-        Process a given text using Spacy
-        """
-        doc = self.nlp(text)
-        return doc
-
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
         """
         Exposed function to take in text and return named entities
         """
-        doc = self.process(text)
+        doc = self.nlp(text)
         target_candidate_pairs = self.extract_candidate_pairs(doc)
 
         return target_candidate_pairs
 
     def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
         """
-        Extract candidate pairs from a given document using Spacy
+        Extract candidate pairs from a given document using spaCy
         """
         entity_pairs = []
+        print(ENTITIES_OF_INTEREST[self.r])
         for sentence in doc.sents:
-            #     print("\n\nProcessing sentence: {}".format(sentence))
-            #     print("Tokenized sentence: {}".format([token.text for token in sentence]))
+            print("Processing sentence: {}".format(sentence))
+            print("Tokenized sentence: {}".format([token.text for token in sentence]))
             ents = get_entities(sentence, ENTITIES_OF_INTEREST[self.r])
-            #     print("spaCy extracted entities: {}".format(ents))
+            print("spaCy extracted entities: {}".format(ents))
 
             # Create entity pairs.
             candidate_pairs = []
             sentence_entity_pairs = create_entity_pairs(
-                sentence, ENTITIES_OF_INTEREST[self.r]
+                sentence,
+                entities_of_interest
             )
-            sentence_entity_pairs.append(entity_pairs)
+        print(f"sentence_entity_pairs: {sentence_entity_pairs}")
         return sentence_entity_pairs
 
 
@@ -73,7 +76,7 @@ class spaCyExtractor(Extractor):
             candidate_pairs.append(
                 {"tokens": ep[0], "subj": ep[2], "obj": ep[1]}
             )  # e1=Object, e2=Subject
-
+        return
     #     target_candidate_pairs = [
     #         p for p in candidate_pairs if not p["subj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"] and not p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
     #     ]
