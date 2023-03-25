@@ -59,7 +59,7 @@ class Extractor:
 class spaCyExtractor(Extractor):
     def __init__(self, r, model="en_core_web_sm"):
         self.nlp = spacy.load(model)
-        self.spanbert = SpanBERT("../SpanBERT/pretrained_spanbert")
+        self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
         self.r = r
 
     def filter_candidate_pairs(self, sentence_entity_pairs):

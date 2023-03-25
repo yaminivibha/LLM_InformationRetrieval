@@ -58,8 +58,7 @@ def main():
         print(f"title {i}: {item['title']}")
         print(f"snippet {i}: {item['snippet']}")
         print(f"relation pred pairs for {i}: {executor.parseResult(item)}")
-        if i == 3:
-            break
+        break
     print()
 
 

@@ -7,7 +7,7 @@ from typing import List, Tuple, Dict
 import requests
 from bs4 import BeautifulSoup
 from bs4.element import Tag
-from nltk.tokenize import word_tokenize
+#from nltk.tokenize import word_tokenize
 
 from lib.spacy_helper_functions import get_entities, create_entity_pairs
 from lib.utils import ENTITIES_OF_INTEREST, RELATIONS, SEED_PROMPTS
@@ -95,7 +95,8 @@ class QueryExecutor:
             text = ""
             for block in html_blocks:
                 text += " " + block.get_text()
-
+            
+            print(f"text: {text}")
             if text != "":
                 preprocessed_text = (text[:10000]) if len(text) > 10000 else text
 
