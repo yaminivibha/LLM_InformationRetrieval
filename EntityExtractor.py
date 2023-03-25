@@ -24,8 +24,8 @@ class spaCyExtractor:
         """
         doc = self.nlp(text)
         target_candidate_pairs = self.extract_candidate_pairs(doc)
-
-        return target_candidate_pairs
+        entities = self.extract_candidate_pairs(target_candidate_pairs)
+        return entities
 
     def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
         """
@@ -45,10 +45,11 @@ class spaCyExtractor:
             )
             # Filter as we go
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
-            for candidate in candidates: candidate_entity_pairs.append(candidate)
+            for candidate in candidates:
+                candidate_entity_pairs.append(candidate)
 
         print(f"candidate_entity_pairs: {candidate_entity_pairs}")
-        return list(candidate_entity_pairs)
+        return candidate_entity_pairs
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
         # Create candidate pairs. Filter out subject-object pairs that
@@ -64,30 +65,14 @@ class spaCyExtractor:
                 {"tokens": ep[0], "subj": ep[2], "obj": ep[1]}
             )  # e1=Object, e2=Subject
         print("candidate pairs: {}".format(candidate_pairs))
-        
+
         for p in candidate_pairs:
             if (
                 p["subj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"]
                 and p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
             ):
                 target_candidate_pairs.append(p)
-                print("ACCEPTED!, ", p)
-            else:
-                print('REJECTED!')
         return target_candidate_pairs
-
-    #     target_candidate_pairs = [
-    #         p for p in candidate_pairs if not p["subj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"] and not p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
-    #     ]
-
-    #     for p in candidate_pairs:
-    #         if p["subj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"] and \
-    #                 p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]:
-    # target_candidate_pairs.append({"tokens": ep[0], "subj": ep[1], "obj": ep[2]})  # e1=Subject, e2=Object
-    # target_candidate_pairs.append({"tokens": ep[0], "subj": ep[2], "obj": ep[1]})  # e1=Object, e2=Subject
-
-    # entity_pairs = create_entity_pairs(sentence, ENTITIES_OF_INTEREST)
-    # return entity_pairs
 
     def extract_entities(self, candidate_pairs):
         """

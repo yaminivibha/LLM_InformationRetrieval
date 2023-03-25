@@ -105,7 +105,7 @@ class QueryExecutor:
             for block in html_blocks:
                 # print(f"block: {block}")
                 text += block.get_text()
-            
+
             if text != "":
                 preprocessed_text = (text[:10000]) if len(text) > 10000 else text
 
@@ -151,5 +151,5 @@ class QueryExecutor:
         if url not in self.seen_urls:
             self.seen_urls.add(url)
             text = self.processText(url)
-            relation_preds = self.spacy_extractor.get_relations(text)
-        return relation_preds
+            entities = self.spacy_extractor.get_relations(text)
+        return entities
