@@ -8,6 +8,7 @@ from lib.utils import (
     SUBJ_OBJ_REQUIRED_ENTITIES,
 )
 from typing import List, Tuple
+
 entities_of_interest = [
     "ORGANIZATION",
     "PERSON",
@@ -20,10 +21,11 @@ entities_of_interest = [
 # spacy.cli.download("en_core_web_sm")
 
 
-class Extractor:
+class spaCyExtractor:
     def __init__(self, r, model="en_core_web_sm"):
-        self.r = r
         self.nlp = spacy.load(model)
+        self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
+        self.r = r
 
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
         """
@@ -38,7 +40,7 @@ class Extractor:
         """
         Extract candidate pairs from a given document using spaCy
         """
-        entity_pairs = []
+        candidate_entity_pairs = set()
         print(ENTITIES_OF_INTEREST[self.r])
         for sentence in doc.sents:
             print("Processing sentence: {}".format(sentence))
@@ -47,20 +49,15 @@ class Extractor:
             print("spaCy extracted entities: {}".format(ents))
 
             # Create entity pairs.
-            candidate_pairs = []
             sentence_entity_pairs = create_entity_pairs(
-                sentence,
-                entities_of_interest
+                sentence, ENTITIES_OF_INTEREST[self.r]
             )
+            # Filter as we go
+            candidates = self.filter_candidate_pairs(sentence_entity_pairs)
+            candidate_entity_pairs.add(*candidates)
+
         print(f"sentence_entity_pairs: {sentence_entity_pairs}")
-        return sentence_entity_pairs
-
-
-class spaCyExtractor(Extractor):
-    def __init__(self, r, model="en_core_web_sm"):
-        self.nlp = spacy.load(model)
-        self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
-        self.r = r
+        return list(candidate_entity_pairs)
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
         # Create candidate pairs. Filter out subject-object pairs that
@@ -69,14 +66,22 @@ class spaCyExtractor(Extractor):
         candidate_pairs = []
         target_candidate_pairs = []
         for ep in sentence_entity_pairs:
-
             candidate_pairs.append(
                 {"tokens": ep[0], "subj": ep[1], "obj": ep[2]}
             )  # e1=Subject, e2=Object
             candidate_pairs.append(
                 {"tokens": ep[0], "subj": ep[2], "obj": ep[1]}
             )  # e1=Object, e2=Subject
-        return
+
+        for p in candidate_pairs:
+            if (
+                p["subj"] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"]
+                and p["obj"] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
+            ):
+                target_candidate_pairs.append(p)
+
+        return target_candidate_pairs
+
     #     target_candidate_pairs = [
     #         p for p in candidate_pairs if not p["subj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"] and not p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
     #     ]
@@ -115,7 +120,7 @@ class spaCyExtractor(Extractor):
         # '4':"org:top_members/employees"
 
 
-class gpt3Extractor(Extractor):
+class gpt3Extractor:
     def __init__(self, r, model="en_core_web_sm"):
         self.r = r
         self.nlp = spacy.load(model)

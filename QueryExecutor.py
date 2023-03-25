@@ -7,7 +7,8 @@ from typing import List, Tuple, Dict
 import requests
 from bs4 import BeautifulSoup
 from bs4.element import Tag
-#from nltk.tokenize import word_tokenize
+
+# from nltk.tokenize import word_tokenize
 
 from lib.spacy_helper_functions import get_entities, create_entity_pairs
 from lib.utils import ENTITIES_OF_INTEREST, RELATIONS, SEED_PROMPTS
@@ -15,6 +16,7 @@ from EntityExtractor import spaCyExtractor
 
 # HTML tags that we want to extract text from.
 blocks = ["p", "h1", "h2", "h3", "h4", "h5", "blockquote"]
+
 
 class QueryExecutor:
     "Creates a QueryExecutor object"
@@ -71,7 +73,14 @@ class QueryExecutor:
         Source: https://github.com/googleapis/google-api-python-client/blob/main/samples/customsearch/main.py
         """
 
-        full_res = self.engine.cse().list(q=query, cx=self.google_engine_id,).execute()
+        full_res = (
+            self.engine.cse()
+            .list(
+                q=query,
+                cx=self.google_engine_id,
+            )
+            .execute()
+        )
 
         return full_res["items"][0 : k + 1]
 
@@ -79,7 +88,7 @@ class QueryExecutor:
         """
         Get the tokens from a given URL
         """
-        # TODO: 
+        # TODO:
         # If you cannot retrieve the webpage (e.g. because of a timeout),
         # you should skip it and move on to the next one, even if this involves
         # processing fewer than 10 webpages in this iteration.
@@ -94,18 +103,18 @@ class QueryExecutor:
             html_blocks = soup.find_all("p")
             text = ""
             for block in html_blocks:
-                print(f"block: {block}")
+                # print(f"block: {block}")
                 text += block.get_text()
-                
+
             print(f"text: {text}")
             if text != "":
                 preprocessed_text = (text[:10000]) if len(text) > 10000 else text
 
                 # Removing redundant newlines and some whitespace characters.
-                preprocessed_text = re.sub('\t+', ' ', preprocessed_text) 
-                preprocessed_text = re.sub('\n+', ' ', preprocessed_text) 
-                preprocessed_text = re.sub(' +', ' ', preprocessed_text) 
-                preprocessed_text = preprocessed_text.replace('\u200b', '')
+                preprocessed_text = re.sub("\t+", " ", preprocessed_text)
+                preprocessed_text = re.sub("\n+", " ", preprocessed_text)
+                preprocessed_text = re.sub(" +", " ", preprocessed_text)
+                preprocessed_text = preprocessed_text.replace("\u200b", "")
 
                 return preprocessed_text
             else:
@@ -113,13 +122,13 @@ class QueryExecutor:
         except Exception as e:
             print(f"Error processing {url}: {e}")
             raise Exception(f"Error processing {url}")
-    
+
     # def to_plaintext(html_text: str) -> str:
     #     soup = BeautifulSoup(html_text, "html.parser")
     #     extracted_blocks = _extract_blocks(soup.body)
     #     extracted_blocks_texts = [block.get_text().strip() for block in extracted_blocks]
     #     return "\n".join(extracted_blocks_texts)
-    
+
     # def _extract_blocks(parent_tag) -> list:
     #     extracted_blocks = []
     #     for tag in parent_tag:
