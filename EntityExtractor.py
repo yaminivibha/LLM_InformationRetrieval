@@ -27,6 +27,7 @@ class spaCyExtractor:
         if len(target_candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")
             return []
+        print("target_candidate_pairs: {}".format(target_candidate_pairs))
         entities = self.extract_entities(target_candidate_pairs)
         return entities
 
@@ -50,8 +51,6 @@ class spaCyExtractor:
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
             for candidate in candidates:
                 candidate_entity_pairs.append(candidate)
-
-        print(f"candidate_entity_pairs: {candidate_entity_pairs}")
         return candidate_entity_pairs
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
@@ -67,14 +66,14 @@ class spaCyExtractor:
             candidate_pairs.append(
                 {"tokens": ep[0], "subj": ep[2], "obj": ep[1]}
             )  # e1=Object, e2=Subject
-        print("candidate pairs: {}".format(candidate_pairs))
-
+        
         for p in candidate_pairs:
             if (
                 p["subj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"]
                 and p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
             ):
                 target_candidate_pairs.append(p)
+        print("Filtered target_candidate_paris: {}".format(target_candidate_pairs))
         return target_candidate_pairs
 
     def extract_entities(self, candidate_pairs):
