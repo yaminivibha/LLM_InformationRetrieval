@@ -24,6 +24,9 @@ class spaCyExtractor:
         """
         doc = self.nlp(text)
         target_candidate_pairs = self.extract_candidate_pairs(doc)
+        if len(target_candidate_pairs) == 0:
+            print("No candidate pairs found. Returning empty list.")
+            return []
         entities = self.extract_entities(target_candidate_pairs)
         return entities
 
