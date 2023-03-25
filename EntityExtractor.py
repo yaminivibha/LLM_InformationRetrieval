@@ -71,6 +71,7 @@ class spaCyExtractor:
                 and p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
             ):
                 target_candidate_pairs.append(p)
+                print("ACCEPTED!, ", p)
             else:
                 print('REJECTED!')
         return target_candidate_pairs
