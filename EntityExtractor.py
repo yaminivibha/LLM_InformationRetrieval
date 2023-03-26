@@ -143,24 +143,25 @@ class gpt3Predictor(spaCyExtractor):
             print("No candidate pairs found. Returning empty list.")
             return []
         print("target_candidate_pairs: {}".format(target_candidate_pairs))
-        return
+        relations = self.extract_entity_relations(target_candidate_pairs)
+        return relations
 
-    def extract_entity_pairs(self, candidate_pairs):
+    def extract_entity_relations(self, candidate_pairs):
         """
         Extract entity relations
         Parameters:
             candidate_pairs: a list of candidate pairs to extract relations from
         Returns:
-            entities: a list of tuples of the form (subject, object)
+            relations: a list of tuples of the form (subject, object)
         """
-        entities = []
+        relations = []
         for pair in candidate_pairs:
             prompt = self.construct_prompt(pair)
             print("Prompt: {}".format(prompt))
             relation = self.gpt3_complete(prompt)
             print("Relation: {}".format(relation))
-            entities.append(relation)
-        return entities
+            relations.append(relation)
+        return relations
 
     def gpt3_complete(self, prompt):
         """
