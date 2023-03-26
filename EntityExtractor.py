@@ -202,7 +202,7 @@ class gpt3Predictor(spaCyExtractor):
         Returns:
             prompt: a string to be passed to GPT-3
         """
-        seed = f"Given a sentence input, output the following: [{ENTITIES_OF_INTEREST[self.r][0]}:{ENTITIES_OF_INTEREST[self.r][0]}, RELATION:{RELATIONS[self.r]}, {ENTITIES_OF_INTEREST[self.r][1]}:{ENTITIES_OF_INTEREST[self.r][1]}]. "
+        seed = f"In a given sentence, find relations where a {ENTITIES_OF_INTEREST[self.r][0]} {RELATIONS[self.r]} {ENTITIES_OF_INTEREST[self.r][1]}. Output the following: [{ENTITIES_OF_INTEREST[self.r][0]}:{ENTITIES_OF_INTEREST[self.r][0]}, RELATION:{RELATIONS[self.r]}, {ENTITIES_OF_INTEREST[self.r][1]}:{ENTITIES_OF_INTEREST[self.r][1]}]. "
         example = f"Example Input: '{SEED_SENTENCES[self.r]}' Example Output: {SEED_PROMPTS[self.r]}."
         sentence = f"Input: {pair['sentence']} Output:"
 
