@@ -42,21 +42,33 @@ class spaCyExtractor:
         """
         candidate_entity_pairs = []
         print(ENTITIES_OF_INTEREST[self.r])
-        for sentence in doc.sents:
-            print("Processing sentence: {}".format(sentence))
+        for i, sentence in enumerate(doc.sents):
+            if i % 5 and i != 0:
+                print("        Processed {i} / {num_sents} sentences")
+            # print("Processing sentence: {}".format(sentence))
             # print("Tokenized sentence: {}".format([token.text for token in sentence]))
             ents = get_entities(sentence, ENTITIES_OF_INTEREST[self.r])
-            print("spaCy extracted entities: {}".format(ents))
+            # This prints all the entities that spaCy extracts from the sentence.
+            # print("spaCy extracted entities: {}".format(ents))
 
             # Create entity pairs.
             sentence_entity_pairs = create_entity_pairs(
                 sentence, ENTITIES_OF_INTEREST[self.r]
             )
-            # Filter as we go
+            # Filter as we go.
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
             for candidate in candidates:
                 candidate["sentence"] = str(sentence)
                 candidate_entity_pairs.append(candidate)
+
+                print("                === Extracted Relation ===")
+                print(f"                Sentence:  {sentence}")
+                print(
+                    f"                Subject: {candidate['subj'][0]} ; Object: {candidate['obj'][0]} ;"
+                )
+                print(f"                Adding to set of extracted relations")
+                print(f"==========")
+
         return candidate_entity_pairs
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
@@ -79,7 +91,9 @@ class spaCyExtractor:
                 and p["obj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"]
             ):
                 target_candidate_pairs.append(p)
-        print("Filtered target_candidate_paris: {}".format(target_candidate_pairs))
+
+        # This info, formatted, should be printed in extract_candidate_pairs.
+        # print("Filtered target_candidate_paris: {}".format(target_candidate_pairs))
         return target_candidate_pairs
 
 
@@ -93,6 +107,7 @@ class spanBertPredictor(spaCyExtractor):
             entities: a list of tuples of the form (subject, object)
         """
         doc = self.nlp(text)
+        print(f"        Annotating the webpage using spacy...")
         target_candidate_pairs = self.extract_candidate_pairs(doc)
         if len(target_candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")
@@ -149,7 +164,14 @@ class gpt3Predictor(spaCyExtractor):
             entities: a list of tuples of the form (subject, object)
         """
         doc = self.nlp(text)
+        print(f"        Annotating the webpage using spacy...")
+        num_sents = len(list(doc.sents))
+        print(
+            f"        Extracted {num_sents} sentences. Processing each sentence one by one to check for presence of right pair of named entity types; if so, will run the second pipeline ..."
+        )
+        # Get tagged version of text from spaCy.
         target_candidate_pairs = self.extract_candidate_pairs(doc)
+
         if len(target_candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")
             return []
