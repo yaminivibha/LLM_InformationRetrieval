@@ -21,6 +21,12 @@ SEED_PROMPTS = {
     3: '["Mariah Carey", "Live_In", "New York City"]',
     4: '["Jensen Huang", "Top_Member_Employees", "Nvidia"]',
 }
+SEED_SENTENCES = {
+    1: "Jeff Bezos is an alumnus of Princeton University.",
+    2: "Alec Radford has recently announced he will switch employers to OpenAI.",
+    3: "Mariah Carey has a home in Manhattan, New York City.",
+    4: "Jensen Huang is the CEO of Nvidia.",
+}
 
 SUBJ_OBJ_REQUIRED_ENTITIES = {
 	1: {"SUBJ": ["PERSON"], "OBJ": ["ORGANIZATION"]},
@@ -28,13 +34,6 @@ SUBJ_OBJ_REQUIRED_ENTITIES = {
 	3: {"SUBJ": ["PERSON"], "OBJ": ["LOCATION", "CITY", "STATE_OR_PROVINCE", "COUNTRY"]},
 	4: {"SUBJ": ["ORGANIZATION"], "OBJ": ["PERSON"]},
 }
-
-name = {
-    1: {"Subject": "PERSON", "Object": "ORGANIZATION"},
-
-}
-
-
 
 def tValue(string) -> float:
     value = float(string)

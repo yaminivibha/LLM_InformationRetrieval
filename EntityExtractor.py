@@ -5,8 +5,10 @@ from lib.utils import (
     ENTITIES_OF_INTEREST,
     RELATIONS,
     SEED_PROMPTS,
+    SEED_SENTENCES,
     SUBJ_OBJ_REQUIRED_ENTITIES,
 )
+import openai
 from typing import List, Tuple
 
 # spacy.cli.download("en_core_web_sm")
@@ -114,6 +116,19 @@ class spanBertPredictor(spaCyExtractor):
 
 
 class gpt3Predictor(spaCyExtractor):
+    def __init__(self, r, openai_key, model="en_core_web_sm"):
+        """
+        Initialize a gpt3Predictor object
+        Parameters:
+            r: the relation to extract
+            openai_key: the key to use for the OpenAI API
+            model: the spaCy model to use
+        """
+        self.openai_key = openai_key
+        self.nlp = spacy.load(model)
+        self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
+        self.r = r
+
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
         """
         Exposed function to take in text and return named entities
@@ -130,3 +145,57 @@ class gpt3Predictor(spaCyExtractor):
         print("target_candidate_pairs: {}".format(target_candidate_pairs))
 
         return
+
+    def extract_entity_pairs(self, candidate_pairs):
+        """
+        Extract entity relations
+        Parameters:
+            candidate_pairs: a list of candidate pairs to extract relations from
+        Returns:
+            entities: a list of tuples of the form (subject, object)
+        """
+        entities = []
+        for pair in candidate_pairs:
+            prompt = self.construct_prompt(pair)
+            print("Prompt: {}".format(prompt))
+            relation = self.gpt3_complete(prompt)
+            print("Relation: {}".format(relation))
+            entities.append(relation)
+        return entities
+
+    def gpt3_complete(self, prompt):
+        """
+        Use GPT-3 to complete a prompt
+        Parameters:
+            prompt: the prompt to complete
+        Returns:
+            completion: the completion of the prompt
+        """
+        openai.api_key = ""
+        completion = openai.Completion.create(
+            engine="davinci",
+            prompt=prompt,
+            max_tokens=1,
+            temperature=0.5,
+            top_p=1,
+            frequency_penalty=0.0,
+            presence_penalty=0.0,
+            stop=["\n"],
+        )
+        print("GPT-3 Completion: {}".format(completion))
+        return completion["choices"][0]["text"]
+
+    def construct_prompt(self, pair):
+        """
+        Construct a prompt for GPT-3 to complete.
+        Parameters:
+            candidate_pairs: a single candidate pairs to extract relations from
+        Returns:
+            prompt: a string to be passed to GPT-3
+        """
+
+        seed = f"Given a sentence input, output the following relations: relation_type {RELATIONS[self.r]}. "
+        example = f"Example Input: '{SEED_SENTENCES[self.r]}' Example Output: {SEED_PROMPTS[self.r]}."
+        input = f"Input: {pair['tokens'].join(' ')}\n"
+
+        return seed + example + input

@@ -6,7 +6,7 @@ import regex as re
 from typing import List, Tuple, Dict
 import requests
 from bs4 import BeautifulSoup
-from bs4.element import Tag
+from EntityExtractor import spanBertPredictor, gpt3Predictor
 
 # from nltk.tokenize import word_tokenize
 
@@ -47,7 +47,11 @@ class QueryExecutor:
         self.openai_secret_key = args.openai_secret_key
         self.engine = build("customsearch", "v1", developerKey=args.custom_search_key)
         self.seen_urls = set()
-        self.spacy_extractor = spaCyExtractor(self.r)
+        self.extractor = (
+            gpt3Predictor(self.r, self.t, self.openai_secret_key)
+            if self.gpt3
+            else spanBertPredictor(self.r, self.t)
+        )
 
     def printQueryParams(self) -> None:
         """
@@ -151,5 +155,5 @@ class QueryExecutor:
         if url not in self.seen_urls:
             self.seen_urls.add(url)
             text = self.processText(url)
-            entities = self.spacy_extractor.get_relations(text)
+            entities = self.extractor.get_relations(text)
         return entities
