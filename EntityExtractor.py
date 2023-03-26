@@ -125,6 +125,7 @@ class gpt3Predictor(spaCyExtractor):
             model: the spaCy model to use
         """
         self.openai_key = openai_key
+        openai.api_key = self.openai_key
         self.nlp = spacy.load(model)
         self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
         self.r = r
@@ -171,18 +172,17 @@ class gpt3Predictor(spaCyExtractor):
         Returns:
             completion: the completion of the prompt
         """
-        openai.api_key = ""
         completion = openai.Completion.create(
-            engine="davinci",
+            engine="text-davinci-003",
             prompt=prompt,
-            max_tokens=1,
-            temperature=0.5,
+            max_tokens=100,
+            temperature=0.2,
             top_p=1,
             frequency_penalty=0.0,
             presence_penalty=0.0,
             stop=["\n"],
         )
-        print("GPT-3 Completion: {}".format(completion))
+        print("GPT-3 Predicted Relations: {}".format(completion))
         return completion["choices"][0]["text"]
 
     def construct_prompt(self, pair):
@@ -193,9 +193,8 @@ class gpt3Predictor(spaCyExtractor):
         Returns:
             prompt: a string to be passed to GPT-3
         """
-
-        seed = f"Given a sentence input, output the following relations: relation_type {RELATIONS[self.r]}. "
+        seed = f"Given a sentence input, output the following: [{ENTITIES_OF_INTEREST[self.r][0]}:{ENTITIES_OF_INTEREST[self.r][0]}, RELATION:{RELATIONS[self.r]}, {ENTITIES_OF_INTEREST[self.r][1]}:{ENTITIES_OF_INTEREST[self.r][1]}]. "
         example = f"Example Input: '{SEED_SENTENCES[self.r]}' Example Output: {SEED_PROMPTS[self.r]}."
-        input = f"Input: {pair['tokens'].join(' ')}\n"
+        sentence = f"Input: {pair['tokens'].join(' ')}\n"
 
-        return seed + example + input
+        return seed + example + sentence
