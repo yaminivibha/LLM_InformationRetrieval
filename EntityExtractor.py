@@ -344,7 +344,6 @@ class gpt3Predictor(spaCyExtractor):
         Returns:
             relations: a list of tuples of the form (subject, object)
         """
-        relation
         prompt = self.construct_prompt(pair)
         print("Prompt: {}".format(prompt))
         relation = self.gpt3_complete(prompt)
