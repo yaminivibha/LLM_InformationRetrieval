@@ -29,6 +29,15 @@ class spaCyExtractor:
     def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
         """
         Extract candidate pairs from a given document using spaCy
+        parameters:
+            doc: the document to extract candidate pairs from
+        returns:
+            candidate_entity_pairs: a list of candidate entity pairs, where each pair is a dictionary
+                                    with the following keys:
+                                        - tokens: the tokens in the sentence
+                                        - subj: the subject entity
+                                        - obj: the object entity
+                                        - sentence: the sentence
         """
         candidate_entity_pairs = []
         print(ENTITIES_OF_INTEREST[self.r])
@@ -45,6 +54,7 @@ class spaCyExtractor:
             # Filter as we go
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
             for candidate in candidates:
+                candidate["sentence"] = str(sentence)
                 candidate_entity_pairs.append(candidate)
         return candidate_entity_pairs
 
@@ -181,7 +191,7 @@ class gpt3Predictor(spaCyExtractor):
             presence_penalty=0.0,
             stop=["\n"],
         )
-        print("GPT-3 Predicted Relations: {}".format(completion))
+        print("GPT-3 Predicted Relations: {}".format(completion["choices"][0]["text"]))
         return completion["choices"][0]["text"]
 
     def construct_prompt(self, pair):
@@ -194,6 +204,6 @@ class gpt3Predictor(spaCyExtractor):
         """
         seed = f"Given a sentence input, output the following: [{ENTITIES_OF_INTEREST[self.r][0]}:{ENTITIES_OF_INTEREST[self.r][0]}, RELATION:{RELATIONS[self.r]}, {ENTITIES_OF_INTEREST[self.r][1]}:{ENTITIES_OF_INTEREST[self.r][1]}]. "
         example = f"Example Input: '{SEED_SENTENCES[self.r]}' Example Output: {SEED_PROMPTS[self.r]}."
-        sentence = f"Input: {(' ').join(pair['tokens'])} Output:"
+        sentence = f"Input: {pair['sentence']} Output:"
 
         return seed + example + sentence
