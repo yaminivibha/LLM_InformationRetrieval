@@ -230,11 +230,12 @@ class gpt3Predictor(spaCyExtractor):
                                         - sentence: the sentence
                                     }
         """
+        # TODO: Turn into a set
         candidate_entity_pairs = []
         print(ENTITIES_OF_INTEREST[self.r])
         num_sents = len(list(doc.sents))
         for i, sentence in enumerate(doc.sents):
-            if i % 5 and i != 0:
+            if i % 5==0 and i != 0:
                 print(f"        Processed {i} / {num_sents} sentences")
             # print("Processing sentence: {}".format(sentence))
             # print("Tokenized sentence: {}".format([token.text for token in sentence]))
@@ -258,6 +259,7 @@ class gpt3Predictor(spaCyExtractor):
         return candidate_entity_pairs
 
     def print_output_relation(self, sentence, output):
+        #TODO: Duplicate checking
         print("                === Extracted Relation ===")
         print(f"                Sentence:  {sentence}")
         print(
@@ -315,20 +317,26 @@ class gpt3Predictor(spaCyExtractor):
         Raises:
             None
         """
-
         resultant_relation = {}
         try:
             output = json.loads(output_str)
             resultant_relation["subj"] = output[
-                SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"][0]
+                SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"][0].strip()
             ]
             resultant_relation["obj"] = output[
-                SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"][0]
+                SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"][0].strip()
             ]
             resultant_relation["relation"] = output["RELATION"]
 
             if resultant_relation["relation"] != RELATIONS[self.r]:
                 resultant_relation = None
+            if resultant_relation['subj'] == '' or resultant_relation['obj'] == '':
+                resultant_relation = None
+            if resultant_relation['subj'] == 'n/a' or resultant_relation['obj'] == 'n/a':
+                resultant_relation = None
+            if resultant_relation['subj'] == 'N/A' or resultant_relation['obj'] == 'N/A':
+                resultant_relation = None
+
         except Exception as excep:
             # TODO: log error
             # TODO: update print statement
