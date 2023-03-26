@@ -45,19 +45,17 @@ def main():
     executor = QueryExecutor(args)
     executor.printQueryParams()
     # TODO: printQueryParams before loading the libraries. Laggy rn.
-    print("Loading necessary libraries; This should take a minute or so ...")
+    print("Loading necessary libraries; This should take a minute or so ...\n")
 
     # # Initialize the extracted tuples.
     X = set()
 
     # # Get the top 10 results for the query
     results = executor.getQueryResult(executor.q, 10)
-    print(f"=========== Iteration: 0 - Query: {executor.q} ===========")
+    print(f"=========== Iteration: 0 - Query: {executor.q} ===========\n")
     for i, item in enumerate(results):
-        print(f"URL ( {i} / 10): {item['link']}")
-        print(f"title {i}: {item['title']}")
-        print(f"snippet {i}: {item['snippet']}")
-        print(f"relation pred pairs for {i}: {executor.parseResult(item)}")
+        print(f"URL ( {i + 1} / 10): {item['link']}")
+        print(f"relation pred pairs for {i + 1}: {executor.parseResult(item)}")
         break
     print()
 

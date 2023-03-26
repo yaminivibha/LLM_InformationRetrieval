@@ -22,10 +22,14 @@ class spaCyExtractor:
         Parameters:
             r: the relation to extract
             model: the spaCy model to use
+        Instance Variables:
+            nlp: the spaCy model
+            total_extracted: the total number of relations extracted
         """
         self.nlp = spacy.load(model)
         self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
         self.r = r
+        self.total_extracted = 0
 
     def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
         """
@@ -41,10 +45,12 @@ class spaCyExtractor:
                                         - sentence: the sentence
         """
         candidate_entity_pairs = []
-        print(ENTITIES_OF_INTEREST[self.r])
+        num_sents = len(list(doc.sents))
+        num_annotated_sents = 0
+
         for i, sentence in enumerate(doc.sents):
-            if i % 5 and i != 0:
-                print("        Processed {i} / {num_sents} sentences")
+            if i % 5 == 0 and i != 0:
+                print(f"        Processed {i} / {num_sents} sentences")
             # print("Processing sentence: {}".format(sentence))
             # print("Tokenized sentence: {}".format([token.text for token in sentence]))
             ents = get_entities(sentence, ENTITIES_OF_INTEREST[self.r])
@@ -55,20 +61,32 @@ class spaCyExtractor:
             sentence_entity_pairs = create_entity_pairs(
                 sentence, ENTITIES_OF_INTEREST[self.r]
             )
-            # Filter as we go.
+            # Filter out entity pairs that don't contain the required entities for the relations on a
+            # sentence-by-sentence basis. Keep track of the number of sentences that contain at least
+            # one entity pair that contains the required entities, as well as the total number of
+            # extracted relations for a given webpage.
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
+            if candidates != []:
+                num_annotated_sents += 1
             for candidate in candidates:
                 candidate["sentence"] = str(sentence)
                 candidate_entity_pairs.append(candidate)
 
-                print("                === Extracted Relation ===")
-                print(f"                Sentence:  {sentence}")
+                print(f"                === Extracted Relation ===")
+                print(f"                Input tokens: {candidate['tokens']}")
                 print(
-                    f"                Subject: {candidate['subj'][0]} ; Object: {candidate['obj'][0]} ;"
+                    f"                Output Confidence: FILLER ; Subject: {candidate['subj'][0]} ; Object: {candidate['obj'][0]} ;"
                 )
+                # TODO: add subj obj pair to set.
+                # Discard if the subj obj pair is a duplicate with a lower confidence value.
                 print(f"                Adding to set of extracted relations")
-                print(f"==========")
+                print(f"                ==========")
 
+        num_relations_extracted = len(candidate_entity_pairs)
+        self.total_extracted += num_relations_extracted
+        print(
+            f"        Relations extracted from this website: {num_relations_extracted} (Overall: {self.total_extracted})"
+        )
         return candidate_entity_pairs
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
@@ -166,6 +184,7 @@ class gpt3Predictor(spaCyExtractor):
         doc = self.nlp(text)
         print(f"        Annotating the webpage using spacy...")
         num_sents = len(list(doc.sents))
+        print("!!! here why isn't this printing")
         print(
             f"        Extracted {num_sents} sentences. Processing each sentence one by one to check for presence of right pair of named entity types; if so, will run the second pipeline ..."
         )

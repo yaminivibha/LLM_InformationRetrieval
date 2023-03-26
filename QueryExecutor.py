@@ -103,7 +103,7 @@ class QueryExecutor:
         # We only want to process the text in the <p> tags.
         try:
             page = requests.get(url)
-			print("        Fetching text from url ...")
+            print("        Fetching text from url ...")
             soup = BeautifulSoup(page.content, "html.parser")
             html_blocks = soup.find_all("p")
             text = ""
@@ -112,10 +112,14 @@ class QueryExecutor:
                 text += block.get_text()
 
             if text != "":
-				text_len = len(text)
-				print(f"        Trimming webpage content from {text_len} to 10000 characters")
+                text_len = len(text)
+                print(
+                    f"        Trimming webpage content from {text_len} to 10000 characters"
+                )
                 preprocessed_text = (text[:10000]) if text_len > 10000 else text
-				print(f"        Webpage length (num characters): {len(preprocessed_text)}}")
+                print(
+                    f"        Webpage length (num characters): {len(preprocessed_text)}"
+                )
 
                 # Removing redundant newlines and some whitespace characters.
                 preprocessed_text = re.sub("\t+", " ", preprocessed_text)
