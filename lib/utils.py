@@ -28,6 +28,13 @@ SEED_SENTENCES = {
     4: "Jensen Huang is the CEO of Nvidia.",
 }
 
+PROMPT_AIDS = {
+    1: "PERSON Schools_Attended SCHOOL. Output the following: [PERSON:PERSON, RELATION:Schools_Attended, ORGANIZATION:SCHOOL]",
+    2: "PERSON Work_For COMPANY. Output the following: [PERSON:PERSON, RELATION:Work_For, ORGANIZATION:COMPANY]",
+    3: "PERSON Live_In LOCATION. Output the following: [PERSON:PERSON, RELATION:Live_In, LOCATION:LOCATION]",
+    4: "COMPANY Top_Member_Employees PERSON. Output the following: [ORGANIZATION:COMPANY, RELATION:Top_Member_Employees, PERSON:PERSON]",
+}
+
 SUBJ_OBJ_REQUIRED_ENTITIES = {
     1: {"SUBJ": ["PERSON"], "OBJ": ["ORGANIZATION"]},
     2: {"SUBJ": ["PERSON"], "OBJ": ["ORGANIZATION"]},

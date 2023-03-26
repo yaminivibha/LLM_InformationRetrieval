@@ -7,6 +7,7 @@ from lib.utils import (
     SEED_PROMPTS,
     SEED_SENTENCES,
     SUBJ_OBJ_REQUIRED_ENTITIES,
+    PROMPT_AIDS,
 )
 import openai
 from typing import List, Tuple
@@ -202,7 +203,7 @@ class gpt3Predictor(spaCyExtractor):
         Returns:
             prompt: a string to be passed to GPT-3
         """
-        seed = f"In a given sentence, find relations where a {ENTITIES_OF_INTEREST[self.r][0]} {RELATIONS[self.r]} {ENTITIES_OF_INTEREST[self.r][1]}. Output the following: [{ENTITIES_OF_INTEREST[self.r][0]}:{ENTITIES_OF_INTEREST[self.r][0]}, RELATION:{RELATIONS[self.r]}, {ENTITIES_OF_INTEREST[self.r][1]}:{ENTITIES_OF_INTEREST[self.r][1]}]. "
+        seed = f"In a given sentence, find relations where {PROMPT_AIDS[self.r]}"
         example = f"Example Input: '{SEED_SENTENCES[self.r]}' Example Output: {SEED_PROMPTS[self.r]}."
         sentence = f"Input: {pair['sentence']} Output:"
 
