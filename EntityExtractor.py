@@ -14,22 +14,15 @@ from typing import List, Tuple
 
 class spaCyExtractor:
     def __init__(self, r, model="en_core_web_sm"):
+        """
+        Initialize a spaCyExtractor object
+        Parameters:
+            r: the relation to extract
+            model: the spaCy model to use
+        """
         self.nlp = spacy.load(model)
         self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
         self.r = r
-
-    def get_relations(self, text: str) -> List[Tuple[str, str]]:
-        """
-        Exposed function to take in text and return named entities
-        """
-        doc = self.nlp(text)
-        target_candidate_pairs = self.extract_candidate_pairs(doc)
-        if len(target_candidate_pairs) == 0:
-            print("No candidate pairs found. Returning empty list.")
-            return []
-        print("target_candidate_pairs: {}".format(target_candidate_pairs))
-        entities = self.extract_entities(target_candidate_pairs)
-        return entities
 
     def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
         """
@@ -66,7 +59,7 @@ class spaCyExtractor:
             candidate_pairs.append(
                 {"tokens": ep[0], "subj": ep[2], "obj": ep[1]}
             )  # e1=Object, e2=Subject
-        
+
         for p in candidate_pairs:
             if (
                 p["subj"][1] in SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["SUBJ"]
@@ -76,18 +69,39 @@ class spaCyExtractor:
         print("Filtered target_candidate_paris: {}".format(target_candidate_pairs))
         return target_candidate_pairs
 
-    def extract_entities(self, candidate_pairs):
+
+class spanBertPredictor(spaCyExtractor):
+    def get_relations(self, text: str) -> List[Tuple[str, str]]:
         """
-        Extract entities and their confidence values from a given document using Spacy.
+        Exposed function to take in text and return named entities
+        Parameters:
+            text: the text to extract entities from
+        Returns:
+            entities: a list of tuples of the form (subject, object)
+        """
+        doc = self.nlp(text)
+        target_candidate_pairs = self.extract_candidate_pairs(doc)
+        if len(target_candidate_pairs) == 0:
+            print("No candidate pairs found. Returning empty list.")
+            return []
+        print("target_candidate_pairs: {}".format(target_candidate_pairs))
+        entities = self.extract_entity_relation_preds(target_candidate_pairs)
+        return entities
+
+    def extract_entity_relation_preds(self, candidate_pairs):
+        """
+        Extract entity relations and their confidence values from a given document using Spacy.
+        Parameters:
+            candidate_pairs: a list of candidate pairs to extract relations from
+        Returns:
+            relation_preds: a list of tuples of the form (relation, confidence)
         """
         if len(candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")
             return []
-        
+
         # get predictions: list of (relation, confidence) pairs
-        relation_preds = self.spanbert.predict(
-            candidate_pairs
-        )  
+        relation_preds = self.spanbert.predict(candidate_pairs)
         # Print Extracted Relations
         print("\nExtracted relations:")
         for ex, pred in list(zip(candidate_pairs, relation_preds)):
@@ -98,14 +112,21 @@ class spaCyExtractor:
             )
         return relation_preds
 
-        # TODO - should be taken care of: focus on target relations
-        # '1':"per:schools_attended"
-        # '2':"per:employee_of"
-        # '3':"per:cities_of_residence"
-        # '4':"org:top_members/employees"
 
+class gpt3Predictor(spaCyExtractor):
+    def get_relations(self, text: str) -> List[Tuple[str, str]]:
+        """
+        Exposed function to take in text and return named entities
+        Parameters:
+            text: the text to extract entities from
+        Returns:
+            entities: a list of tuples of the form (subject, object)
+        """
+        doc = self.nlp(text)
+        target_candidate_pairs = self.extract_candidate_pairs(doc)
+        if len(target_candidate_pairs) == 0:
+            print("No candidate pairs found. Returning empty list.")
+            return []
+        print("target_candidate_pairs: {}".format(target_candidate_pairs))
 
-class gpt3Extractor:
-    def __init__(self, r, model="en_core_web_sm"):
-        self.r = r
-        self.nlp = spacy.load(model)
+        return
