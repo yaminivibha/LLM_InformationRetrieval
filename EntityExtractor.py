@@ -194,6 +194,6 @@ class gpt3Predictor(spaCyExtractor):
         """
         seed = f"Given a sentence input, output the following: [{ENTITIES_OF_INTEREST[self.r][0]}:{ENTITIES_OF_INTEREST[self.r][0]}, RELATION:{RELATIONS[self.r]}, {ENTITIES_OF_INTEREST[self.r][1]}:{ENTITIES_OF_INTEREST[self.r][1]}]. "
         example = f"Example Input: '{SEED_SENTENCES[self.r]}' Example Output: {SEED_PROMPTS[self.r]}."
-        sentence = f"Input: {pair['tokens'].join(' ')} Output:"
+        sentence = f"Input: {(' ').join(pair['tokens'])} Output:"
 
         return seed + example + sentence
