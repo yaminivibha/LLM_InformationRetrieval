@@ -48,9 +48,9 @@ class QueryExecutor:
         self.engine = build("customsearch", "v1", developerKey=args.custom_search_key)
         self.seen_urls = set()
         self.extractor = (
-            gpt3Predictor(self.r, self.t, self.openai_secret_key)
+            gpt3Predictor(r=self.r, openai_key=self.openai_secret_key)
             if self.gpt3
-            else spanBertPredictor(self.r, self.t)
+            else spanBertPredictor(r=self.r)
         )
 
     def printQueryParams(self) -> None:

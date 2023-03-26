@@ -127,7 +127,6 @@ class gpt3Predictor(spaCyExtractor):
         self.openai_key = openai_key
         openai.api_key = self.openai_key
         self.nlp = spacy.load(model)
-        self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
         self.r = r
 
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
@@ -144,7 +143,6 @@ class gpt3Predictor(spaCyExtractor):
             print("No candidate pairs found. Returning empty list.")
             return []
         print("target_candidate_pairs: {}".format(target_candidate_pairs))
-
         return
 
     def extract_entity_pairs(self, candidate_pairs):
@@ -195,6 +193,6 @@ class gpt3Predictor(spaCyExtractor):
         """
         seed = f"Given a sentence input, output the following: [{ENTITIES_OF_INTEREST[self.r][0]}:{ENTITIES_OF_INTEREST[self.r][0]}, RELATION:{RELATIONS[self.r]}, {ENTITIES_OF_INTEREST[self.r][1]}:{ENTITIES_OF_INTEREST[self.r][1]}]. "
         example = f"Example Input: '{SEED_SENTENCES[self.r]}' Example Output: {SEED_PROMPTS[self.r]}."
-        sentence = f"Input: {pair['tokens'].join(' ')}\n"
+        sentence = f"Input: {pair['tokens'].join(' ')} Output:"
 
         return seed + example + sentence
