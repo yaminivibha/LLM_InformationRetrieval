@@ -325,7 +325,7 @@ class gpt3Predictor(spaCyExtractor):
             resultant_relation["obj"] = output[
                 SUBJ_OBJ_REQUIRED_ENTITIES[self.r]["OBJ"][0]
             ]
-            resultant_relation["relation"] = output["relation"]
+            resultant_relation["relation"] = output["RELATION"]
 
             if resultant_relation["relation"] != RELATIONS[self.r]:
                 resultant_relation = None
