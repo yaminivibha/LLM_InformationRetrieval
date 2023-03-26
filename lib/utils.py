@@ -16,10 +16,10 @@ RELATIONS = {
 }
 
 SEED_PROMPTS = {
-    1: "{'PERSON': 'Jeff Bezos', 'RELATION': 'Schools_Attended', 'ORGANIZATION': 'Princeton University'}",
-    2: "{'PERSON': 'Alec Radford', 'RELATION': 'Work_For', 'ORGANIZATION':'OpenAI'}",
-    3: "{'PERSON':'Mariah Carey', RELATION:'Live_In', LOCATION:'New York City'}",
-    4: "{'ORGANIZATION': 'Nvidia','RELATION':'Top_Member_Employees', 'PERSON': 'Jensen Huang'}",
+    1: '{"PERSON": "Jeff Bezos", "RELATION": "Schools_Attended", "ORGANIZATION": "Princeton University"}',
+    2: '{"PERSON": "Alec Radford", "RELATION": "Work_For", "ORGANIZATION":"OpenAI"}',
+    3: '{"PERSON":"Mariah Carey", "RELATION":"Live_In", LOCATION:"New York City"}',
+    4: '{"ORGANIZATION": "Nvidia","RELATION":"Top_Member_Employees", "PERSON": "Jensen Huang"}',
 }
 SEED_SENTENCES = {
     1: "Jeff Bezos is an alumnus of Princeton University.",

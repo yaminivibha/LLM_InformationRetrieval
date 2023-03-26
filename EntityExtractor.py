@@ -232,9 +232,10 @@ class gpt3Predictor(spaCyExtractor):
         """
         candidate_entity_pairs = []
         print(ENTITIES_OF_INTEREST[self.r])
+        num_sents = len(list(doc.sents))
         for i, sentence in enumerate(doc.sents):
             if i % 5 and i != 0:
-                print("        Processed {i} / {num_sents} sentences")
+                print(f"        Processed {i} / {num_sents} sentences")
             # print("Processing sentence: {}".format(sentence))
             # print("Tokenized sentence: {}".format([token.text for token in sentence]))
             ents = get_entities(sentence, ENTITIES_OF_INTEREST[self.r])
