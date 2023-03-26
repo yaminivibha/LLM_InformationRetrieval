@@ -154,4 +154,5 @@ class QueryExecutor:
             self.seen_urls.add(url)
             text = self.processText(url)
             entities = self.extractor.get_relations(text)
+            print(f"Extracted Entities: {entities}")
         return entities

@@ -372,9 +372,9 @@ class gpt3Predictor(spaCyExtractor):
             relations: a list of tuples of the form (subject, object)
         """
         prompt = self.construct_prompt(sentence)
-        print("Prompt: {}".format(prompt))
+        # print("Prompt: {}".format(prompt))
         relation = self.gpt3_complete(prompt)
-        print("Relation: {}".format(relation))
+        # print("Relation: {}".format(relation))
         return relation
 
     def gpt3_complete(self, prompt):
@@ -394,7 +394,6 @@ class gpt3Predictor(spaCyExtractor):
             frequency_penalty=0.0,
             presence_penalty=0.0,
         )
-        print("GPT-3 Predicted Relation: {}".format(completion["choices"][0]["text"]))
         return completion["choices"][0]["text"]
 
     def construct_prompt(self, sentence):
