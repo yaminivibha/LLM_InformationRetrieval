@@ -8,8 +8,6 @@ import requests
 from bs4 import BeautifulSoup
 from EntityExtractor import spanBertPredictor, gpt3Predictor
 
-# from nltk.tokenize import word_tokenize
-
 from lib.spacy_helper_functions import get_entities, create_entity_pairs
 from lib.utils import ENTITIES_OF_INTEREST, RELATIONS, SEED_PROMPTS
 from EntityExtractor import spaCyExtractor
@@ -103,7 +101,6 @@ class QueryExecutor:
         # We only want to process the text in the <p> tags.
         try:
             page = requests.get(url)
-			print("        Fetching text from url ...")
             soup = BeautifulSoup(page.content, "html.parser")
             html_blocks = soup.find_all("p")
             text = ""
@@ -112,10 +109,7 @@ class QueryExecutor:
                 text += block.get_text()
 
             if text != "":
-				text_len = len(text)
-				print(f"        Trimming webpage content from {text_len} to 10000 characters")
-                preprocessed_text = (text[:10000]) if text_len > 10000 else text
-				print(f"        Webpage length (num characters): {len(preprocessed_text)}}")
+                preprocessed_text = (text[:10000]) if len(text) > 10000 else text
 
                 # Removing redundant newlines and some whitespace characters.
                 preprocessed_text = re.sub("\t+", " ", preprocessed_text)
