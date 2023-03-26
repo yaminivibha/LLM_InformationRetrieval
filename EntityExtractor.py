@@ -250,16 +250,20 @@ class gpt3Predictor(spaCyExtractor):
             for candidate in candidates:
                 candidate["sentence"] = str(sentence)
                 relation = self.extract_entity_relations(candidate)
-
-                print("                === Extracted Relation ===")
-                print(f"                Sentence:  {sentence}")
-                print(
-                    f"                Subject: {relation['subj']} ; Object: {relation['obj']} ;"
-                )
-                print(f"                Adding to set of extracted relations")
-                print(f"==========")
-
+                output = self.parse_gpt_output(relation)
+                if output:
+                    self.print_output_relation(sentence, output)
+                
         return candidate_entity_pairs
+
+    def print_output_relation(self, sentence, output):
+        print("                === Extracted Relation ===")
+        print(f"                Sentence:  {sentence}")
+        print(
+            f"                Subject: {output['subj']} ; Object: {output['obj']} ;"
+        )
+        print(f"                Adding to set of extracted relations")
+        print(f"==========")
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
         """
@@ -329,6 +333,7 @@ class gpt3Predictor(spaCyExtractor):
             # TODO: update print statement
             resultant_relation = None
             print(f"Error parsing GPT output: {excep}")
+            print(f"Output: {output_str}")
         return resultant_relation
 
     def extract_entity_relations(self, pair):
