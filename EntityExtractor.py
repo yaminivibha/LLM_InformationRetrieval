@@ -191,6 +191,7 @@ class gpt3Predictor(spaCyExtractor):
         openai.api_key = self.openai_key
         self.nlp = spacy.load(model)
         self.r = r
+        self.candidate_entity_pairs = set()
 
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
         """
@@ -212,7 +213,7 @@ class gpt3Predictor(spaCyExtractor):
         if len(target_candidate_pairs) == 0:
             print("No potential relations found...")
             return []
-        print("target_candidate_pairs: {}".format(target_candidate_pairs))
+        # print("target_candidate_pairs: {}".format(target_candidate_pairs))
         relations = self.extract_entity_relations(target_candidate_pairs)
         return relations
 
@@ -230,12 +231,11 @@ class gpt3Predictor(spaCyExtractor):
                                         - sentence: the sentence
                                     }
         """
-        # TODO: Turn into a set
-        candidate_entity_pairs = []
-        print(ENTITIES_OF_INTEREST[self.r])
         num_sents = len(list(doc.sents))
+        extracted_sentences = 0
+        extracted_annotations = 0
         for i, sentence in enumerate(doc.sents):
-            if i % 5==0 and i != 0:
+            if i % 5 == 0 and i != 0:
                 print(f"        Processed {i} / {num_sents} sentences")
             # print("Processing sentence: {}".format(sentence))
             # print("Tokenized sentence: {}".format([token.text for token in sentence]))
@@ -249,24 +249,38 @@ class gpt3Predictor(spaCyExtractor):
             )
             # Filter as we go.
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
-            for candidate in candidates:
-                candidate["sentence"] = str(sentence)
-                relation = self.extract_entity_relations(candidate)
+            # If any viable candidates exist, pass to GPT-3 for extraction
+            if len(candidates) > 0:
+                relation = self.extract_entity_relations(sentence)
                 output = self.parse_gpt_output(relation)
-                if output:
-                    self.print_output_relation(sentence, output)
-                
-        return candidate_entity_pairs
+                if not output:
+                    continue
+                output_tuple = (output["subj"], output["obj"])
+                if output_tuple not in self.candidate_entity_pairs:
+                    self.candidate_entity_pairs.add(output_tuple)
+                    self.print_output_relation(sentence, output, duplicate=False)
+                else:
+                    extracted_annotations += 1
+                    extracted_sentences += 1
+                    self.print_output_relation(sentence, output, duplicate=True)
 
-    def print_output_relation(self, sentence, output):
-        #TODO: Duplicate checking
+        print(
+            f"Extracted annotations for  {extracted_sentences}  out of total  {num_sents}  sentences"
+        )
+        print(
+            f"Relations extracted from this website: {extracted_annotations} (Overall: {len(self.candidate_entity_pairs)}"
+        )
+        return self.candidate_entity_pairs
+
+    def print_output_relation(self, sentence, output, duplicate):
         print("                === Extracted Relation ===")
         print(f"                Sentence:  {sentence}")
-        print(
-            f"                Subject: {output['subj']} ; Object: {output['obj']} ;"
-        )
-        print(f"                Adding to set of extracted relations")
-        print(f"==========")
+        print(f"                Subject: {output['subj']} ; Object: {output['obj']} ;")
+        if duplicate:
+            print("                Duplicate. Ignoring this.")
+        else:
+            print("                Adding to set of extracted relations")
+        print("==========")
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
         """
@@ -304,7 +318,7 @@ class gpt3Predictor(spaCyExtractor):
         """
         Parse the output of GPT-3
         Parameters:
-            output: the output of GPT-3
+            output: the output of GPT-3, string '{"PERSON": "John Doe", "ORGANIZATION": "Google", "RELATION": "Work_For"}'
         Returns:
             resultant_relation: the extracted relation as a dict
                         with format:
@@ -328,24 +342,28 @@ class gpt3Predictor(spaCyExtractor):
             ]
             resultant_relation["relation"] = output["RELATION"]
 
+            # This filters out any relations that don't match the target relation.
+            # It also filters out blank or "n/a" subject and objects.
             if resultant_relation["relation"] != RELATIONS[self.r]:
                 resultant_relation = None
-            if resultant_relation['subj'] == '' or resultant_relation['obj'] == '':
+            if resultant_relation["subj"] == "" or resultant_relation["obj"] == "":
                 resultant_relation = None
-            if resultant_relation['subj'] == 'n/a' or resultant_relation['obj'] == 'n/a':
+            if (
+                resultant_relation["subj"] == "n/a"
+                or resultant_relation["obj"] == "n/a"
+            ):
                 resultant_relation = None
-            if resultant_relation['subj'] == 'N/A' or resultant_relation['obj'] == 'N/A':
+            if (
+                resultant_relation["subj"] == "N/A"
+                or resultant_relation["obj"] == "N/A"
+            ):
                 resultant_relation = None
 
-        except Exception as excep:
-            # TODO: log error
-            # TODO: update print statement
+        except Exception:
             resultant_relation = None
-            print(f"Error parsing GPT output: {excep}")
-            print(f"Output: {output_str}")
         return resultant_relation
 
-    def extract_entity_relations(self, pair):
+    def extract_entity_relations(self, sentence):
         """
         Extract entity relations
         Parameters:
@@ -353,7 +371,7 @@ class gpt3Predictor(spaCyExtractor):
         Returns:
             relations: a list of tuples of the form (subject, object)
         """
-        prompt = self.construct_prompt(pair)
+        prompt = self.construct_prompt(sentence)
         print("Prompt: {}".format(prompt))
         relation = self.gpt3_complete(prompt)
         print("Relation: {}".format(relation))
@@ -375,12 +393,11 @@ class gpt3Predictor(spaCyExtractor):
             top_p=1,
             frequency_penalty=0.0,
             presence_penalty=0.0,
-            stop=["\n"],
         )
         print("GPT-3 Predicted Relation: {}".format(completion["choices"][0]["text"]))
         return completion["choices"][0]["text"]
 
-    def construct_prompt(self, pair):
+    def construct_prompt(self, sentence):
         """
         Construct a prompt for GPT-3 to complete.
         Parameters:
@@ -390,6 +407,6 @@ class gpt3Predictor(spaCyExtractor):
         """
         seed = f"In a given sentence, find relations where {PROMPT_AIDS[self.r]}"
         example = f"Example Input: '{SEED_SENTENCES[self.r]}' Example Output: {SEED_PROMPTS[self.r]}."
-        sentence = f"Input: {pair['sentence']} Output:"
+        sentence = f"Input: {sentence} Output:"
 
         return seed + example + sentence
