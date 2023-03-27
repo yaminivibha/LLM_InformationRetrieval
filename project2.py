@@ -1,9 +1,9 @@
 """Main executor file"""
+import argparse
 import os
 import sys
-import argparse
 
-from lib.utils import rValue, tValue, kValue
+from lib.utils import kValue, rValue, tValue
 from QueryExecutor import QueryExecutor
 
 
@@ -47,19 +47,29 @@ def main():
     # TODO: printQueryParams before loading the libraries. Laggy rn.
     print("Loading necessary libraries; This should take a minute or so ...")
 
-    # # Initialize the extracted tuples.
-    X = set()
-
-    # # Get the top 10 results for the query
-    results = executor.getQueryResult(executor.q, 10)
-    print(f"=========== Iteration: 0 - Query: {executor.q} ===========")
-    for i, item in enumerate(results):
-        print(f"URL ( {i} / 10): {item['link']}")
-        print(f"title {i}: {item['title']}")
-        print(f"snippet {i}: {item['snippet']}")
-        print(f"relation pred pairs for {i}: {executor.parseResult(item)}")
+    iterate_further = True
+    iterations = 0
+    while iterate_further:
+        # Get the top 10 results for the current query
+        results = executor.getQueryResult(executor.q, 10)
+        print(f"=========== Iteration: {iterations} - Query: {executor.q} ===========")
+        for i, item in enumerate(results):
+            print(f"URL ( {i} / 10): {item['link']}")
+            print(f"title {i}: {item['title']}")
+            print(f"snippet {i}: {item['snippet']}")
+            print(f"relation pred pairs for {i}: {executor.parseResult(item)}")
+            if not executor.checkContinue():
+                iterate_further = False
+                break
+            # Remove this when testing on multiple documents
+            break
+        iterations += 1
+        if not executor.getNewQuery():
+            print("No new queries to try")
+            print("Exiting ...")
         break
-    print()
+    executor.printRelations()
+    print(f"Total # of iterations = {1}")
 
 
 if __name__ == "__main__":
