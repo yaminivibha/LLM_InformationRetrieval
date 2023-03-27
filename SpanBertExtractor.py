@@ -4,7 +4,7 @@ import openai
 import spacy
 from spacy_help_functions import create_entity_pairs, get_entities
 from spanbert import SpanBERT
-
+import json
 from lib.utils import (ENTITIES_OF_INTEREST, RELATIONS,
                        SUBJ_OBJ_REQUIRED_ENTITIES)
 
@@ -84,7 +84,7 @@ class spanBertPredictor:
         print(
             f"Relations extracted from this website: {extracted_annotations} (Overall: {len(self.relations)})"
         )
-        return self.relations
+        return extracted_annotations
 
     def check_relation_prediction(self, rel, pred, tokens):
         """
@@ -94,7 +94,7 @@ class spanBertPredictor:
     
         Parameters:
             rel: the relation to check
-            pred: the prediction of the relation
+            pred: the prediction confidence of the relation
             tokens: the tokens in the sentence
         Returns:
             None
@@ -139,11 +139,12 @@ class spanBertPredictor:
         if duplicate:
             if status == "<":
                 print(
-                    "                Duplicate with lower confidence than existing record. Ignoring this."
+                    "                Duplicate with higher confidence than existing record. Updating record."
                 )
+                
             elif status == ">":
                 print(
-                    "                Duplicate with higher confidence than existing record. Updating record."
+                    "                Duplicate with lower confidence than existing record. Ignoring this."
                 )
             else:
                 print(
@@ -187,13 +188,13 @@ class spanBertPredictor:
         """
         doc = self.nlp(text)
         print("        Annotating the webpage using spacy...")
-        target_candidate_pairs = self.extract_candidate_pairs(doc)
-        if len(target_candidate_pairs) == 0:
-            print("No candidate pairs found. Returning empty list.")
-            return []
-        print("target_candidate_pairs: {}".format(target_candidate_pairs))
-        entities = self.extract_entity_relation_preds(target_candidate_pairs)
-        return entities
+        num_extracted_annotations = self.extract_candidate_pairs(doc)
+        if len(self.relations) == 0:
+            print("No annotations found...")
+        print(f"{num_extracted_annotations} discovered...")
+        #todo: fix types here (just want to print out to check if stuff is working)
+        print(json.dumps(self.relations))
+        return self.relations
 
     def extract_entity_relation_preds(
         self, candidate_pairs
@@ -212,4 +213,5 @@ class spanBertPredictor:
         # get predictions: list of (relation, confidence) pairs
         relation_preds = self.spanbert.predict(candidate_pairs)
         return [(candidate_pairs[i], relation_preds[i]) for i in range(len(candidate_pairs))]
+         
 
