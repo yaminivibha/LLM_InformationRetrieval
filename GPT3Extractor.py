@@ -13,7 +13,7 @@ from lib.utils import (
     SEED_SENTENCES,
     PROMPT_AIDS,
 )
-from lib.spacy_helper_functions import create_entity_pairs
+from spacy_help_functions import create_entity_pairs
 
 
 class gpt3Extractor:
