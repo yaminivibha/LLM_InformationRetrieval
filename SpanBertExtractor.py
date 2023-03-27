@@ -1,14 +1,13 @@
-"Defining GPT3 and SpanBert Extractor classes"
-import json
-from typing import List, Tuple
-
-import openai
 import spacy
 from spanbert import SpanBERT
 from lib.spacy_helper_functions import get_entities, create_entity_pairs
 from lib.utils import (
     ENTITIES_OF_INTEREST,
+    RELATIONS,
+    SEED_PROMPTS,
+    SEED_SENTENCES,
     SUBJ_OBJ_REQUIRED_ENTITIES,
+    PROMPT_AIDS,
 )
 import openai
 from typing import List, Tuple
@@ -16,9 +15,7 @@ from typing import List, Tuple
 # spacy.cli.download("en_core_web_sm")
 
 
-class SpaCyExtractor:
-    "Creates a spaCyExtractor object"
-
+class spaCyExtractor:
     def __init__(self, r, model="en_core_web_sm"):
         """
         Initialize a spaCyExtractor object
@@ -118,43 +115,7 @@ class SpaCyExtractor:
         return target_candidate_pairs
 
 
-class spanBertPredictor(SpaCyExtractor):
-    def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
-        """
-        Extract candidate pairs from a given document using spaCy
-        parameters:
-            doc: the document to extract candidate pairs from
-        returns:
-            candidate_entity_pairs: a list of candidate entity pairs, where each pair is a dictionary
-                                    with the following keys:
-                                        - tokens: the tokens in the sentence
-                                        - subj: the subject entity
-                                        - obj: the object entity
-                                        - sentence: the sentence
-        """
-        candidate_entity_pairs = []
-        print(ENTITIES_OF_INTEREST[self.r])
-        for i, sentence in enumerate(doc.sents):
-            if i % 5 and i != 0:
-                print("        Processed {i} / {num_sents} sentences")
-            # print("Processing sentence: {}".format(sentence))
-            # print("Tokenized sentence: {}".format([token.text for token in sentence]))
-            ents = get_entities(sentence, ENTITIES_OF_INTEREST[self.r])
-            # This prints all the entities that spaCy extracts from the sentence.
-            # print("spaCy extracted entities: {}".format(ents))
-
-            # Create entity pairs.
-            sentence_entity_pairs = create_entity_pairs(
-                sentence, ENTITIES_OF_INTEREST[self.r]
-            )
-            # Filter as we go.
-            candidates = self.filter_candidate_pairs(sentence_entity_pairs)
-            for candidate in candidates:
-                candidate["sentence"] = str(sentence)
-                candidate_entity_pairs.append(candidate)
-
-        return candidate_entity_pairs
-
+class spanBertPredictor(spaCyExtractor):
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
         """
         Exposed function to take in text and return named entities
@@ -164,7 +125,7 @@ class spanBertPredictor(SpaCyExtractor):
             entities: a list of tuples of the form (subject, object)
         """
         doc = self.nlp(text)
-        print("        Annotating the webpage using spacy...")
+        print(f"        Annotating the webpage using spacy...")
         target_candidate_pairs = self.extract_candidate_pairs(doc)
         if len(target_candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")

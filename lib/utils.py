@@ -1,6 +1,14 @@
 import argparse
 
-PRONOUNS = [
+
+PRONOUNS_AND_CONJUNCTIONS = [
+    "and",
+    "or",
+    "nor",
+    "but",
+    "yet",
+    "so",
+    "for",
     "and",
     "he",
     "she",
@@ -63,10 +71,10 @@ SEED_SENTENCES = {
 }
 
 PROMPT_AIDS = {
-    1: "PERSON Schools_Attended SCHOOL. Output the following: [PERSON:PERSON, RELATION:Schools_Attended, ORGANIZATION:SCHOOL]. ORGANIZATION is a School, like a University or College.",
-    2: "PERSON Work_For COMPANY. Output the following: [PERSON:PERSON, RELATION:Work_For, ORGANIZATION:COMPANY]. ORGANIZATION is a Company.",
-    3: "PERSON Live_In LOCATION. Output the following: [PERSON:PERSON, RELATION:Live_In, LOCATION:LOCATION]. LOCATION is a real world location - like a City, State, or Country.",
-    4: "COMPANY Top_Member_Employees PERSON. Output the following: [ORGANIZATION:COMPANY, RELATION:Top_Member_Employees, PERSON:PERSON]. ORGANIZATION is a Company.",
+    1: "PERSON Schools_Attended SCHOOL. Output the following: [PERSON:PERSON, RELATION:Schools_Attended, ORGANIZATION:SCHOOL]. Ensure ORGANIZATION is a School, like a University or College.",
+    2: "PERSON Work_For COMPANY. Output the following: [PERSON:PERSON, RELATION:Work_For, ORGANIZATION:COMPANY]. Ensure ORGANIZATION is a Company.",
+    3: "PERSON Live_In LOCATION. Output the following: [PERSON:PERSON, RELATION:Live_In, LOCATION:LOCATION]. Ensure LOCATION is a real world location - like a City, State, or Country.",
+    4: "COMPANY Top_Member_Employees PERSON. Output the following: [ORGANIZATION:COMPANY, RELATION:Top_Member_Employees, PERSON:PERSON]. Ensure ORGANIZATION is a Company.",
 }
 
 SUBJ_OBJ_REQUIRED_ENTITIES = {

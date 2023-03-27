@@ -1,0 +1,407 @@
+Loading pre-trained spanBERT from ./SpanBERT/pretrained_spanbert
+Parameters:
+Client key      = AIzaSyDQTz-AzhWHv-Qbk3ADyPG4hFb3Z6PkLHM
+Engine key      = 45add40315937647f
+OpenAI key      = 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
+Relation        = Schools_Attended
+Method          = spanbert
+Threshold       = 0.7
+Query           = mark zuckerberg harvard
+# of Tuples     = 10
+Loading necessary libraries; This should take a minute or so ...
+
+=========== Iteration: 0 - Query: mark zuckerberg harvard ===========
+URL ( 1 / 10): https://en.wikipedia.org/wiki/Mark_Zuckerberg
+        Fetching text from url ...
+        Trimming webpage content from 37960 to 10000 characters
+        Webpage length (num characters): 10000
+        Annotating the webpage using spacy...
+                === Extracted Relation ===
+                Input tokens: ['founding', 'the', 'social', 'media', 'website', 'Facebook', 'and', 'its', 'parent', 'company', 'Meta', 'Platforms', '(', 'formerly', 'Facebook', ',', 'Inc.', ')', ',', 'of', 'which', 'he', 'is', 'the', 'executive', 'chairman', ',', 'chief', 'executive', 'officer', ',', 'and', 'controlling', 'shareholder.[1][2', ']', 'Zuckerberg', 'attended', 'Harvard', 'University', ',']
+                Output Confidence: FILLER ; Subject: shareholder.[1][2] Zuckerberg ; Object: Meta Platforms ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['formerly', 'Facebook', ',', 'Inc.', ')', ',', 'of', 'which', 'he', 'is', 'the', 'executive', 'chairman', ',', 'chief', 'executive', 'officer', ',', 'and', 'controlling', 'shareholder.[1][2', ']', 'Zuckerberg', 'attended', 'Harvard', 'University', ',']
+                Output Confidence: FILLER ; Subject: shareholder.[1][2] Zuckerberg ; Object: Facebook, Inc. ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['formerly', 'Facebook', ',', 'Inc.', ')', ',', 'of', 'which', 'he', 'is', 'the', 'executive', 'chairman', ',', 'chief', 'executive', 'officer', ',', 'and', 'controlling', 'shareholder.[1][2', ']', 'Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ',']
+                Output Confidence: FILLER ; Subject: Eduardo Saverin ; Object: Facebook, Inc. ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['and', 'controlling', 'shareholder.[1][2', ']', 'Zuckerberg', 'attended', 'Harvard', 'University', ',']
+                Output Confidence: FILLER ; Subject: shareholder.[1][2] Zuckerberg ; Object: Harvard University ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ',']
+                Output Confidence: FILLER ; Subject: Eduardo Saverin ; Object: Harvard University ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ',', 'Andrew', 'McCollum', ',']
+                Output Confidence: FILLER ; Subject: Andrew McCollum ; Object: Harvard University ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ',', 'Andrew', 'McCollum', ',', 'Dustin', 'Moskovitz', ',']
+                Output Confidence: FILLER ; Subject: Dustin Moskovitz ; Object: Harvard University ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ',', 'Andrew', 'McCollum', ',', 'Dustin', 'Moskovitz', ',', 'and', 'Chris', 'Hughes', '.']
+                Output Confidence: FILLER ; Subject: Chris Hughes ; Object: Harvard University ;
+                Adding to set of extracted relations
+                ==========
+        Processed 5 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'was', 'ranked', 'tenth', 'on', 'Forbes', 'list', 'of', 'The', 'World', "'s", 'Most', 'Powerful', 'People.[6', ']']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Forbes ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'was', 'ranked', 'tenth', 'on', 'Forbes', 'list', 'of', 'The', 'World', "'s", 'Most', 'Powerful', 'People.[6', ']']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: The World's Most Powerful People.[6 ;
+                Adding to set of extracted relations
+                ==========
+        Processed 10 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', "'s", 'net', 'worth', 'was', '$', '73', 'billion', 'according', 'to', 'the', 'Forbes', 'Real', 'Time', 'Billionaires', 'making', 'him', 'the', '15th', 'richest', 'person', 'in', 'the', 'world.[7', ']']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: the Forbes Real Time Billionaires ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', "'s", 'net', 'worth', 'was', '$', '73', 'billion', 'according', 'to', 'the', 'Forbes', 'Real', 'Time', 'Billionaires', 'making', 'him', 'the', '15th', 'richest', 'person', 'in', 'the', 'world.[7', ']', 'A', 'film', 'depicting', 'Zuckerberg', "'s", 'early', 'career', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: the Forbes Real Time Billionaires ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['A', 'film', 'depicting', 'Zuckerberg', "'s", 'early', 'career', ',', 'legal', 'troubles', 'and', 'initial', 'success', 'with', 'the', 'site', ',', 'The', 'Social', 'Network', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: The Social Network ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['A', 'film', 'depicting', 'Zuckerberg', "'s", 'early', 'career', ',', 'legal', 'troubles', 'and', 'initial', 'success', 'with', 'the', 'site', ',', 'The', 'Social', 'Network', ',', 'was', 'released', 'in', '2010', 'and', 'won', 'multiple', 'Academy', 'Awards', '.']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Academy Awards ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'testified', 'before', 'the', 'United', 'States', 'Senate', 'Committee', 'on', 'Commerce', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: the United States Senate Committee on Commerce ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'testified', 'before', 'the', 'United', 'States', 'Senate', 'Committee', 'on', 'Commerce', ',', 'Science', ',', 'and', 'Transportation', 'regarding', 'the', 'usage', 'of', 'personal', 'data', 'by', 'Facebook', 'in', 'relation', 'to', 'the', 'Facebook', '–']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Transportation ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'testified', 'before', 'the', 'United', 'States', 'Senate', 'Committee', 'on', 'Commerce', ',', 'Science', ',', 'and', 'Transportation', 'regarding', 'the', 'usage', 'of', 'personal', 'data', 'by', 'Facebook', 'in', 'relation', 'to', 'the', 'Facebook', '–', 'Cambridge', 'Analytica', 'data', 'breach.[8', ']']
+                Output Confidence: FILLER ; Subject: breach.[8] ; Object: the United States Senate Committee on Commerce ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['and', 'Transportation', 'regarding', 'the', 'usage', 'of', 'personal', 'data', 'by', 'Facebook', 'in', 'relation', 'to', 'the', 'Facebook', '–', 'Cambridge', 'Analytica', 'data', 'breach.[8', ']']
+                Output Confidence: FILLER ; Subject: breach.[8] ; Object: Transportation ;
+                Adding to set of extracted relations
+                ==========
+        Processed 15 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['Mark', 'Elliot', 'Zuckerberg', 'was', 'born', 'on', 'on', 'May', '14', ',', '1984', ',', 'in', 'White', 'Plains', ',', 'New', 'York[9', ']', 'to', 'psychiatrist', 'Karen', '(', 'née', 'Kempner', ')']
+                Output Confidence: FILLER ; Subject: Mark Elliot Zuckerberg ; Object: Kempner ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['to', 'psychiatrist', 'Karen', '(', 'née', 'Kempner', ')']
+                Output Confidence: FILLER ; Subject: Karen ; Object: Kempner ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['née', 'Kempner', ')', 'and', 'dentist', 'Edward', 'Zuckerberg.[10', ']']
+                Output Confidence: FILLER ; Subject: Edward ; Object: Kempner ;
+                Adding to set of extracted relations
+                ==========
+        Processed 20 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['During', 'Zuckerberg', "'s", 'high', '-', 'school', 'years', ',', 'he', 'worked', 'to', 'build', 'a', 'music', 'player', 'called', 'the', 'Synapse', 'Media', 'Player', '.']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: the Synapse Media Player ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['A', 'New', 'Yorker', 'profile', 'said', 'of', 'Zuckerberg', ':']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: New Yorker ;
+                Adding to set of extracted relations
+                ==========
+        Processed 25 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['The', 'New', 'Yorker', 'noted', 'that', 'by', 'the', 'time', 'Zuckerberg', 'began', 'classes', 'at', 'Harvard', 'in', '2002', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: The New Yorker ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['The', 'New', 'Yorker', 'noted', 'that', 'by', 'the', 'time', 'Zuckerberg', 'began', 'classes', 'at', 'Harvard', 'in', '2002', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+        Processed 30 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['Arie', 'Hasit', ',', 'Zuckerberg', "'s", 'roommate', 'at', 'the', 'time', ',', 'explained', ':', 'We', 'had', 'books', 'called', 'Face', 'Books', ',']
+                Output Confidence: FILLER ; Subject: Arie Hasit ; Object: Face Books ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', "'s", 'roommate', 'at', 'the', 'time', ',', 'explained', ':', 'We', 'had', 'books', 'called', 'Face', 'Books', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Face Books ;
+                Adding to set of extracted relations
+                ==========
+        Processed 35 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['An', 'earlier', 'inspiration', 'for', 'Facebook', 'may', 'have', 'come', 'from', 'Phillips', 'Exeter', 'Academy', ',', 'the', 'prep', 'school', 'from', 'which', 'Zuckerberg', 'graduated', 'in', '2002', '.']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Phillips Exeter Academy ;
+                Adding to set of extracted relations
+                ==========
+        Processed 40 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['three', 'Harvard', 'seniors', ',', 'Cameron', 'Winklevoss', ',']
+                Output Confidence: FILLER ; Subject: Cameron Winklevoss ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['three', 'Harvard', 'seniors', ',', 'Cameron', 'Winklevoss', ',', 'Tyler', 'Winklevoss', ',']
+                Output Confidence: FILLER ; Subject: Tyler Winklevoss ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['three', 'Harvard', 'seniors', ',', 'Cameron', 'Winklevoss', ',', 'Tyler', 'Winklevoss', ',', 'and', 'Divya', 'Narendra', ',']
+                Output Confidence: FILLER ; Subject: Divya Narendra ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['three', 'Harvard', 'seniors', ',', 'Cameron', 'Winklevoss', ',', 'Tyler', 'Winklevoss', ',', 'and', 'Divya', 'Narendra', ',', 'accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Cameron', 'Winklevoss', ',', 'Tyler', 'Winklevoss', ',', 'and', 'Divya', 'Narendra', ',', 'accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ',']
+                Output Confidence: FILLER ; Subject: Cameron Winklevoss ; Object: HarvardConnection.com ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Tyler', 'Winklevoss', ',', 'and', 'Divya', 'Narendra', ',', 'accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ',']
+                Output Confidence: FILLER ; Subject: Tyler Winklevoss ; Object: HarvardConnection.com ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['and', 'Divya', 'Narendra', ',', 'accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ',']
+                Output Confidence: FILLER ; Subject: Divya Narendra ; Object: HarvardConnection.com ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: HarvardConnection.com ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', "'s", 'Facebook', 'started', 'off', 'as', 'just', 'a', '"', 'Harvard', 'thing', '"']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+        Processed 45 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['They', 'began', 'with', 'Columbia', ',', 'New', 'York', 'University', ',', 'Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']']
+                Output Confidence: FILLER ; Subject: Yale.[36] Zuckerberg ; Object: Columbia ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['New', 'York', 'University', ',', 'Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']']
+                Output Confidence: FILLER ; Subject: Yale.[36] Zuckerberg ; Object: New York University ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['New', 'York', 'University', ',', 'Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: New York University ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']']
+                Output Confidence: FILLER ; Subject: Yale.[36] Zuckerberg ; Object: Stanford ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Stanford ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',', 'Moskovitz', 'and', 'the', 'other', 'co', '-']
+                Output Confidence: FILLER ; Subject: Moskovitz ; Object: Stanford ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']']
+                Output Confidence: FILLER ; Subject: Yale.[36] Zuckerberg ; Object: Dartmouth ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Dartmouth ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',', 'Moskovitz', 'and', 'the', 'other', 'co', '-']
+                Output Confidence: FILLER ; Subject: Moskovitz ; Object: Dartmouth ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']']
+                Output Confidence: FILLER ; Subject: Yale.[36] Zuckerberg ; Object: University of Pennsylvania, Brown ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: University of Pennsylvania, Brown ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',', 'Moskovitz', 'and', 'the', 'other', 'co', '-']
+                Output Confidence: FILLER ; Subject: Moskovitz ; Object: University of Pennsylvania, Brown ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']']
+                Output Confidence: FILLER ; Subject: Yale.[36] Zuckerberg ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',', 'Moskovitz', 'and', 'the', 'other', 'co', '-']
+                Output Confidence: FILLER ; Subject: Moskovitz ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['According', 'to', 'Zuckerberg', ',', 'the', 'group', 'planned', 'to', 'return', 'to', 'Harvard', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['the', 'group', 'planned', 'to', 'return', 'to', 'Harvard', ',', 'but', 'they', 'eventually', 'decided', 'to', 'remain', 'in', 'California', ',', 'where', 'Zuckerberg', 'appreciated', 'the', '"']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Harvard ;
+                Adding to set of extracted relations
+                ==========
+        Processed 50 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['speaking', 'at', 'Y', 'Combinator', "'s", 'Startup', 'School', 'course', 'at', 'Stanford', 'University', ',', 'Zuckerberg', 'made', 'a', 'controversial', 'assertion', 'that', '"']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Y Combinator's Startup School ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['speaking', 'at', 'Y', 'Combinator', "'s", 'Startup', 'School', 'course', 'at', 'Stanford', 'University', ',', 'Zuckerberg', 'made', 'a', 'controversial', 'assertion', 'that', '"']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Stanford University ;
+                Adding to set of extracted relations
+                ==========
+        Processed 55 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'sought', 'the', 'advice', 'of', 'former', 'Netscape', 'CFO', 'Peter', 'Currie', 'about', 'financing', 'strategies', 'for', 'Facebook.[42', ']']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: CFO ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'sought', 'the', 'advice', 'of', 'former', 'Netscape', 'CFO', 'Peter', 'Currie', 'about', 'financing', 'strategies', 'for', 'Facebook.[42', ']']
+                Output Confidence: FILLER ; Subject: Facebook.[42 ; Object: CFO ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'reported', 'that', 'the', 'company', 'reached', 'the', '500', '-', 'million', '-', 'user', 'mark.[43', ']', 'When', 'asked', 'whether', 'Facebook', 'could', 'earn', 'more', 'income', 'from', 'advertising', 'as', 'a', 'result', 'of', 'its', 'phenomenal', 'growth', ',']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Facebook ;
+                Adding to set of extracted relations
+                ==========
+        Processed 60 / 70 sentences
+        Processed 65 / 70 sentences
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'was', 'added', 'to', 'MIT', 'Technology', 'Review', "'s", 'TR35', 'list', 'as', 'one', 'of', 'the', 'top', '35', 'innovators', 'in', 'the', 'world', 'under', 'the', 'age', 'of', '35.[46', ']']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: MIT Technology Review's ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Zuckerberg', 'was', 'added', 'to', 'MIT', 'Technology', 'Review', "'s", 'TR35', 'list', 'as', 'one', 'of', 'the', 'top', '35', 'innovators', 'in', 'the', 'world', 'under', 'the', 'age', 'of', '35.[46', ']']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: 35.[46] ;
+                Adding to set of extracted relations
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Vanity', 'Fair', 'magazine', 'named', 'Zuckerberg', 'number', '1', 'on', 'its', '2010', 'list', 'of', 'the', 'Top', '100', '"']
+                Output Confidence: FILLER ; Subject: Zuckerberg ; Object: Vanity Fair ;
+                Adding to set of extracted relations
+                ==========
+        Relations extracted from this website: 62 (Overall: 62)
+target_candidate_pairs: [{'tokens': ['founding', 'the', 'social', 'media', 'website', 'Facebook', 'and', 'its', 'parent', 'company', 'Meta', 'Platforms', '(', 'formerly', 'Facebook', ',', 'Inc.', ')', ',', 'of', 'which', 'he', 'is', 'the', 'executive', 'chairman', ',', 'chief', 'executive', 'officer', ',', 'and', 'controlling', 'shareholder.[1][2', ']', 'Zuckerberg', 'attended', 'Harvard', 'University', ','], 'subj': ('shareholder.[1][2] Zuckerberg', 'PERSON', (33, 35)), 'obj': ('Meta Platforms', 'ORGANIZATION', (10, 11)), 'sentence': 'He is known for co-founding the social media website Facebook and its parent company Meta Platforms (formerly Facebook, Inc.), of which he is the executive chairman, chief executive officer, and controlling shareholder.[1][2] Zuckerberg attended Harvard University, where he launched Facebook in February 2004 with his roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.'}, {'tokens': ['formerly', 'Facebook', ',', 'Inc.', ')', ',', 'of', 'which', 'he', 'is', 'the', 'executive', 'chairman', ',', 'chief', 'executive', 'officer', ',', 'and', 'controlling', 'shareholder.[1][2', ']', 'Zuckerberg', 'attended', 'Harvard', 'University', ','], 'subj': ('shareholder.[1][2] Zuckerberg', 'PERSON', (20, 22)), 'obj': ('Facebook, Inc.', 'ORGANIZATION', (1, 3)), 'sentence': 'He is known for co-founding the social media website Facebook and its parent company Meta Platforms (formerly Facebook, Inc.), of which he is the executive chairman, chief executive officer, and controlling shareholder.[1][2] Zuckerberg attended Harvard University, where he launched Facebook in February 2004 with his roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.'}, {'tokens': ['formerly', 'Facebook', ',', 'Inc.', ')', ',', 'of', 'which', 'he', 'is', 'the', 'executive', 'chairman', ',', 'chief', 'executive', 'officer', ',', 'and', 'controlling', 'shareholder.[1][2', ']', 'Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ','], 'subj': ('Eduardo Saverin', 'PERSON', (37, 38)), 'obj': ('Facebook, Inc.', 'ORGANIZATION', (1, 3)), 'sentence': 'He is known for co-founding the social media website Facebook and its parent company Meta Platforms (formerly Facebook, Inc.), of which he is the executive chairman, chief executive officer, and controlling shareholder.[1][2] Zuckerberg attended Harvard University, where he launched Facebook in February 2004 with his roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.'}, {'tokens': ['and', 'controlling', 'shareholder.[1][2', ']', 'Zuckerberg', 'attended', 'Harvard', 'University', ','], 'subj': ('shareholder.[1][2] Zuckerberg', 'PERSON', (2, 4)), 'obj': ('Harvard University', 'ORGANIZATION', (6, 7)), 'sentence': 'He is known for co-founding the social media website Facebook and its parent company Meta Platforms (formerly Facebook, Inc.), of which he is the executive chairman, chief executive officer, and controlling shareholder.[1][2] Zuckerberg attended Harvard University, where he launched Facebook in February 2004 with his roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.'}, {'tokens': ['Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ','], 'subj': ('Eduardo Saverin', 'PERSON', (15, 16)), 'obj': ('Harvard University', 'ORGANIZATION', (2, 3)), 'sentence': 'He is known for co-founding the social media website Facebook and its parent company Meta Platforms (formerly Facebook, Inc.), of which he is the executive chairman, chief executive officer, and controlling shareholder.[1][2] Zuckerberg attended Harvard University, where he launched Facebook in February 2004 with his roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.'}, {'tokens': ['Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ',', 'Andrew', 'McCollum', ','], 'subj': ('Andrew McCollum', 'PERSON', (18, 19)), 'obj': ('Harvard University', 'ORGANIZATION', (2, 3)), 'sentence': 'He is known for co-founding the social media website Facebook and its parent company Meta Platforms (formerly Facebook, Inc.), of which he is the executive chairman, chief executive officer, and controlling shareholder.[1][2] Zuckerberg attended Harvard University, where he launched Facebook in February 2004 with his roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.'}, {'tokens': ['Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ',', 'Andrew', 'McCollum', ',', 'Dustin', 'Moskovitz', ','], 'subj': ('Dustin Moskovitz', 'PERSON', (21, 22)), 'obj': ('Harvard University', 'ORGANIZATION', (2, 3)), 'sentence': 'He is known for co-founding the social media website Facebook and its parent company Meta Platforms (formerly Facebook, Inc.), of which he is the executive chairman, chief executive officer, and controlling shareholder.[1][2] Zuckerberg attended Harvard University, where he launched Facebook in February 2004 with his roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.'}, {'tokens': ['Zuckerberg', 'attended', 'Harvard', 'University', ',', 'where', 'he', 'launched', 'Facebook', 'in', 'February', '2004', 'with', 'his', 'roommates', 'Eduardo', 'Saverin', ',', 'Andrew', 'McCollum', ',', 'Dustin', 'Moskovitz', ',', 'and', 'Chris', 'Hughes', '.'], 'subj': ('Chris Hughes', 'PERSON', (25, 26)), 'obj': ('Harvard University', 'ORGANIZATION', (2, 3)), 'sentence': 'He is known for co-founding the social media website Facebook and its parent company Meta Platforms (formerly Facebook, Inc.), of which he is the executive chairman, chief executive officer, and controlling shareholder.[1][2] Zuckerberg attended Harvard University, where he launched Facebook in February 2004 with his roommates Eduardo Saverin, Andrew McCollum, Dustin Moskovitz, and Chris Hughes.'}, {'tokens': ['Zuckerberg', 'was', 'ranked', 'tenth', 'on', 'Forbes', 'list', 'of', 'The', 'World', "'s", 'Most', 'Powerful', 'People.[6', ']'], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('Forbes', 'ORGANIZATION', (5, 5)), 'sentence': "In December 2016, Zuckerberg was ranked tenth on Forbes list of The World's Most Powerful People.[6]"}, {'tokens': ['Zuckerberg', 'was', 'ranked', 'tenth', 'on', 'Forbes', 'list', 'of', 'The', 'World', "'s", 'Most', 'Powerful', 'People.[6', ']'], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ("The World's Most Powerful People.[6", 'ORGANIZATION', (8, 13)), 'sentence': "In December 2016, Zuckerberg was ranked tenth on Forbes list of The World's Most Powerful People.[6]"}, {'tokens': ['Zuckerberg', "'s", 'net', 'worth', 'was', '$', '73', 'billion', 'according', 'to', 'the', 'Forbes', 'Real', 'Time', 'Billionaires', 'making', 'him', 'the', '15th', 'richest', 'person', 'in', 'the', 'world.[7', ']'], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('the Forbes Real Time Billionaires', 'ORGANIZATION', (10, 14)), 'sentence': "As of March 2023, Zuckerberg's net worth was $73 billion according to the Forbes Real Time Billionaires making him the 15th richest person in the world.[7] A film depicting Zuckerberg's early career, legal troubles and initial success with the site, The Social Network, was released in 2010 and won multiple Academy Awards."}, {'tokens': ['Zuckerberg', "'s", 'net', 'worth', 'was', '$', '73', 'billion', 'according', 'to', 'the', 'Forbes', 'Real', 'Time', 'Billionaires', 'making', 'him', 'the', '15th', 'richest', 'person', 'in', 'the', 'world.[7', ']', 'A', 'film', 'depicting', 'Zuckerberg', "'s", 'early', 'career', ','], 'subj': ('Zuckerberg', 'PERSON', (28, 28)), 'obj': ('the Forbes Real Time Billionaires', 'ORGANIZATION', (10, 14)), 'sentence': "As of March 2023, Zuckerberg's net worth was $73 billion according to the Forbes Real Time Billionaires making him the 15th richest person in the world.[7] A film depicting Zuckerberg's early career, legal troubles and initial success with the site, The Social Network, was released in 2010 and won multiple Academy Awards."}, {'tokens': ['A', 'film', 'depicting', 'Zuckerberg', "'s", 'early', 'career', ',', 'legal', 'troubles', 'and', 'initial', 'success', 'with', 'the', 'site', ',', 'The', 'Social', 'Network', ','], 'subj': ('Zuckerberg', 'PERSON', (3, 3)), 'obj': ('The Social Network', 'ORGANIZATION', (17, 19)), 'sentence': "As of March 2023, Zuckerberg's net worth was $73 billion according to the Forbes Real Time Billionaires making him the 15th richest person in the world.[7] A film depicting Zuckerberg's early career, legal troubles and initial success with the site, The Social Network, was released in 2010 and won multiple Academy Awards."}, {'tokens': ['A', 'film', 'depicting', 'Zuckerberg', "'s", 'early', 'career', ',', 'legal', 'troubles', 'and', 'initial', 'success', 'with', 'the', 'site', ',', 'The', 'Social', 'Network', ',', 'was', 'released', 'in', '2010', 'and', 'won', 'multiple', 'Academy', 'Awards', '.'], 'subj': ('Zuckerberg', 'PERSON', (3, 3)), 'obj': ('Academy Awards', 'ORGANIZATION', (28, 29)), 'sentence': "As of March 2023, Zuckerberg's net worth was $73 billion according to the Forbes Real Time Billionaires making him the 15th richest person in the world.[7] A film depicting Zuckerberg's early career, legal troubles and initial success with the site, The Social Network, was released in 2010 and won multiple Academy Awards."}, {'tokens': ['Zuckerberg', 'testified', 'before', 'the', 'United', 'States', 'Senate', 'Committee', 'on', 'Commerce', ','], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('the United States Senate Committee on Commerce', 'ORGANIZATION', (3, 9)), 'sentence': 'On April 10 and 11, 2018, Zuckerberg testified before the United States Senate Committee on Commerce, Science, and Transportation regarding the usage of personal data by Facebook in relation to the Facebook–Cambridge Analytica data breach.[8]'}, {'tokens': ['Zuckerberg', 'testified', 'before', 'the', 'United', 'States', 'Senate', 'Committee', 'on', 'Commerce', ',', 'Science', ',', 'and', 'Transportation', 'regarding', 'the', 'usage', 'of', 'personal', 'data', 'by', 'Facebook', 'in', 'relation', 'to', 'the', 'Facebook', '–'], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('Transportation', 'ORGANIZATION', (14, 14)), 'sentence': 'On April 10 and 11, 2018, Zuckerberg testified before the United States Senate Committee on Commerce, Science, and Transportation regarding the usage of personal data by Facebook in relation to the Facebook–Cambridge Analytica data breach.[8]'}, {'tokens': ['Zuckerberg', 'testified', 'before', 'the', 'United', 'States', 'Senate', 'Committee', 'on', 'Commerce', ',', 'Science', ',', 'and', 'Transportation', 'regarding', 'the', 'usage', 'of', 'personal', 'data', 'by', 'Facebook', 'in', 'relation', 'to', 'the', 'Facebook', '–', 'Cambridge', 'Analytica', 'data', 'breach.[8', ']'], 'subj': ('breach.[8]', 'PERSON', (32, 33)), 'obj': ('the United States Senate Committee on Commerce', 'ORGANIZATION', (3, 9)), 'sentence': 'On April 10 and 11, 2018, Zuckerberg testified before the United States Senate Committee on Commerce, Science, and Transportation regarding the usage of personal data by Facebook in relation to the Facebook–Cambridge Analytica data breach.[8]'}, {'tokens': ['and', 'Transportation', 'regarding', 'the', 'usage', 'of', 'personal', 'data', 'by', 'Facebook', 'in', 'relation', 'to', 'the', 'Facebook', '–', 'Cambridge', 'Analytica', 'data', 'breach.[8', ']'], 'subj': ('breach.[8]', 'PERSON', (19, 20)), 'obj': ('Transportation', 'ORGANIZATION', (1, 1)), 'sentence': 'On April 10 and 11, 2018, Zuckerberg testified before the United States Senate Committee on Commerce, Science, and Transportation regarding the usage of personal data by Facebook in relation to the Facebook–Cambridge Analytica data breach.[8]'}, {'tokens': ['Mark', 'Elliot', 'Zuckerberg', 'was', 'born', 'on', 'on', 'May', '14', ',', '1984', ',', 'in', 'White', 'Plains', ',', 'New', 'York[9', ']', 'to', 'psychiatrist', 'Karen', '(', 'née', 'Kempner', ')'], 'subj': ('Mark Elliot Zuckerberg', 'PERSON', (0, 2)), 'obj': ('Kempner', 'ORGANIZATION', (24, 24)), 'sentence': 'Mark Elliot Zuckerberg was born on on May 14, 1984, in White Plains, New York[9] to psychiatrist Karen (née Kempner) and dentist Edward Zuckerberg.[10]'}, {'tokens': ['to', 'psychiatrist', 'Karen', '(', 'née', 'Kempner', ')'], 'subj': ('Karen', 'PERSON', (2, 2)), 'obj': ('Kempner', 'ORGANIZATION', (5, 5)), 'sentence': 'Mark Elliot Zuckerberg was born on on May 14, 1984, in White Plains, New York[9] to psychiatrist Karen (née Kempner) and dentist Edward Zuckerberg.[10]'}, {'tokens': ['née', 'Kempner', ')', 'and', 'dentist', 'Edward', 'Zuckerberg.[10', ']'], 'subj': ('Edward', 'PERSON', (5, 5)), 'obj': ('Kempner', 'ORGANIZATION', (1, 1)), 'sentence': 'Mark Elliot Zuckerberg was born on on May 14, 1984, in White Plains, New York[9] to psychiatrist Karen (née Kempner) and dentist Edward Zuckerberg.[10]'}, {'tokens': ['During', 'Zuckerberg', "'s", 'high', '-', 'school', 'years', ',', 'he', 'worked', 'to', 'build', 'a', 'music', 'player', 'called', 'the', 'Synapse', 'Media', 'Player', '.'], 'subj': ('Zuckerberg', 'PERSON', (1, 1)), 'obj': ('the Synapse Media Player', 'ORGANIZATION', (16, 19)), 'sentence': "In high school, he built a program that allowed all the computers between his house and his father's dental office to communicate with each other.[18][19] During Zuckerberg's high-school years, he worked to build a music player called the Synapse Media Player."}, {'tokens': ['A', 'New', 'Yorker', 'profile', 'said', 'of', 'Zuckerberg', ':'], 'subj': ('Zuckerberg', 'PERSON', (6, 6)), 'obj': ('New Yorker', 'ORGANIZATION', (1, 2)), 'sentence': 'A New Yorker profile said of Zuckerberg: "some kids played computer games.'}, {'tokens': ['The', 'New', 'Yorker', 'noted', 'that', 'by', 'the', 'time', 'Zuckerberg', 'began', 'classes', 'at', 'Harvard', 'in', '2002', ','], 'subj': ('Zuckerberg', 'PERSON', (8, 8)), 'obj': ('The New Yorker', 'ORGANIZATION', (0, 2)), 'sentence': 'The New Yorker noted that by the time Zuckerberg began classes at Harvard in 2002, he had already achieved a "reputation as a programming prodigy".'}, {'tokens': ['The', 'New', 'Yorker', 'noted', 'that', 'by', 'the', 'time', 'Zuckerberg', 'began', 'classes', 'at', 'Harvard', 'in', '2002', ','], 'subj': ('Zuckerberg', 'PERSON', (8, 8)), 'obj': ('Harvard', 'ORGANIZATION', (12, 12)), 'sentence': 'The New Yorker noted that by the time Zuckerberg began classes at Harvard in 2002, he had already achieved a "reputation as a programming prodigy".'}, {'tokens': ['Arie', 'Hasit', ',', 'Zuckerberg', "'s", 'roommate', 'at', 'the', 'time', ',', 'explained', ':', 'We', 'had', 'books', 'called', 'Face', 'Books', ','], 'subj': ('Arie Hasit', 'PERSON', (0, 1)), 'obj': ('Face Books', 'ORGANIZATION', (16, 17)), 'sentence': "Arie Hasit, Zuckerberg's roommate at the time, explained: We had books called Face Books, which included the names and pictures of everyone who lived in the student dorms."}, {'tokens': ['Zuckerberg', "'s", 'roommate', 'at', 'the', 'time', ',', 'explained', ':', 'We', 'had', 'books', 'called', 'Face', 'Books', ','], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('Face Books', 'ORGANIZATION', (13, 14)), 'sentence': "Arie Hasit, Zuckerberg's roommate at the time, explained: We had books called Face Books, which included the names and pictures of everyone who lived in the student dorms."}, {'tokens': ['An', 'earlier', 'inspiration', 'for', 'Facebook', 'may', 'have', 'come', 'from', 'Phillips', 'Exeter', 'Academy', ',', 'the', 'prep', 'school', 'from', 'which', 'Zuckerberg', 'graduated', 'in', '2002', '.'], 'subj': ('Zuckerberg', 'PERSON', (18, 18)), 'obj': ('Phillips Exeter Academy', 'ORGANIZATION', (9, 11)), 'sentence': 'An earlier inspiration for Facebook may have come from Phillips Exeter Academy, the prep school from which Zuckerberg graduated in 2002.'}, {'tokens': ['three', 'Harvard', 'seniors', ',', 'Cameron', 'Winklevoss', ','], 'subj': ('Cameron Winklevoss', 'PERSON', (4, 5)), 'obj': ('Harvard', 'ORGANIZATION', (1, 1)), 'sentence': 'Six days after the site launched, three Harvard seniors, Cameron Winklevoss, Tyler Winklevoss, and Divya Narendra, accused Zuckerberg of intentionally misleading them into believing he would help them build a social network called HarvardConnection.com, while he was instead using their ideas to build a competing product.[29]'}, {'tokens': ['three', 'Harvard', 'seniors', ',', 'Cameron', 'Winklevoss', ',', 'Tyler', 'Winklevoss', ','], 'subj': ('Tyler Winklevoss', 'PERSON', (7, 8)), 'obj': ('Harvard', 'ORGANIZATION', (1, 1)), 'sentence': 'Six days after the site launched, three Harvard seniors, Cameron Winklevoss, Tyler Winklevoss, and Divya Narendra, accused Zuckerberg of intentionally misleading them into believing he would help them build a social network called HarvardConnection.com, while he was instead using their ideas to build a competing product.[29]'}, {'tokens': ['three', 'Harvard', 'seniors', ',', 'Cameron', 'Winklevoss', ',', 'Tyler', 'Winklevoss', ',', 'and', 'Divya', 'Narendra', ','], 'subj': ('Divya Narendra', 'PERSON', (11, 12)), 'obj': ('Harvard', 'ORGANIZATION', (1, 1)), 'sentence': 'Six days after the site launched, three Harvard seniors, Cameron Winklevoss, Tyler Winklevoss, and Divya Narendra, accused Zuckerberg of intentionally misleading them into believing he would help them build a social network called HarvardConnection.com, while he was instead using their ideas to build a competing product.[29]'}, {'tokens': ['three', 'Harvard', 'seniors', ',', 'Cameron', 'Winklevoss', ',', 'Tyler', 'Winklevoss', ',', 'and', 'Divya', 'Narendra', ',', 'accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ','], 'subj': ('Zuckerberg', 'PERSON', (15, 15)), 'obj': ('Harvard', 'ORGANIZATION', (1, 1)), 'sentence': 'Six days after the site launched, three Harvard seniors, Cameron Winklevoss, Tyler Winklevoss, and Divya Narendra, accused Zuckerberg of intentionally misleading them into believing he would help them build a social network called HarvardConnection.com, while he was instead using their ideas to build a competing product.[29]'}, {'tokens': ['Cameron', 'Winklevoss', ',', 'Tyler', 'Winklevoss', ',', 'and', 'Divya', 'Narendra', ',', 'accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ','], 'subj': ('Cameron Winklevoss', 'PERSON', (0, 1)), 'obj': ('HarvardConnection.com', 'ORGANIZATION', (27, 27)), 'sentence': 'Six days after the site launched, three Harvard seniors, Cameron Winklevoss, Tyler Winklevoss, and Divya Narendra, accused Zuckerberg of intentionally misleading them into believing he would help them build a social network called HarvardConnection.com, while he was instead using their ideas to build a competing product.[29]'}, {'tokens': ['Tyler', 'Winklevoss', ',', 'and', 'Divya', 'Narendra', ',', 'accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ','], 'subj': ('Tyler Winklevoss', 'PERSON', (0, 1)), 'obj': ('HarvardConnection.com', 'ORGANIZATION', (24, 24)), 'sentence': 'Six days after the site launched, three Harvard seniors, Cameron Winklevoss, Tyler Winklevoss, and Divya Narendra, accused Zuckerberg of intentionally misleading them into believing he would help them build a social network called HarvardConnection.com, while he was instead using their ideas to build a competing product.[29]'}, {'tokens': ['and', 'Divya', 'Narendra', ',', 'accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ','], 'subj': ('Divya Narendra', 'PERSON', (1, 2)), 'obj': ('HarvardConnection.com', 'ORGANIZATION', (21, 21)), 'sentence': 'Six days after the site launched, three Harvard seniors, Cameron Winklevoss, Tyler Winklevoss, and Divya Narendra, accused Zuckerberg of intentionally misleading them into believing he would help them build a social network called HarvardConnection.com, while he was instead using their ideas to build a competing product.[29]'}, {'tokens': ['accused', 'Zuckerberg', 'of', 'intentionally', 'misleading', 'them', 'into', 'believing', 'he', 'would', 'help', 'them', 'build', 'a', 'social', 'network', 'called', 'HarvardConnection.com', ','], 'subj': ('Zuckerberg', 'PERSON', (1, 1)), 'obj': ('HarvardConnection.com', 'ORGANIZATION', (17, 17)), 'sentence': 'Six days after the site launched, three Harvard seniors, Cameron Winklevoss, Tyler Winklevoss, and Divya Narendra, accused Zuckerberg of intentionally misleading them into believing he would help them build a social network called HarvardConnection.com, while he was instead using their ideas to build a competing product.[29]'}, {'tokens': ['Zuckerberg', "'s", 'Facebook', 'started', 'off', 'as', 'just', 'a', '"', 'Harvard', 'thing', '"'], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('Harvard', 'ORGANIZATION', (9, 9)), 'sentence': 'Following the official launch of the Facebook social media platform, the three filed a lawsuit against Zuckerberg that resulted in a settlement.[33] The agreed settlement was for 1.2\xa0million Facebook shares and $20\xa0million in cash.[34] Zuckerberg\'s Facebook started off as just a "Harvard thing" until he decided to spread it to other schools, enlisting the help of roommate Dustin Moskovitz.[35]'}, {'tokens': ['They', 'began', 'with', 'Columbia', ',', 'New', 'York', 'University', ',', 'Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']'], 'subj': ('Yale.[36] Zuckerberg', 'PERSON', (22, 24)), 'obj': ('Columbia', 'ORGANIZATION', (3, 3)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['New', 'York', 'University', ',', 'Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']'], 'subj': ('Yale.[36] Zuckerberg', 'PERSON', (17, 19)), 'obj': ('New York University', 'ORGANIZATION', (0, 2)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['New', 'York', 'University', ',', 'Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ','], 'subj': ('Zuckerberg', 'PERSON', (35, 35)), 'obj': ('New York University', 'ORGANIZATION', (0, 2)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']'], 'subj': ('Yale.[36] Zuckerberg', 'PERSON', (13, 15)), 'obj': ('Stanford', 'ORGANIZATION', (0, 0)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ','], 'subj': ('Zuckerberg', 'PERSON', (31, 31)), 'obj': ('Stanford', 'ORGANIZATION', (0, 0)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['Stanford', ',', 'Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',', 'Moskovitz', 'and', 'the', 'other', 'co', '-'], 'subj': ('Moskovitz', 'PERSON', (33, 33)), 'obj': ('Stanford', 'ORGANIZATION', (0, 0)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']'], 'subj': ('Yale.[36] Zuckerberg', 'PERSON', (11, 13)), 'obj': ('Dartmouth', 'ORGANIZATION', (0, 0)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ','], 'subj': ('Zuckerberg', 'PERSON', (29, 29)), 'obj': ('Dartmouth', 'ORGANIZATION', (0, 0)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['Dartmouth', ',', 'Cornell', ',', 'University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',', 'Moskovitz', 'and', 'the', 'other', 'co', '-'], 'subj': ('Moskovitz', 'PERSON', (31, 31)), 'obj': ('Dartmouth', 'ORGANIZATION', (0, 0)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']'], 'subj': ('Yale.[36] Zuckerberg', 'PERSON', (7, 9)), 'obj': ('University of Pennsylvania, Brown', 'ORGANIZATION', (0, 4)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ','], 'subj': ('Zuckerberg', 'PERSON', (25, 25)), 'obj': ('University of Pennsylvania, Brown', 'ORGANIZATION', (0, 4)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['University', 'of', 'Pennsylvania', ',', 'Brown', ',', 'and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',', 'Moskovitz', 'and', 'the', 'other', 'co', '-'], 'subj': ('Moskovitz', 'PERSON', (27, 27)), 'obj': ('University of Pennsylvania, Brown', 'ORGANIZATION', (0, 4)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['and', 'Yale.[36', ']', 'Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']'], 'subj': ('Yale.[36] Zuckerberg', 'PERSON', (1, 3)), 'obj': ('Harvard', 'ORGANIZATION', (7, 7)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ','], 'subj': ('Zuckerberg', 'PERSON', (16, 16)), 'obj': ('Harvard', 'ORGANIZATION', (4, 4)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['Zuckerberg', 'dropped', 'out', 'of', 'Harvard', 'in', 'his', 'sophomore', 'year', 'in', 'order', 'to', 'complete', 'the', 'project.[37', ']', 'Zuckerberg', ',', 'Moskovitz', 'and', 'the', 'other', 'co', '-'], 'subj': ('Moskovitz', 'PERSON', (18, 18)), 'obj': ('Harvard', 'ORGANIZATION', (4, 4)), 'sentence': 'They began with Columbia, New York University, Stanford, Dartmouth, Cornell, University of Pennsylvania, Brown, and Yale.[36] Zuckerberg dropped out of Harvard in his sophomore year in order to complete the project.[37] Zuckerberg, Moskovitz and the other co-founders moved to Palo Alto, California, where they leased a small house that served as an office.'}, {'tokens': ['According', 'to', 'Zuckerberg', ',', 'the', 'group', 'planned', 'to', 'return', 'to', 'Harvard', ','], 'subj': ('Zuckerberg', 'PERSON', (2, 2)), 'obj': ('Harvard', 'ORGANIZATION', (10, 10)), 'sentence': 'According to Zuckerberg, the group planned to return to Harvard, but they eventually decided to remain in California, where Zuckerberg appreciated the "mythical place" of Silicon Valley, the center of computer technology in California.[38][39]'}, {'tokens': ['the', 'group', 'planned', 'to', 'return', 'to', 'Harvard', ',', 'but', 'they', 'eventually', 'decided', 'to', 'remain', 'in', 'California', ',', 'where', 'Zuckerberg', 'appreciated', 'the', '"'], 'subj': ('Zuckerberg', 'PERSON', (18, 18)), 'obj': ('Harvard', 'ORGANIZATION', (6, 6)), 'sentence': 'According to Zuckerberg, the group planned to return to Harvard, but they eventually decided to remain in California, where Zuckerberg appreciated the "mythical place" of Silicon Valley, the center of computer technology in California.[38][39]'}, {'tokens': ['speaking', 'at', 'Y', 'Combinator', "'s", 'Startup', 'School', 'course', 'at', 'Stanford', 'University', ',', 'Zuckerberg', 'made', 'a', 'controversial', 'assertion', 'that', '"'], 'subj': ('Zuckerberg', 'PERSON', (12, 12)), 'obj': ("Y Combinator's Startup School", 'ORGANIZATION', (2, 6)), 'sentence': 'The same year, speaking at Y Combinator\'s Startup School course at Stanford University, Zuckerberg made a controversial assertion that "young people are just smarter" and that other entrepreneurs should bias towards hiring young people.[40]'}, {'tokens': ['speaking', 'at', 'Y', 'Combinator', "'s", 'Startup', 'School', 'course', 'at', 'Stanford', 'University', ',', 'Zuckerberg', 'made', 'a', 'controversial', 'assertion', 'that', '"'], 'subj': ('Zuckerberg', 'PERSON', (12, 12)), 'obj': ('Stanford University', 'ORGANIZATION', (9, 10)), 'sentence': 'The same year, speaking at Y Combinator\'s Startup School course at Stanford University, Zuckerberg made a controversial assertion that "young people are just smarter" and that other entrepreneurs should bias towards hiring young people.[40]'}, {'tokens': ['Zuckerberg', 'sought', 'the', 'advice', 'of', 'former', 'Netscape', 'CFO', 'Peter', 'Currie', 'about', 'financing', 'strategies', 'for', 'Facebook.[42', ']'], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('CFO', 'ORGANIZATION', (7, 7)), 'sentence': 'Earlier, in April 2009, Zuckerberg sought the advice of former Netscape CFO Peter Currie about financing strategies for Facebook.[42]'}, {'tokens': ['Zuckerberg', 'sought', 'the', 'advice', 'of', 'former', 'Netscape', 'CFO', 'Peter', 'Currie', 'about', 'financing', 'strategies', 'for', 'Facebook.[42', ']'], 'subj': ('Facebook.[42', 'PERSON', (14, 14)), 'obj': ('CFO', 'ORGANIZATION', (7, 7)), 'sentence': 'Earlier, in April 2009, Zuckerberg sought the advice of former Netscape CFO Peter Currie about financing strategies for Facebook.[42]'}, {'tokens': ['Zuckerberg', 'reported', 'that', 'the', 'company', 'reached', 'the', '500', '-', 'million', '-', 'user', 'mark.[43', ']', 'When', 'asked', 'whether', 'Facebook', 'could', 'earn', 'more', 'income', 'from', 'advertising', 'as', 'a', 'result', 'of', 'its', 'phenomenal', 'growth', ','], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('Facebook', 'ORGANIZATION', (17, 17)), 'sentence': 'On July 21, 2010, Zuckerberg reported that the company reached the 500-million-user mark.[43] When asked whether Facebook could earn more income from advertising as a result of its phenomenal growth, he explained: I guess we could\xa0...'}, {'tokens': ['Zuckerberg', 'was', 'added', 'to', 'MIT', 'Technology', 'Review', "'s", 'TR35', 'list', 'as', 'one', 'of', 'the', 'top', '35', 'innovators', 'in', 'the', 'world', 'under', 'the', 'age', 'of', '35.[46', ']'], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ("MIT Technology Review's", 'ORGANIZATION', (4, 7)), 'sentence': '"[44] In 2007, Zuckerberg was added to MIT Technology Review\'s TR35 list as one of the top 35 innovators in the world under the age of 35.[46]'}, {'tokens': ['Zuckerberg', 'was', 'added', 'to', 'MIT', 'Technology', 'Review', "'s", 'TR35', 'list', 'as', 'one', 'of', 'the', 'top', '35', 'innovators', 'in', 'the', 'world', 'under', 'the', 'age', 'of', '35.[46', ']'], 'subj': ('Zuckerberg', 'PERSON', (0, 0)), 'obj': ('35.[46]', 'ORGANIZATION', (24, 25)), 'sentence': '"[44] In 2007, Zuckerberg was added to MIT Technology Review\'s TR35 list as one of the top 35 innovators in the world under the age of 35.[46]'}, {'tokens': ['Vanity', 'Fair', 'magazine', 'named', 'Zuckerberg', 'number', '1', 'on', 'its', '2010', 'list', 'of', 'the', 'Top', '100', '"'], 'subj': ('Zuckerberg', 'PERSON', (4, 4)), 'obj': ('Vanity Fair', 'ORGANIZATION', (0, 1)), 'sentence': 'Vanity Fair magazine named Zuckerberg number 1 on its 2010 list of the Top 100 "most influential'}]
+
+Extracted relations:
+	Subject: shareholder.[1][2] Zuckerberg	Object: Meta Platforms	Relation: per:employee_of	Confidence: 0.98
+	Subject: shareholder.[1][2] Zuckerberg	Object: Facebook, Inc.	Relation: per:employee_of	Confidence: 0.97
+	Subject: Eduardo Saverin	Object: Facebook, Inc.	Relation: per:employee_of	Confidence: 0.99
+	Subject: shareholder.[1][2] Zuckerberg	Object: Harvard University	Relation: no_relation	Confidence: 1.00
+	Subject: Eduardo Saverin	Object: Harvard University	Relation: no_relation	Confidence: 0.96
+	Subject: Andrew McCollum	Object: Harvard University	Relation: no_relation	Confidence: 0.99
+	Subject: Dustin Moskovitz	Object: Harvard University	Relation: no_relation	Confidence: 0.94
+	Subject: Chris Hughes	Object: Harvard University	Relation: no_relation	Confidence: 0.79
+	Subject: Zuckerberg	Object: Forbes	Relation: per:employee_of	Confidence: 0.75
+	Subject: Zuckerberg	Object: The World's Most Powerful People.[6	Relation: no_relation	Confidence: 0.96
+	Subject: Zuckerberg	Object: the Forbes Real Time Billionaires	Relation: per:employee_of	Confidence: 0.90
+	Subject: Zuckerberg	Object: the Forbes Real Time Billionaires	Relation: no_relation	Confidence: 0.99
+	Subject: Zuckerberg	Object: The Social Network	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Academy Awards	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: the United States Senate Committee on Commerce	Relation: no_relation	Confidence: 0.99
+	Subject: Zuckerberg	Object: Transportation	Relation: no_relation	Confidence: 1.00
+	Subject: breach.[8]	Object: the United States Senate Committee on Commerce	Relation: no_relation	Confidence: 0.99
+	Subject: breach.[8]	Object: Transportation	Relation: no_relation	Confidence: 1.00
+	Subject: Mark Elliot Zuckerberg	Object: Kempner	Relation: no_relation	Confidence: 0.54
+	Subject: Karen	Object: Kempner	Relation: no_relation	Confidence: 1.00
+	Subject: Edward	Object: Kempner	Relation: no_relation	Confidence: 0.78
+	Subject: Zuckerberg	Object: the Synapse Media Player	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: New Yorker	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: The New Yorker	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Harvard	Relation: per:schools_attended	Confidence: 0.73
+	Subject: Arie Hasit	Object: Face Books	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Face Books	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Phillips Exeter Academy	Relation: per:schools_attended	Confidence: 0.97
+	Subject: Cameron Winklevoss	Object: Harvard	Relation: no_relation	Confidence: 0.94
+	Subject: Tyler Winklevoss	Object: Harvard	Relation: per:employee_of	Confidence: 0.49
+	Subject: Divya Narendra	Object: Harvard	Relation: no_relation	Confidence: 0.90
+	Subject: Zuckerberg	Object: Harvard	Relation: no_relation	Confidence: 1.00
+	Subject: Cameron Winklevoss	Object: HarvardConnection.com	Relation: no_relation	Confidence: 1.00
+	Subject: Tyler Winklevoss	Object: HarvardConnection.com	Relation: no_relation	Confidence: 1.00
+	Subject: Divya Narendra	Object: HarvardConnection.com	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: HarvardConnection.com	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Harvard	Relation: no_relation	Confidence: 1.00
+	Subject: Yale.[36] Zuckerberg	Object: Columbia	Relation: no_relation	Confidence: 1.00
+	Subject: Yale.[36] Zuckerberg	Object: New York University	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: New York University	Relation: no_relation	Confidence: 0.99
+	Subject: Yale.[36] Zuckerberg	Object: Stanford	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Stanford	Relation: no_relation	Confidence: 1.00
+	Subject: Moskovitz	Object: Stanford	Relation: no_relation	Confidence: 1.00
+	Subject: Yale.[36] Zuckerberg	Object: Dartmouth	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Dartmouth	Relation: no_relation	Confidence: 1.00
+	Subject: Moskovitz	Object: Dartmouth	Relation: no_relation	Confidence: 1.00
+	Subject: Yale.[36] Zuckerberg	Object: University of Pennsylvania, Brown	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: University of Pennsylvania, Brown	Relation: no_relation	Confidence: 0.99
+	Subject: Moskovitz	Object: University of Pennsylvania, Brown	Relation: no_relation	Confidence: 1.00
+	Subject: Yale.[36] Zuckerberg	Object: Harvard	Relation: no_relation	Confidence: 0.92
+	Subject: Zuckerberg	Object: Harvard	Relation: no_relation	Confidence: 0.66
+	Subject: Moskovitz	Object: Harvard	Relation: no_relation	Confidence: 0.98
+	Subject: Zuckerberg	Object: Harvard	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Harvard	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Y Combinator's Startup School	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Stanford University	Relation: no_relation	Confidence: 0.76
+	Subject: Zuckerberg	Object: CFO	Relation: no_relation	Confidence: 1.00
+	Subject: Facebook.[42	Object: CFO	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Facebook	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: MIT Technology Review's	Relation: no_relation	Confidence: 0.99
+	Subject: Zuckerberg	Object: 35.[46]	Relation: no_relation	Confidence: 1.00
+	Subject: Zuckerberg	Object: Vanity Fair	Relation: no_relation	Confidence: 1.00

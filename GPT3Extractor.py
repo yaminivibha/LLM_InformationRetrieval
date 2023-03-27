@@ -8,7 +8,7 @@ from lib.utils import (
     ENTITIES_OF_INTEREST,
     RELATIONS,
     SUBJ_OBJ_REQUIRED_ENTITIES,
-    PRONOUNS,
+    PRONOUNS_AND_CONJUNCTIONS,
     SEED_PROMPTS,
     SEED_SENTENCES,
     PROMPT_AIDS,
@@ -54,7 +54,6 @@ class gpt3Extractor:
         target_candidate_pairs = self.extract_candidate_pairs(doc)
 
         if len(target_candidate_pairs) == 0:
-            print("No potential relations found...")
             return []
         # print("target_candidate_pairs: {}".format(target_candidate_pairs))
         self.extract_entity_relations(target_candidate_pairs)
@@ -147,6 +146,7 @@ class gpt3Extractor:
             ):
                 return True
 
+        print("		No potential relations found in this sentence...")
         # This info, formatted, should be printed in extract_candidate_pairs.
         # print("Filtered target_candidate_paris: {}".format(target_candidate_pairs))
         return False
@@ -201,9 +201,10 @@ class gpt3Extractor:
                 or resultant_relation["obj"] == "N/A"
             ):
                 resultant_relation = None
-            if any(p in resultant_relation["subj"].lower() for p in PRONOUNS):
+            if any(p in resultant_relation["subj"].lower() for p in PRONOUNS_AND_CONJUNCTIONS):
                 resultant_relation = None
         except Exception:
+            print(f"Error parsing GPT-3 output: {output_str}")
             resultant_relation = None
         return resultant_relation
 
