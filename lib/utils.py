@@ -87,6 +87,15 @@ SUBJ_OBJ_REQUIRED_ENTITIES = {
     4: {"SUBJ": ["ORGANIZATION"], "OBJ": ["PERSON"]},
 }
 
+# Values are SpanBERT's target relation prediction IDs.
+# We use these to filter out predictions that are not the target relation.
+TARGET_RELATION_PREDS = {
+	1: ["per:schools_attended"],
+	2: ["per:employee_of"],
+	3: ["per:countries_of_residence", "per:cities_of_residence", "per:statesorprovinces_of_residence"],
+	4: ["org:top_members_employees"]
+}
+
 
 def tValue(string) -> float:
     value = float(string)

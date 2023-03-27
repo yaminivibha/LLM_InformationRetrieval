@@ -31,3 +31,5 @@ mv GPT3Extractor.py ./SpanBERT
 mv project2.py ./SpanBERT
 mv QueryExecutor.py ./SpanBERT
 mv SpanBertExtractor.py ./SpanBERT
+
+echo "all set up! :)"
