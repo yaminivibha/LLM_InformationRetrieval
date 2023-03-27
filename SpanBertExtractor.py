@@ -1,7 +1,6 @@
 "SpanBertPredictor class"
 import json
 # pretty printing
-import pprint
 from typing import Dict, List, Tuple
 
 import openai
@@ -173,7 +172,6 @@ class spanBertExtractor:
                 target_candidate_pairs.append(p)
 
         # This info, formatted, should be printed in extract_candidate_pairs.
-        # print("Filtered target_candidate_paris: {}".format(target_candidate_pairs))
         return target_candidate_pairs
 
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
@@ -190,9 +188,6 @@ class spanBertExtractor:
         if len(self.relations) == 0:
             print("No annotations found...")
         print(f"{num_extracted_annotations} discovered...")
-        # todo: fix types here (just want to print out to check if stuff is working)
-        # print(json.dumps(self.relations))
-        pprint.pprint(self.relations)
         return self.relations
 
     def extract_entity_relation_preds(
