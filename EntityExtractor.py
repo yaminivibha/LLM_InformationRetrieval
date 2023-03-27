@@ -258,10 +258,10 @@ class gpt3Predictor(spaCyExtractor):
                 output_tuple = (output["subj"], output["obj"])
                 if output_tuple not in self.candidate_entity_pairs:
                     self.candidate_entity_pairs.add(output_tuple)
-                    self.print_output_relation(sentence, output, duplicate=False)
-                else:
                     extracted_annotations += 1
                     extracted_sentences += 1
+                    self.print_output_relation(sentence, output, duplicate=False)
+                else:
                     self.print_output_relation(sentence, output, duplicate=True)
 
         print(
@@ -347,6 +347,11 @@ class gpt3Predictor(spaCyExtractor):
             if resultant_relation["relation"] != RELATIONS[self.r]:
                 resultant_relation = None
             if resultant_relation["subj"] == "" or resultant_relation["obj"] == "":
+                resultant_relation = None
+            if (
+                resultant_relation["subj"] == "None"
+                or resultant_relation["obj"] == "None"
+            ):
                 resultant_relation = None
             if (
                 resultant_relation["subj"] == "n/a"
