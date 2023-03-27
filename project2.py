@@ -54,7 +54,7 @@ def main():
         results = executor.getQueryResult(executor.q, 10)
         print(f"=========== Iteration: {iterations} - Query: {executor.q} ===========")
         for i, item in enumerate(results):
-            print(f"URL ( {i} / 10): {item['link']}")
+            print(f"URL ( {i+1} / 10): {item['link']}")
             executor.parseResult(item)
             if not executor.checkContinue():
                 iterate_further = False
@@ -65,7 +65,7 @@ def main():
             print("Exiting ...")
             break
     executor.printRelations()
-    print(f"Total # of iterations = {1}")
+    print(f"Total # of iterations = {iterations}")
 
 
 if __name__ == "__main__":

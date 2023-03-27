@@ -63,13 +63,12 @@ class QueryExecutor:
         print(f"Client key      = {self.custom_search_key}")
         print(f"Engine key      = {self.google_engine_id}")
         print(f"OpenAI key      = {self.openai_secret_key}")
+        print(f"Relation        = {RELATIONS[self.r]}")
         if self.spanbert:
             print("Method          = spanbert")
-            print(f"Relation        = {RELATIONS[self.r]}")
             print(f"Threshold       = {self.t}")
         if self.gpt3:
             print("Method          = gpt3")
-            print("Relation        = XXX")
             print("Threshold       = XXX")
         print(f"Query           = {self.q}")
         print(f"# of Tuples     = {self.k}")
