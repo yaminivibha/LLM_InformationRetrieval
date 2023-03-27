@@ -2,7 +2,7 @@
 import json
 import openai
 import spacy
-from typing import List, Tuple
+from typing import List, Tuple, Set
 import re
 from lib.utils import (
     ENTITIES_OF_INTEREST,
@@ -33,7 +33,7 @@ class gpt3Extractor:
         openai.api_key = self.openai_key
         self.nlp = spacy.load(model)
         self.r = r
-        self.candidate_entity_pairs = set()
+        self.relations = set()
 
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
         """
@@ -49,6 +49,10 @@ class gpt3Extractor:
         print(
             f"        Extracted {num_sents} sentences. Processing each sentence one by one to check for presence of right pair of named entity types; if so, will run the second pipeline ..."
         )
+        print("Before we start...")
+        print("type(self.relations): {}".format(type(self.relations)))
+        print("self.relations: {}".format(self.relations))
+
         # Get tagged version of text from spaCy.
         target_candidate_pairs = self.extract_candidate_pairs(doc)
 
@@ -56,22 +60,19 @@ class gpt3Extractor:
             print("No potential relations found...")
             return []
         # print("target_candidate_pairs: {}".format(target_candidate_pairs))
-        relations = self.extract_entity_relations(target_candidate_pairs)
-        return relations
+        self.extract_entity_relations(target_candidate_pairs)
+        print(f"        Extracted relations: {self.relations}")
+        print(f"type(self.relations): {type(self.relations)}")
+        return self.relations
 
-    def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
+    def extract_candidate_pairs(self, doc) -> Set[Tuple[str, str]]:
         """
         Extract candidate pairs from a given document using spaCy
         parameters:
             doc: the document to extract candidate pairs from
         returns:
-            candidate_entity_pairs: a list of candidate entity pairs, where each pair is a dictionary
-                                    {
-                                        - tokens: the tokens in the sentence
-                                        - subj: the subject entity
-                                        - obj: the object entity
-                                        - sentence: the sentence
-                                    }
+            relations: a list of candidate entity pairs, where each item is a tuple
+                                    (subj, obj)
         """
         num_sents = len(list(doc.sents))
         extracted_sentences = 0
@@ -96,9 +97,10 @@ class gpt3Extractor:
                     continue
                 # If GPT-3 returns valid relation, check if it's a duplicate
                 output_tuple = (output["subj"], output["obj"])
-                if output_tuple not in self.candidate_entity_pairs:
+                print("Checking types: type(self.relations): {}".format(type(self.relations)))
+                if output_tuple not in self.relations:
                     # If not a duplicate, add to set, print output
-                    self.candidate_entity_pairs.add(output_tuple)
+                    self.relations.add(output_tuple)
                     extracted_annotations += 1
                     extracted_sentences += 1
                     self.print_output_relation(sentence, output, duplicate=False)
@@ -110,9 +112,10 @@ class gpt3Extractor:
             f"Extracted annotations for  {extracted_sentences}  out of total  {num_sents}  sentences"
         )
         print(
-            f"Relations extracted from this website: {extracted_annotations} (Overall: {len(self.candidate_entity_pairs)})"
+            f"Relations extracted from this website: {extracted_annotations} (Overall: {len(self.relations)})"
         )
-        return self.candidate_entity_pairs
+        print(f"Checking types: type(self.relations): {type(self.relations)}")
+        return self.relations
 
     def print_output_relation(self, sentence, output, duplicate):
         print("                === Extracted Relation ===")
