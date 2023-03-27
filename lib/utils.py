@@ -1,6 +1,7 @@
 import argparse
 
 PRONOUNS = [
+    "and",
     "he",
     "she",
     "him",

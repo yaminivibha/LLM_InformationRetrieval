@@ -63,9 +63,10 @@ def main():
         if not executor.getNewQuery():
             print("No new queries to try")
             print("Exiting ...")
-        break
+            break
     executor.printRelations()
     print(f"Total # of iterations = {1}")
+
 
 if __name__ == "__main__":
     main()
