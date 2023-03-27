@@ -67,6 +67,5 @@ def main():
     executor.printRelations()
     print(f"Total # of iterations = {1}")
 
-
 if __name__ == "__main__":
     main()
