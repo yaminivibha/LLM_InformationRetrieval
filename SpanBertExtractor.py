@@ -1,15 +1,11 @@
 "SpanBertPredictor class"
-import json
-# pretty printing
 from typing import Dict, List, Tuple
 
-import openai
 import spacy
 from spacy_help_functions import create_entity_pairs, get_entities
 from spanbert import SpanBERT
 
-from lib.utils import (ENTITIES_OF_INTEREST, RELATIONS,
-                       SUBJ_OBJ_REQUIRED_ENTITIES)
+from lib.utils import ENTITIES_OF_INTEREST, SUBJ_OBJ_REQUIRED_ENTITIES
 
 # spacy.cli.download("en_core_web_sm")
 
@@ -24,6 +20,8 @@ class spanBertExtractor:
         Instance Variables:
             nlp: the spaCy model
             total_extracted: the total number of relations extracted
+            self.relations: a dictionary of relations and their confidence
+                            {(subj, obj): confidence}
         """
         self.nlp = spacy.load(model)
         self.spanbert = SpanBERT("./SpanBERT/pretrained_spanbert")

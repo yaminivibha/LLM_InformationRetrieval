@@ -58,6 +58,7 @@ def main():
                 iterate_further = False
                 break
         iterations += 1
+        # If a new iteration is needed, get the new query
         if not executor.getNewQuery():
             print("No new queries to try")
             print("Exiting ...")

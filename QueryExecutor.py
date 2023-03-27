@@ -1,9 +1,9 @@
 """
-S Executor class and methods
+Query Executor class and methods
 """
 import pprint
 import re
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import requests
 from bs4 import BeautifulSoup
@@ -15,7 +15,6 @@ from lib.utils import RELATIONS
 from SpanBertExtractor import spanBertExtractor
 
 # HTML tags that we want to extract text from.
-blocks = ["p", "h1", "h2", "h3", "h4", "h5", "blockquote"]
 
 
 class QueryExecutor:
@@ -34,6 +33,9 @@ class QueryExecutor:
             google_engine_id: the Google Custom Search Engine ID
             openai_secret_key: the OpenAI Secret Key
             engine: the Google Custom Search Engine
+            seen_urls: the set of URLs that we have already seen
+            used_queries: the set of queries that we have already used
+            extractor: the extractor object (either SpanBERTExtractor or GPT-3Extractor)
         """
 
         self.q = args.q
@@ -53,14 +55,14 @@ class QueryExecutor:
             if self.gpt3
             else spanBertExtractor(r=self.r)
         )
-        # if self.gpt3:
-        #     self.seen_relations = set()
-        # elif self.spanbert:
-        #     self.seen_relations = dict()
 
     def printQueryParams(self) -> None:
         """
         Prints the query parameters
+        Parameters:
+            None
+        Returns:
+            None
         """
         print("Parameters:")
         print(f"Client key      = {self.custom_search_key}")
@@ -87,30 +89,32 @@ class QueryExecutor:
 
         return full_res["items"][0 : k + 1]
 
-    def processText(self, url: str) -> List[str]:
+    def processText(self, url: str) -> Optional[str]:
         """
         Get the tokens from a given URL
-        """
-        # If you cannot retrieve the webpage (e.g. because of a timeout),
-        # you should skip it and move on to the next one, even if this involves
-        # processing fewer than 10 webpages in this iteration.
+        If webpage retrieval fails (e.g. because of a timeout), it is skipped (None returned)
 
-        # Extract the plain text from the URL using Beautiful Soup.
-        # If the resulting plain text is longer than 10,000 characters, truncate it
-        # for efficiency and discard the rest.
-        # We only want to process the text in the <p> tags.
+        Extracts the plain text from the URL using Beautiful Soup.
+        If the resulting plain text is longer than 10,000 characters, it is truncated.
+        Only the text in the <p> tags is processed. 
+
+        Parameters: 
+            url (str) - the URL to process
+        Returns: 
+            List[str] - the list of tokens
+        """
+
         try:
             print("        Fetching text from url ...")
             page = requests.get(url, timeout=5)
         except requests.exceptions.Timeout:
-            print(f"Error processing {url}: The request timed out.")
+            print(f"Error processing {url}: The request timed out. Moving on...")
             return None
         try:
             soup = BeautifulSoup(page.content, "html.parser")
             html_blocks = soup.find_all("p")
             text = ""
             for block in html_blocks:
-                # print(f"block: {block}")
                 text += block.get_text()
 
             if text != "":
@@ -122,7 +126,6 @@ class QueryExecutor:
                 print(
                     f"        Webpage length (num characters): {len(preprocessed_text)}"
                 )
-
                 # Removing redundant newlines and some whitespace characters.
                 preprocessed_text = re.sub("\t+", " ", preprocessed_text)
                 preprocessed_text = re.sub("\n+", " ", preprocessed_text)
@@ -133,12 +136,17 @@ class QueryExecutor:
             else:
                 return None
         except Exception as e:
-            print(f"Error processing {url}: {e}")
+            print(f"Error processing {url}: {e}. Moving on ...")
             return None
 
-    def parseResult(self, result: Dict[str, str]) -> List[Tuple[str, str]]:
+    def parseResult(self, result: Dict[str, str]) -> None:
         """
-        Parse the result of a query
+        Parse the result of a query.
+        Exposed function for use by main function. 
+        Parameters: 
+            result (dict) - one item as returned as the result of a query
+        Returns:
+            None
         """
         url = result["link"]
         if url not in self.seen_urls:
@@ -151,11 +159,13 @@ class QueryExecutor:
 
     def checkContinue(self) -> bool:
         """
-        Check if we should continue querying
+        Evaluate if we have evaluated at least k tuples, ie continue or halt.
+        Parameters: None
+        Returns: bool (True if we need to find more relations, else False)
         """
         return len(self.extractor.relations) < self.k
 
-    def getNewQuery(self) -> str:
+    def getNewQuery(self) -> Optional[str]:
         """
         Creates a new query.
         Select from X a tuple y such that y has not been used for querying yet
@@ -164,8 +174,10 @@ class QueryExecutor:
         If no such y tuple exists, then stop/return None.
         (ISE has "stalled" before retrieving k high-confidence tuples.)
 
-        Parameters: None
-        Returns: query (str)
+        Parameters: 
+            None
+        Returns:
+            query (str) if available; else None
         """
         if self.gpt3:
             # Iterating through extracted tuples
@@ -180,33 +192,46 @@ class QueryExecutor:
                     # Setting new query
                     self.q = tmp_query
                     return self.q
+            # No valid query found
             return None
 
         elif self.spanbert:
+            # Sort by tuples by confidence
             rels = sorted(
                 self.extractor.relations.items(), key=lambda item: item[1], reverse=True
             )
+            # TODO: remove after testing
             pp = pprint.PrettyPrinter(indent=4)
             pp.pprint(rels)
+
             queryNotFound = True
             i = 0
             while queryNotFound:
+                # No valid query found
                 if i >= len(rels):
                     return None
                 subj_obj, _pred = rels[i]
                 tmp_query = " ".join(subj_obj)
 
+                # Checking if query has been used
                 if tmp_query not in self.used_queries:
                     queryNotFound = False
+                    # Adding query to used queries
                     self.used_queries.add(tmp_query)
+                    # Setting new query
                     self.q = tmp_query
                     return self.q
                 i += 1
-        return None
+        return
 
     def printRelations(self) -> None:
         """
-        Print the results of the query, relations
+        Print the results of the query, relations in table format
+        If -spanbert, sort by confidence (descending)
+        Parameters:
+            None
+        Returns:
+            None
         """
         print(
             f"================== ALL RELATIONS for {RELATIONS[self.r]} ( {len(self.extractor.relations)} ) ================="
