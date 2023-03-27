@@ -186,7 +186,8 @@ class QueryExecutor:
             rels = sorted(
                 self.extractor.relations.items(), key=lambda item: item[1], reverse=True
             )
-            pprint(rels)
+            pp = pprint.PrettyPrinter(indent=4)
+            pp.pprint(rels)
             queryNotFound = True
             i = 0
             while queryNotFound:
