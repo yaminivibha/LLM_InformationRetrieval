@@ -53,7 +53,10 @@ class QueryExecutor:
             if self.gpt3
             else spanBertPredictor(r=self.r)
         )
-        self.seen_relations = set()
+        if self.gpt3:
+            self.seen_relations = set()
+        elif self.spanbert:
+            self.seen_relations = dict()
 
     def printQueryParams(self) -> None:
         """
@@ -139,18 +142,6 @@ class QueryExecutor:
         except Exception as e:
             print(f"Error processing {url}: {e}")
             return None
-        if text:
-            preprocessed_text = (text[:10000]) if len(text) > 10000 else text
-
-            # Removing redundant newlines and some whitespace characters.
-            preprocessed_text = re.sub("\t+", " ", preprocessed_text)
-            preprocessed_text = re.sub("\n+", " ", preprocessed_text)
-            preprocessed_text = re.sub(" +", " ", preprocessed_text)
-            preprocessed_text = preprocessed_text.replace("\u200b", "")
-
-            return preprocessed_text
-        else:
-            return None
 
     def parseResult(self, result: Dict[str, str]) -> List[Tuple[str, str]]:
         """
@@ -163,7 +154,7 @@ class QueryExecutor:
             if not text:
                 return None
             entities = self.extractor.get_relations(text)
-            for entity in entities:
+            for entity in entities:    
                 if entity not in self.seen_relations:
                     self.seen_relations.add(entity)
         return self.seen_relations
@@ -210,12 +201,12 @@ class QueryExecutor:
             table.field_names = ["Subject", "Object"]
             table.add_rows(self.seen_relations)
         else:
-            # TODO: check on indexing of the tuple for spanbert
             table.field_names = ["Confidence", "Subject", "Object"]
             for rel in self.seen_relations:
                 table.add_row(
                     [f"Confidence:{rel[2]}", f"Subject: {rel[0]}", f"Object:{rel[1]}"]
                 )
+            
 
         print(table)
         return

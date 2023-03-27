@@ -7,6 +7,8 @@ from spanbert import SpanBERT
 import json
 from lib.utils import (ENTITIES_OF_INTEREST, RELATIONS,
                        SUBJ_OBJ_REQUIRED_ENTITIES)
+# pretty printing
+import pprint
 
 # spacy.cli.download("en_core_web_sm")
 
@@ -193,7 +195,8 @@ class spanBertPredictor:
             print("No annotations found...")
         print(f"{num_extracted_annotations} discovered...")
         #todo: fix types here (just want to print out to check if stuff is working)
-        print(json.dumps(self.relations))
+        # print(json.dumps(self.relations))
+        pprint.pprint(self.relations)
         return self.relations
 
     def extract_entity_relation_preds(
