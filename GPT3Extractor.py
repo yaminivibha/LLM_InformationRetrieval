@@ -1,19 +1,15 @@
 "GPT3 Extractor class"
 import json
+import re
+from typing import List, Set, Tuple
+
 import openai
 import spacy
-from typing import List, Tuple, Set
-import re
-from lib.utils import (
-    ENTITIES_OF_INTEREST,
-    RELATIONS,
-    SUBJ_OBJ_REQUIRED_ENTITIES,
-    PRONOUNS_AND_CONJUNCTIONS,
-    SEED_PROMPTS,
-    SEED_SENTENCES,
-    PROMPT_AIDS,
-)
 from spacy_help_functions import create_entity_pairs
+
+from lib.utils import (ENTITIES_OF_INTEREST, PROMPT_AIDS,
+                       PRONOUNS_AND_CONJUNCTIONS, RELATIONS, SEED_PROMPTS,
+                       SEED_SENTENCES, SUBJ_OBJ_REQUIRED_ENTITIES)
 
 
 class gpt3Extractor:
@@ -201,7 +197,10 @@ class gpt3Extractor:
                 or resultant_relation["obj"] == "N/A"
             ):
                 resultant_relation = None
-            if any(p in resultant_relation["subj"].lower() for p in PRONOUNS_AND_CONJUNCTIONS):
+            if any(
+                p in resultant_relation["subj"].lower()
+                for p in PRONOUNS_AND_CONJUNCTIONS
+            ):
                 resultant_relation = None
         except Exception:
             print(f"Error parsing GPT-3 output: {output_str}")

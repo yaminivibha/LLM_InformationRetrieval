@@ -1,7 +1,5 @@
 """Main executor file"""
 import argparse
-import os
-import sys
 
 from lib.utils import kValue, rValue, tValue
 from QueryExecutor import QueryExecutor

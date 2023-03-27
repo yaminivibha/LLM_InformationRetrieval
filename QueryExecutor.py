@@ -10,9 +10,8 @@ from googleapiclient.discovery import build
 from prettytable import PrettyTable
 
 from GPT3Extractor import gpt3Extractor
-from SpanBertExtractor import spanBertPredictor
 from lib.utils import RELATIONS
-
+from SpanBertExtractor import spanBertExtractor
 
 # HTML tags that we want to extract text from.
 blocks = ["p", "h1", "h2", "h3", "h4", "h5", "blockquote"]
@@ -51,12 +50,12 @@ class QueryExecutor:
         self.extractor = (
             gpt3Extractor(r=self.r, openai_key=self.openai_secret_key)
             if self.gpt3
-            else spanBertPredictor(r=self.r)
+            else spanBertExtractor(r=self.r)
         )
-        if self.gpt3:
-            self.seen_relations = set()
-        elif self.spanbert:
-            self.seen_relations = dict()
+        # if self.gpt3:
+        #     self.seen_relations = set()
+        # elif self.spanbert:
+        #     self.seen_relations = dict()
 
     def printQueryParams(self) -> None:
         """
@@ -146,39 +145,37 @@ class QueryExecutor:
             text = self.processText(url)
             if not text:
                 return None
-            entities = self.extractor.get_relations(text)
-            for entity in entities:
-                self.addRelation(entity)
-        return self.seen_relations
-
-    def addRelation(self, entity):
-        """
-        Adds a relation to self.seen_relations 
-        Depending on gpt3 or spanbert, the entity can include/exclude confidence
-        For spanbert, update confidence to highest possible for a given relation
-        Parameters:
-            entity: the entity to add
-        Returns:
-            None
-        """
-        if self.gpt3:
-            if entity not in self.seen_relations:
-                self.seen_relations.add(entity)
-        elif self.spanbert:
-            subj_obj, pred = entity
-            if subj_obj not in self.seen_relations:
-                self.seen_relations[subj_obj] = pred
-            elif self.seen_relations[subj_obj] < pred:
-                self.seen_relations[subj_obj] = pred
-            else:
-                pass
+            self.extractor.get_relations(text)
         return
+
+    # def addRelation(self, entity):
+    #     """
+    #     Adds a relation to self.seen_relations
+    #     Depending on gpt3 or spanbert, the entity can include/exclude confidence
+    #     For spanbert, update confidence to highest possible for a given relation
+    #     Parameters:
+    #         entity: the entity to add
+    #     Returns:
+    #         None
+    #     """
+    #     if self.gpt3:
+    #         if entity not in self.seen_relations:
+    #             self.seen_relations.add(entity)
+    #     elif self.spanbert:
+    #         subj_obj, pred = entity
+    #         if subj_obj not in self.seen_relations:
+    #             self.seen_relations[subj_obj] = pred
+    #         elif self.seen_relations[subj_obj] < pred:
+    #             self.seen_relations[subj_obj] = pred
+    #         else:
+    #             pass
+    #     return
 
     def checkContinue(self) -> bool:
         """
         Check if we should continue querying
         """
-        return len(self.seen_relations) < self.k
+        return len(self.extractor.relations) < self.k
 
     def getNewQuery(self) -> str:
         """
@@ -191,9 +188,13 @@ class QueryExecutor:
         """
 
         # Iterating through extracted tuples
-        for relation in list(self.seen_relations):
+        for relation in list(self.extractor.relations):
             # Constructing query
-            tmp_query = " ".join(relation)
+            if self.gpt3:
+                tmp_query = " ".join(relation)
+            elif self.spanbert:
+                subj_obj, pred = relation
+                tmp_query = " ".join(subj_obj)
             # Checking if query has been used
             if tmp_query not in self.used_queries:
                 # Adding query to used queries
@@ -208,16 +209,16 @@ class QueryExecutor:
         Print the results of the query, relations
         """
         print(
-            f"================== ALL RELATIONS for {RELATIONS[self.r]} ( {len(self.seen_relations)} ) ================="
+            f"================== ALL RELATIONS for {RELATIONS[self.r]} ( {len(self.extractor.relations)} ) ================="
         )
         table = PrettyTable()
         table.align = "l"
         if self.gpt3:
             table.field_names = ["Subject", "Object"]
-            table.add_rows(self.seen_relations)
+            table.add_rows(self.extractor.relations)
         else:
             table.field_names = ["Confidence", "Subject", "Object"]
-            for rel in self.seen_relations:
+            for rel in self.extractor.relations:
                 subj_obj, pred = rel
                 table.add_row([pred, subj_obj[0], subj_obj[1]])
         print(table)

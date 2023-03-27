@@ -1,19 +1,21 @@
-from typing import List, Tuple, Dict
+"SpanBertPredictor class"
+import json
+# pretty printing
+import pprint
+from typing import Dict, List, Tuple
 
 import openai
 import spacy
 from spacy_help_functions import create_entity_pairs, get_entities
 from spanbert import SpanBERT
-import json
+
 from lib.utils import (ENTITIES_OF_INTEREST, RELATIONS,
                        SUBJ_OBJ_REQUIRED_ENTITIES)
-# pretty printing
-import pprint
 
 # spacy.cli.download("en_core_web_sm")
 
 
-class spanBertPredictor:
+class spanBertExtractor:
     def __init__(self, r, model="en_core_web_sm"):
         """
         Initialize a spaCyExtractor object
@@ -67,7 +69,7 @@ class spanBertPredictor:
             if candidates == []:
                 continue
 
-            tokens = candidates[0]['tokens']
+            tokens = candidates[0]["tokens"]
             relation_preds = self.extract_entity_relation_preds(candidates)
             for ex, pred in list(relation_preds):
                 print(
@@ -102,22 +104,16 @@ class spanBertPredictor:
             None
         """
         if rel not in self.relations:
-                    self.relations[rel] = pred[1]
-                    self.print_relation(rel, pred[1], tokens, duplicate=False)
+            self.relations[rel] = pred[1]
+            self.print_relation(rel, pred[1], tokens, duplicate=False)
         else:
             if self.relations[rel] < pred[1]:
                 self.relations[rel] = pred[1]
-                self.print_relation(
-                    rel, pred[1], tokens, duplicate=True, status="<"
-                )
+                self.print_relation(rel, pred[1], tokens, duplicate=True, status="<")
             elif self.relations[rel] > pred[1]:
-                self.print_relation(
-                    rel, pred[1],tokens, duplicate=True, status=">"
-                )
+                self.print_relation(rel, pred[1], tokens, duplicate=True, status=">")
             else:
-                self.print_relation(
-                    rel, pred[1], tokens, duplicate=True, status="="
-                )
+                self.print_relation(rel, pred[1], tokens, duplicate=True, status="=")
         return
 
     def print_relation(
@@ -143,7 +139,7 @@ class spanBertPredictor:
                 print(
                     "                Duplicate with higher confidence than existing record. Updating record."
                 )
-                
+
             elif status == ">":
                 print(
                     "                Duplicate with lower confidence than existing record. Ignoring this."
@@ -194,7 +190,7 @@ class spanBertPredictor:
         if len(self.relations) == 0:
             print("No annotations found...")
         print(f"{num_extracted_annotations} discovered...")
-        #todo: fix types here (just want to print out to check if stuff is working)
+        # todo: fix types here (just want to print out to check if stuff is working)
         # print(json.dumps(self.relations))
         pprint.pprint(self.relations)
         return self.relations
@@ -215,6 +211,6 @@ class spanBertPredictor:
 
         # get predictions: list of (relation, confidence) pairs
         relation_preds = self.spanbert.predict(candidate_pairs)
-        return [(candidate_pairs[i], relation_preds[i]) for i in range(len(candidate_pairs))]
-         
-
+        return [
+            (candidate_pairs[i], relation_preds[i]) for i in range(len(candidate_pairs))
+        ]
