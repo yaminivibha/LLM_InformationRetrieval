@@ -49,9 +49,6 @@ class gpt3Extractor:
         print(
             f"        Extracted {num_sents} sentences. Processing each sentence one by one to check for presence of right pair of named entity types; if so, will run the second pipeline ..."
         )
-        print("Before we start...")
-        print("type(self.relations): {}".format(type(self.relations)))
-        print("self.relations: {}".format(self.relations))
 
         # Get tagged version of text from spaCy.
         target_candidate_pairs = self.extract_candidate_pairs(doc)
@@ -61,8 +58,6 @@ class gpt3Extractor:
             return []
         # print("target_candidate_pairs: {}".format(target_candidate_pairs))
         self.extract_entity_relations(target_candidate_pairs)
-        print(f"        Extracted relations: {self.relations}")
-        print(f"type(self.relations): {type(self.relations)}")
         return self.relations
 
     def extract_candidate_pairs(self, doc) -> Set[Tuple[str, str]]:
@@ -97,11 +92,6 @@ class gpt3Extractor:
                     continue
                 # If GPT-3 returns valid relation, check if it's a duplicate
                 output_tuple = (output["subj"], output["obj"])
-                print(
-                    "Checking types: type(self.relations): {}".format(
-                        type(self.relations)
-                    )
-                )
                 if output_tuple not in self.relations:
                     # If not a duplicate, add to set, print output
                     self.relations.add(output_tuple)
@@ -118,7 +108,6 @@ class gpt3Extractor:
         print(
             f"Relations extracted from this website: {extracted_annotations} (Overall: {len(self.relations)})"
         )
-        print(f"Checking types: type(self.relations): {type(self.relations)}")
         return self.relations
 
     def print_output_relation(self, sentence, output, duplicate):

@@ -7,11 +7,12 @@ import regex as re
 import requests
 from bs4 import BeautifulSoup
 from googleapiclient.discovery import build
+from prettytable import PrettyTable
 
 from GPT3Extractor import gpt3Extractor
 from SpanBertExtractor import spanBertPredictor
 from lib.utils import RELATIONS
-from prettytable import PrettyTable
+
 
 # HTML tags that we want to extract text from.
 blocks = ["p", "h1", "h2", "h3", "h4", "h5", "blockquote"]
@@ -184,11 +185,13 @@ class QueryExecutor:
             f"================== ALL RELATIONS for {RELATIONS[self.r]} ( {len(self.seen_relations)} ) ================="
         )
         table = PrettyTable()
+        table.align = "l"
         if self.gpt3:
-            for rel in self.seen_relations:
-                table.add_row([f"Subject: {rel[0]}", f"Object:{rel[1]}"])
+            table.field_names = ["Subject", "Object"]
+            table.add_rows(self.seen_relations)
         else:
             # TODO: check on indexing of the tuple for spanbert
+            table.field_names = ["Confidence", "Subject", "Object"]
             for rel in self.seen_relations:
                 table.add_row(
                     [f"Confidence:{rel[2]}", f"Subject: {rel[0]}", f"Object:{rel[1]}"]
