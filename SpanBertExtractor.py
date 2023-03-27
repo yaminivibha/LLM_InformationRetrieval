@@ -1,21 +1,17 @@
-import spacy
-from spanbert import SpanBERT
-from spacy_help_functions import get_entities, create_entity_pairs
-from lib.utils import (
-    ENTITIES_OF_INTEREST,
-    RELATIONS,
-    SEED_PROMPTS,
-    SEED_SENTENCES,
-    SUBJ_OBJ_REQUIRED_ENTITIES,
-    PROMPT_AIDS,
-)
+from typing import List, Tuple, Dict
+
 import openai
-from typing import List, Tuple
+import spacy
+from spacy_help_functions import create_entity_pairs, get_entities
+from spanbert import SpanBERT
+
+from lib.utils import (ENTITIES_OF_INTEREST, RELATIONS,
+                       SUBJ_OBJ_REQUIRED_ENTITIES)
 
 # spacy.cli.download("en_core_web_sm")
 
 
-class spaCyExtractor:
+class spanBertPredictor:
     def __init__(self, r, model="en_core_web_sm"):
         """
         Initialize a spaCyExtractor object
@@ -30,23 +26,23 @@ class spaCyExtractor:
         self.spanbert = SpanBERT("./SpanBERT/pretrained_spanbert")
         self.r = r
         self.total_extracted = 0
+        self.relations = {}
 
-    def extract_candidate_pairs(self, doc) -> List[Tuple[str, str]]:
+    def extract_candidate_pairs(self, doc):
         """
         Extract candidate pairs from a given document using spaCy
         parameters:
             doc: the document to extract candidate pairs from
         returns:
-            candidate_entity_pairs: a list of candidate entity pairs, where each pair is a dictionary
-                                    with the following keys:
+            self.relations: a list of:
                                         - tokens: the tokens in the sentence
                                         - subj: the subject entity
                                         - obj: the object entity
-                                        - sentence: the sentence
+                                        -
         """
-        candidate_entity_pairs = []
         num_sents = len(list(doc.sents))
-        num_annotated_sents = 0
+        extracted_sentences = 0
+        extracted_annotations = 0
 
         for i, sentence in enumerate(doc.sents):
             if i % 5 == 0 and i != 0:
@@ -66,28 +62,95 @@ class spaCyExtractor:
             # one entity pair that contains the required entities, as well as the total number of
             # extracted relations for a given webpage.
             candidates = self.filter_candidate_pairs(sentence_entity_pairs)
-            if candidates != []:
-                num_annotated_sents += 1
-            for candidate in candidates:
-                candidate["sentence"] = str(sentence)
-                candidate_entity_pairs.append(candidate)
+            if candidates == []:
+                continue
 
-                print(f"                === Extracted Relation ===")
-                print(f"                Input tokens: {candidate['tokens']}")
+            tokens = candidates[0]['tokens']
+            relation_preds = self.extract_entity_relation_preds(candidates)
+            for ex, pred in list(relation_preds):
                 print(
-                    f"                Output Confidence: FILLER ; Subject: {candidate['subj'][0]} ; Object: {candidate['obj'][0]} ;"
+                    "\tSubject: {}\tObject: {}\tRelation: {}\tConfidence: {:.2f}".format(
+                        ex["subj"][0], ex["obj"][0], pred[0], pred[1]
+                    )
                 )
-                # TODO: add subj obj pair to set.
-                # Discard if the subj obj pair is a duplicate with a lower confidence value.
-                print(f"                Adding to set of extracted relations")
-                print(f"                ==========")
+                rel = (ex["subj"][0], ex["obj"][0])
+                self.check_relation_prediction(rel, pred, tokens)
+            extracted_sentences += 1
+            extracted_annotations += len(relation_preds)
 
-        num_relations_extracted = len(candidate_entity_pairs)
-        self.total_extracted += num_relations_extracted
         print(
-            f"        Relations extracted from this website: {num_relations_extracted} (Overall: {self.total_extracted})"
+            f"Extracted annotations for  {extracted_sentences}  out of total  {num_sents}  sentences"
         )
-        return candidate_entity_pairs
+        print(
+            f"Relations extracted from this website: {extracted_annotations} (Overall: {len(self.relations)})"
+        )
+        return self.relations
+
+    def check_relation_prediction(self, rel, pred, tokens):
+        """
+        Checks if a relation has already been seen. 
+        If seen, checks if the confidence is higher than the previous one.
+        Confidence = max(confidence, previous confidence)
+    
+        Parameters:
+            rel: the relation to check
+            pred: the prediction of the relation
+            tokens: the tokens in the sentence
+        Returns:
+            None
+        """
+        if rel not in self.relations:
+                    self.relations[rel] = pred[1]
+                    self.print_relation(rel, pred[1], tokens, duplicate=False)
+        else:
+            if self.relations[rel] < pred[1]:
+                self.relations[rel] = pred[1]
+                self.print_relation(
+                    rel, pred[1], tokens, duplicate=True, status="<"
+                )
+            elif self.relations[rel] > pred[1]:
+                self.print_relation(
+                    rel, pred[1],tokens, duplicate=True, status=">"
+                )
+            else:
+                self.print_relation(
+                    rel, pred[1], tokens, duplicate=True, status="="
+                )
+        return
+
+    def print_relation(
+        self, relation, confidence, tokens, duplicate, status=None
+    ) -> None:
+        """
+        Print relation
+        Parameters:
+            relation: the relation to print
+            confidence: the confidence of the relation
+            tokens: the tokens in the sentence
+            duplicate: whether the relation is a duplicate
+        Returns:
+            None
+        """
+        print("                === Extracted Relation ===")
+        print(f"                Input tokens: {tokens}")
+        print(
+            f"                Output Confidence: {confidence} ; Subject: {relation[0]} ; Object: {relation[1]} ;"
+        )
+        if duplicate:
+            if status == "<":
+                print(
+                    "                Duplicate with lower confidence than existing record. Ignoring this."
+                )
+            elif status == ">":
+                print(
+                    "                Duplicate with higher confidence than existing record. Updating record."
+                )
+            else:
+                print(
+                    "                Duplicate with same confidence as existing record. Ignoring this."
+                )
+        print("                ==========")
+        return
 
     def filter_candidate_pairs(self, sentence_entity_pairs):
         # Create candidate pairs. Filter out subject-object pairs that
@@ -114,8 +177,6 @@ class spaCyExtractor:
         # print("Filtered target_candidate_paris: {}".format(target_candidate_pairs))
         return target_candidate_pairs
 
-
-class spanBertPredictor(spaCyExtractor):
     def get_relations(self, text: str) -> List[Tuple[str, str]]:
         """
         Exposed function to take in text and return named entities
@@ -125,7 +186,7 @@ class spanBertPredictor(spaCyExtractor):
             entities: a list of tuples of the form (subject, object)
         """
         doc = self.nlp(text)
-        print(f"        Annotating the webpage using spacy...")
+        print("        Annotating the webpage using spacy...")
         target_candidate_pairs = self.extract_candidate_pairs(doc)
         if len(target_candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")
@@ -134,13 +195,15 @@ class spanBertPredictor(spaCyExtractor):
         entities = self.extract_entity_relation_preds(target_candidate_pairs)
         return entities
 
-    def extract_entity_relation_preds(self, candidate_pairs):
+    def extract_entity_relation_preds(
+        self, candidate_pairs
+    ) -> List[Tuple[Tuple[str, str], str]]:
         """
         Extract entity relations and their confidence values from a given document using Spacy.
         Parameters:
             candidate_pairs: a list of candidate pairs to extract relations from
         Returns:
-            relation_preds: a list of tuples of the form (relation, confidence)
+            zip(candidate_pairs, relation_pairs):
         """
         if len(candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")
@@ -148,12 +211,5 @@ class spanBertPredictor(spaCyExtractor):
 
         # get predictions: list of (relation, confidence) pairs
         relation_preds = self.spanbert.predict(candidate_pairs)
-        # Print Extracted Relations
-        print("\nExtracted relations:")
-        for ex, pred in list(zip(candidate_pairs, relation_preds)):
-            print(
-                "\tSubject: {}\tObject: {}\tRelation: {}\tConfidence: {:.2f}".format(
-                    ex["subj"][0], ex["obj"][0], pred[0], pred[1]
-                )
-            )
-        return relation_preds
+        return [(candidate_pairs[i], relation_preds[i]) for i in range(len(candidate_pairs))]
+
