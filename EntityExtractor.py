@@ -1,5 +1,5 @@
 import spacy
-from lib.SpanBERT.spanbert import SpanBERT
+from spanbert import SpanBERT
 from lib.spacy_helper_functions import get_entities, create_entity_pairs
 from lib.utils import (
     ENTITIES_OF_INTEREST,
@@ -27,7 +27,7 @@ class spaCyExtractor:
             total_extracted: the total number of relations extracted
         """
         self.nlp = spacy.load(model)
-        self.spanbert = SpanBERT("./lib/SpanBERT/pretrained_spanbert")
+        self.spanbert = SpanBERT("./SpanBERT/pretrained_spanbert")
         self.r = r
         self.total_extracted = 0
 
