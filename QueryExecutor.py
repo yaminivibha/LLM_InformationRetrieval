@@ -140,6 +140,8 @@ class QueryExecutor:
         if url not in self.seen_urls:
             self.seen_urls.add(url)
             text = self.processText(url)
+            if not text:
+                return None
             entities = self.extractor.get_relations(text)
             for entity in entities:
                 if entity not in self.seen_relations:
