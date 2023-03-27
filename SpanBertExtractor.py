@@ -12,11 +12,12 @@ from lib.utils import (ENTITIES_OF_INTEREST, SUBJ_OBJ_REQUIRED_ENTITIES,
 
 
 class spanBertExtractor:
-    def __init__(self, r, model="en_core_web_sm"):
+    def __init__(self, r, t, model="en_core_web_sm"):
         """
         Initialize a spaCyExtractor object
         Parameters:
             r: the relation to extract
+            t: the extraction confidence threshold
             model: the spaCy model to use
         Instance Variables:
             nlp: the spaCy model
@@ -27,6 +28,7 @@ class spanBertExtractor:
         self.nlp = spacy.load(model)
         self.spanbert = SpanBERT("./SpanBERT/pretrained_spanbert")
         self.r = r
+        self.t = t
         self.total_extracted = 0
         self.relations = {}
 
@@ -105,6 +107,8 @@ class spanBertExtractor:
         # If it is, go on and check if there is a duplicate with a higher confidence.
         if pred[0] not in TARGET_RELATION_PREDS[self.r] or pred[0] == "no_relation":
             return
+        if pred[1] < self.t:
+            return  # Ignore if confidence is below threshold
 
         # Check if the relation has already been seen.
         if rel not in self.relations:
@@ -210,14 +214,11 @@ class spanBertExtractor:
             candidate_pairs: a list of candidate pairs to extract relations from
         Returns:
             candidate_relations: a list of tuples of the form ((subject, object), (relation, confidence))
-            (candidate_pairs, relation_pairs)
+            example: (('John', 'Apple'), ('Work_For', 0.9))
         """
         if len(candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")
             return []
-
-        # get predictions: list of (relation, confidence) pairs
-        # example: ('per:employee_of', 0.9832898),
         relation_preds = self.spanbert.predict(candidate_pairs)
 
         return [

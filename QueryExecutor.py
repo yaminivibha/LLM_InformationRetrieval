@@ -1,9 +1,8 @@
 """
 Query Executor class and methods
 """
-import pprint
 import re
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 import requests
 from bs4 import BeautifulSoup
@@ -200,9 +199,6 @@ class QueryExecutor:
             rels = sorted(
                 self.extractor.relations.items(), key=lambda item: item[1], reverse=True
             )
-            # TODO: remove after testing
-            pp = pprint.PrettyPrinter(indent=4)
-            pp.pprint(rels)
 
             queryNotFound = True
             i = 0
