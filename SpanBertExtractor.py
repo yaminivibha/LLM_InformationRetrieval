@@ -1,6 +1,6 @@
 import spacy
 from spanbert import SpanBERT
-from lib.spacy_helper_functions import get_entities, create_entity_pairs
+from spacy_help_functions import get_entities, create_entity_pairs
 from lib.utils import (
     ENTITIES_OF_INTEREST,
     RELATIONS,
