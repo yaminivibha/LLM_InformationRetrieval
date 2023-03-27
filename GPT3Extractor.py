@@ -118,7 +118,7 @@ class gpt3Extractor:
             print("                Duplicate. Ignoring this.")
         else:
             print("                Adding to set of extracted relations")
-        print("                 ==========")
+        print("                ==========")
 
     def filter_candidates_exist(self, sentence_entity_pairs: List) -> bool:
         """
@@ -201,7 +201,7 @@ class gpt3Extractor:
                 or resultant_relation["obj"] == "N/A"
             ):
                 resultant_relation = None
-            if resultant_relation["subj"].lower() in PRONOUNS:
+            if any(p in resultant_relation["subj"].lower() for p in PRONOUNS):
                 resultant_relation = None
         except Exception:
             resultant_relation = None
@@ -216,9 +216,7 @@ class gpt3Extractor:
             relations: a list of tuples of the form (subject, object)
         """
         prompt = self.construct_prompt(sentence)
-        # print("Prompt: {}".format(prompt))
         relation = self.gpt3_complete(prompt)
-        # print("Relation: {}".format(relation))
         return relation
 
     def gpt3_complete(self, prompt):

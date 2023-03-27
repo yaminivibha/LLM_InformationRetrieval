@@ -55,14 +55,10 @@ def main():
         print(f"=========== Iteration: {iterations} - Query: {executor.q} ===========")
         for i, item in enumerate(results):
             print(f"URL ( {i} / 10): {item['link']}")
-            print(f"title {i}: {item['title']}")
-            print(f"snippet {i}: {item['snippet']}")
-            print(f"relation pred pairs for {i}: {executor.parseResult(item)}")
+            executor.parseResult(item)
             if not executor.checkContinue():
                 iterate_further = False
                 break
-            # Remove this when testing on multiple documents
-            break
         iterations += 1
         if not executor.getNewQuery():
             print("No new queries to try")

@@ -136,17 +136,15 @@ class QueryExecutor:
         """
         Parse the result of a query
         """
-
         url = result["link"]
         if url not in self.seen_urls:
             self.seen_urls.add(url)
             text = self.processText(url)
             entities = self.extractor.get_relations(text)
-            print(f"Extracted Entities: {entities}")
             for entity in entities:
                 if entity not in self.seen_relations:
                     self.seen_relations.add(entity)
-        return list(self.seen_relations)
+        return self.seen_relations
 
     def checkContinue(self) -> bool:
         """
