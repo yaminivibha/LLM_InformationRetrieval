@@ -182,7 +182,6 @@ class spanBertExtractor:
         num_extracted_annotations = self.extract_candidate_pairs(doc)
         if len(self.relations) == 0:
             print("No annotations found...")
-        print(f"{num_extracted_annotations} discovered...")
         return self.relations
 
     def extract_entity_relation_preds(
