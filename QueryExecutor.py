@@ -83,14 +83,7 @@ class QueryExecutor:
         Source: https://github.com/googleapis/google-api-python-client/blob/main/samples/customsearch/main.py
         """
 
-        full_res = (
-            self.engine.cse()
-            .list(
-                q=query,
-                cx=self.google_engine_id,
-            )
-            .execute()
-        )
+        full_res = self.engine.cse().list(q=query, cx=self.google_engine_id,).execute()
 
         return full_res["items"][0 : k + 1]
 
@@ -154,10 +147,32 @@ class QueryExecutor:
             if not text:
                 return None
             entities = self.extractor.get_relations(text)
-            for entity in entities:    
-                if entity not in self.seen_relations:
-                    self.seen_relations.add(entity)
+            for entity in entities:
+                self.addRelation(entity)
         return self.seen_relations
+
+    def addRelation(self, entity):
+        """
+        Adds a relation to self.seen_relations 
+        Depending on gpt3 or spanbert, the entity can include/exclude confidence
+        For spanbert, update confidence to highest possible for a given relation
+        Parameters:
+            entity: the entity to add
+        Returns:
+            None
+        """
+        if self.gpt3:
+            if entity not in self.seen_relations:
+                self.seen_relations.add(entity)
+        elif self.spanbert:
+            subj_obj, pred = entity
+            if subj_obj not in self.seen_relations:
+                self.seen_relations[subj_obj] = pred
+            elif self.seen_relations[subj_obj] < pred:
+                self.seen_relations[subj_obj] = pred
+            else:
+                pass
+        return
 
     def checkContinue(self) -> bool:
         """
@@ -203,10 +218,7 @@ class QueryExecutor:
         else:
             table.field_names = ["Confidence", "Subject", "Object"]
             for rel in self.seen_relations:
-                table.add_row(
-                    [f"Confidence:{rel[2]}", f"Subject: {rel[0]}", f"Object:{rel[1]}"]
-                )
-            
-
+                subj_obj, pred = rel
+                table.add_row([pred, subj_obj[0], subj_obj[1]])
         print(table)
         return
