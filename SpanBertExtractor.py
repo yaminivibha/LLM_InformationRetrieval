@@ -71,11 +71,6 @@ class spanBertExtractor:
             tokens = candidates[0]["tokens"]
             relation_preds = self.extract_entity_relation_preds(candidates)
             for ex, pred in list(relation_preds):
-                print(
-                    "\tSubject: {}\tObject: {}\tRelation: {}\tConfidence: {:.2f}".format(
-                        ex["subj"][0], ex["obj"][0], pred[0], pred[1]
-                    )
-                )
                 rel = (ex["subj"][0], ex["obj"][0])
                 self.check_relation_prediction(rel, pred, tokens)
             extracted_sentences += 1

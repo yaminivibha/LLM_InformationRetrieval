@@ -1,9 +1,10 @@
 """
 S Executor class and methods
 """
+import pprint
+import re
 from typing import Dict, List, Tuple
 
-import regex as re
 import requests
 from bs4 import BeautifulSoup
 from googleapiclient.discovery import build
@@ -160,25 +161,46 @@ class QueryExecutor:
         Select from X a tuple y such that y has not been used for querying yet
         Create a query q from tuple y by concatenating
         the attribute values together.
-        If no such y tuple exists, then stop.
+        If no such y tuple exists, then stop/return None.
         (ISE has "stalled" before retrieving k high-confidence tuples.)
-        """
 
-        # Iterating through extracted tuples
-        for relation in list(self.extractor.relations):
-            # Constructing query
-            if self.gpt3:
-                tmp_query = " ".join(relation)
-            elif self.spanbert:
-                subj_obj, pred = relation
+        Parameters: None
+        Returns: query (str)
+        """
+        if self.gpt3:
+            # Iterating through extracted tuples
+            for relation in list(self.extractor.relations):
+                # Constructing query
+                if self.gpt3:
+                    tmp_query = " ".join(relation)
+                # Checking if query has been used
+                if tmp_query not in self.used_queries:
+                    # Adding query to used queries
+                    self.used_queries.add(relation)
+                    # Setting new query
+                    self.q = tmp_query
+                    return self.q
+            return None
+
+        elif self.spanbert:
+            rels = sorted(
+                self.extractor.relations.items(), key=lambda item: item[1], reverse=True
+            )
+            pprint(rels)
+            queryNotFound = True
+            i = 0
+            while queryNotFound:
+                if i >= len(rels):
+                    return None
+                subj_obj, _pred = rels[i]
                 tmp_query = " ".join(subj_obj)
-            # Checking if query has been used
-            if tmp_query not in self.used_queries:
-                # Adding query to used queries
-                self.used_queries.add(relation)
-                # Setting new query
-                self.q = tmp_query
-                return self.q
+
+                if tmp_query not in self.used_queries:
+                    queryNotFound = False
+                    self.used_queries.add(tmp_query)
+                    self.q = tmp_query
+                    return self.q
+                i += 1
         return None
 
     def printRelations(self) -> None:
