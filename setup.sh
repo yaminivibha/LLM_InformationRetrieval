@@ -6,12 +6,13 @@ pip3 install -U pip setuptools wheel
 pip3 install beautifulsoup4 
 pip3 install google-api-python-client
 pip3 install openAI
-pip3 install prettytables
+pip3 install prettytable
 pip3 install pytorch-pretrained-bert
 pip3 install -U spacy
 pip3 install torch
 
 python3 -m spacy download en_core_web_lg
+python3 -m spacy download en_core_web_sm
 
 git clone https://github.com/zackhuiiiii/SpanBERT/
 cd SpanBERT
