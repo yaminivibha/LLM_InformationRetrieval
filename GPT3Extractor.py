@@ -97,7 +97,11 @@ class gpt3Extractor:
                     continue
                 # If GPT-3 returns valid relation, check if it's a duplicate
                 output_tuple = (output["subj"], output["obj"])
-                print("Checking types: type(self.relations): {}".format(type(self.relations)))
+                print(
+                    "Checking types: type(self.relations): {}".format(
+                        type(self.relations)
+                    )
+                )
                 if output_tuple not in self.relations:
                     # If not a duplicate, add to set, print output
                     self.relations.add(output_tuple)
