@@ -5,7 +5,8 @@ import spacy
 from spacy_help_functions import create_entity_pairs, get_entities
 from spanbert import SpanBERT
 
-from lib.utils import ENTITIES_OF_INTEREST, SUBJ_OBJ_REQUIRED_ENTITIES, TARGET_RELATION_PREDS
+from lib.utils import (ENTITIES_OF_INTEREST, SUBJ_OBJ_REQUIRED_ENTITIES,
+                       TARGET_RELATION_PREDS)
 
 # spacy.cli.download("en_core_web_sm")
 
@@ -43,8 +44,10 @@ class spanBertExtractor:
         """
         num_sents = len(list(doc.sents))
         extracted_sentences = 0
-        extracted_annotations = 0     
-        print(f"        Extracted {num_sents} sentences. Processing each sentence one by one to check for presence of right pair of named entity types; if so, will run the second pipeline ...")
+        extracted_annotations = 0
+        print(
+            f"        Extracted {num_sents} sentences. Processing each sentence one by one to check for presence of right pair of named entity types; if so, will run the second pipeline ..."
+        )
 
         for i, sentence in enumerate(doc.sents):
             if i % 5 == 0 and i != 0:
@@ -101,9 +104,8 @@ class spanBertExtractor:
         # Check if the relation is the target relation.
         # If it is, go on and check if there is a duplicate with a higher confidence.
         if pred[0] not in TARGET_RELATION_PREDS[self.r] or pred[0] == "no_relation":
-            # print(f"!! not in target relation : {pred[0]})")
             return
-        
+
         # Check if the relation has already been seen.
         if rel not in self.relations:
             self.relations[rel] = pred[1]
@@ -116,7 +118,7 @@ class spanBertExtractor:
                 self.print_relation(rel, pred[1], tokens, duplicate=True, status=">")
             else:
                 self.print_relation(rel, pred[1], tokens, duplicate=True, status="=")
-        
+
         return
 
     def print_relation(
@@ -154,10 +156,16 @@ class spanBertExtractor:
         print("                ==========")
         return
 
-    def filter_candidate_pairs(self, sentence_entity_pairs):
-        # Create candidate pairs. Filter out subject-object pairs that
-        # aren't the right type for the target relation.
-        # (e.g. don't include anything that's not Person:Organization for the "Work_For" relation)
+    def filter_candidate_pairs(self, sentence_entity_pairs: List[Dict]) -> List[Dict]:
+        """
+        Create candidate pairs. Filter out subject-object pairs that
+        aren't the right type for the target relation.
+        (e.g. don't include anything that's not Person:Organization for the "Work_For" relation)
+        Parameters:
+            sentence_entity_pairs: a list of entity pairs in a sentence
+        Returns:    
+            target_candidate_pairs: a list of entity pairs that are the right types of sub/ob for the target relation
+        """
         candidate_pairs = []
         target_candidate_pairs = []
         for ep in sentence_entity_pairs:
@@ -195,13 +203,14 @@ class spanBertExtractor:
 
     def extract_entity_relation_preds(
         self, candidate_pairs
-    ) -> List[Tuple[Tuple[str, str], str]]:
+    ) -> List[Tuple[Tuple[str, str], Tuple[str, float]]]:
         """
         Extract entity relations and their confidence values from a given document using Spacy.
         Parameters:
             candidate_pairs: a list of candidate pairs to extract relations from
         Returns:
-            zip(candidate_pairs, relation_pairs):
+            candidate_relations: a list of tuples of the form ((subject, object), (relation, confidence))
+            (candidate_pairs, relation_pairs)
         """
         if len(candidate_pairs) == 0:
             print("No candidate pairs found. Returning empty list.")
@@ -210,7 +219,7 @@ class spanBertExtractor:
         # get predictions: list of (relation, confidence) pairs
         # example: ('per:employee_of', 0.9832898),
         relation_preds = self.spanbert.predict(candidate_pairs)
-        # print(relation_preds)
+
         return [
             (candidate_pairs[i], relation_preds[i]) for i in range(len(candidate_pairs))
         ]

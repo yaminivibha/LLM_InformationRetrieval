@@ -245,6 +245,7 @@ class QueryExecutor:
             table.field_names = ["Confidence", "Subject", "Object"]
             for subj_obj, pred in self.extractor.relations.items():
                 table.add_row([pred, subj_obj[0], subj_obj[1]])
+            # Sort by confidence, descending
             table.sortby = "Confidence"
             table.reversesort = True
         print(table)
