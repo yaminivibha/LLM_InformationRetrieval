@@ -1,5 +1,39 @@
 import argparse
 
+PRONOUNS = [
+    "and",
+    "he",
+    "she",
+    "him",
+    "her",
+    "his",
+    "hers",
+    "himself",
+    "herself",
+    "they",
+    "them",
+    "their",
+    "theirs",
+    "themselves",
+    "it",
+    "its",
+    "itself",
+    "i",
+    "me",
+    "my",
+    "mine",
+    "myself",
+    "we",
+    "us",
+    "our",
+    "ours",
+    "ourselves",
+    "you",
+    "your",
+    "yours",
+    "yourself",
+    "yourselves",
+]
 ENTITIES_OF_INTEREST = {
     0: ["PERSON", "ORGANIZATION", "LOCATION", "CITY", "STATE_OR_PROVINCE", "COUNTRY"],
     1: ["PERSON", "ORGANIZATION"],
@@ -16,23 +50,23 @@ RELATIONS = {
 }
 
 SEED_PROMPTS = {
-    1: '[PERSON: "Jeff Bezos, RELATION: "Schools_Attended", ORGANIZATION: "Princeton University"]',
-    2: '[PERSION: "Alec Radford", RELATION: "Work_For", ORGANIZATION:"OpenAI"]',
-    3: '[PERSON:"Mariah Carey", RELATION:"Live_In", LOCATION:"New York City"]',
-    4: '[ORGANIZATION: "Nvidia", "Top_Member_Employees", PERSON: "Jensen Huang"]',
+    1: '{"PERSON": "Jeff Bezos", "RELATION": "Schools_Attended", "ORGANIZATION": "Princeton University"}',
+    2: '{"PERSON": "Alec Radford", "RELATION": "Work_For", "ORGANIZATION":"OpenAI"}',
+    3: '{"PERSON":"Mariah Carey", "RELATION":"Live_In", LOCATION:"New York City"}',
+    4: '{"ORGANIZATION": "Nvidia","RELATION":"Top_Member_Employees", "PERSON": "Jensen Huang"}',
 }
 SEED_SENTENCES = {
-    1: "Jeff Bezos is an alumnus of Princeton University.",
+    1: "Jeff Bezos graduated from Princeton University.",
     2: "Alec Radford has recently announced he will switch employers to OpenAI.",
     3: "Mariah Carey has a home in Manhattan, New York City.",
     4: "Jensen Huang is the CEO of Nvidia.",
 }
 
 PROMPT_AIDS = {
-    1: "PERSON Schools_Attended SCHOOL. Output the following: [PERSON:PERSON, RELATION:Schools_Attended, ORGANIZATION:SCHOOL]",
-    2: "PERSON Work_For COMPANY. Output the following: [PERSON:PERSON, RELATION:Work_For, ORGANIZATION:COMPANY]",
-    3: "PERSON Live_In LOCATION. Output the following: [PERSON:PERSON, RELATION:Live_In, LOCATION:LOCATION]",
-    4: "COMPANY Top_Member_Employees PERSON. Output the following: [ORGANIZATION:COMPANY, RELATION:Top_Member_Employees, PERSON:PERSON]",
+    1: "PERSON Schools_Attended SCHOOL. Output the following: [PERSON:PERSON, RELATION:Schools_Attended, ORGANIZATION:SCHOOL]. ORGANIZATION is a School, like a University or College.",
+    2: "PERSON Work_For COMPANY. Output the following: [PERSON:PERSON, RELATION:Work_For, ORGANIZATION:COMPANY]. ORGANIZATION is a Company.",
+    3: "PERSON Live_In LOCATION. Output the following: [PERSON:PERSON, RELATION:Live_In, LOCATION:LOCATION]. LOCATION is a real world location - like a City, State, or Country.",
+    4: "COMPANY Top_Member_Employees PERSON. Output the following: [ORGANIZATION:COMPANY, RELATION:Top_Member_Employees, PERSON:PERSON]. ORGANIZATION is a Company.",
 }
 
 SUBJ_OBJ_REQUIRED_ENTITIES = {

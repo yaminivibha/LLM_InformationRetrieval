@@ -1,11 +1,9 @@
 """Main executor file"""
+import argparse
 import os
 import sys
-import argparse
 
-# import rValue from utils
-
-from lib.utils import rValue, tValue, kValue
+from lib.utils import kValue, rValue, tValue
 from QueryExecutor import QueryExecutor
 
 
@@ -49,17 +47,25 @@ def main():
     # TODO: printQueryParams before loading the libraries. Laggy rn.
     print("Loading necessary libraries; This should take a minute or so ...\n")
 
-    # # Initialize the extracted tuples.
-    X = set()
-
-    # # Get the top 10 results for the query
-    results = executor.getQueryResult(executor.q, 10)
-    print(f"=========== Iteration: 0 - Query: {executor.q} ===========\n")
-    for i, item in enumerate(results):
-        print(f"URL ( {i + 1} / 10): {item['link']}")
-        print(f"relation pred pairs for {i + 1}: {executor.parseResult(item)}")
-        break
-    print()
+    iterate_further = True
+    iterations = 0
+    while iterate_further:
+        # Get the top 10 results for the current query
+        results = executor.getQueryResult(executor.q, 10)
+        print(f"=========== Iteration: {iterations} - Query: {executor.q} ===========")
+        for i, item in enumerate(results):
+            print(f"URL ( {i+1} / 10): {item['link']}")
+            executor.parseResult(item)
+            if not executor.checkContinue():
+                iterate_further = False
+                break
+        iterations += 1
+        if not executor.getNewQuery():
+            print("No new queries to try")
+            print("Exiting ...")
+            break
+    executor.printRelations()
+    print(f"Total # of iterations = {iterations}")
 
 
 if __name__ == "__main__":
