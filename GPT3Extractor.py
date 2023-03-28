@@ -7,9 +7,15 @@ import openai
 import spacy
 from spacy_help_functions import create_entity_pairs
 
-from lib.utils import (ENTITIES_OF_INTEREST, PROMPT_AIDS,
-                       PRONOUNS_AND_CONJUNCTIONS, RELATIONS, SEED_PROMPTS,
-                       SEED_SENTENCES, SUBJ_OBJ_REQUIRED_ENTITIES)
+from lib.utils import (
+    ENTITIES_OF_INTEREST,
+    PROMPT_AIDS,
+    PRONOUNS_AND_CONJUNCTIONS,
+    RELATIONS,
+    SEED_PROMPTS,
+    SEED_SENTENCES,
+    SUBJ_OBJ_REQUIRED_ENTITIES,
+)
 
 
 class gpt3Extractor:

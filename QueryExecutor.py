@@ -1,7 +1,7 @@
 """
 Query Executor class and methods
 """
-import pprint
+# import pprint
 import re
 from typing import Dict, List, Optional, Tuple
 
@@ -53,7 +53,7 @@ class QueryExecutor:
         self.extractor = (
             gpt3Extractor(r=self.r, openai_key=self.openai_secret_key)
             if self.gpt3
-            else spanBertExtractor(r=self.r)
+            else spanBertExtractor(r=self.r, t=self.t)
         )
 
     def printQueryParams(self) -> None:
@@ -85,7 +85,14 @@ class QueryExecutor:
         Source: https://github.com/googleapis/google-api-python-client/blob/main/samples/customsearch/main.py
         """
 
-        full_res = self.engine.cse().list(q=query, cx=self.google_engine_id,).execute()
+        full_res = (
+            self.engine.cse()
+            .list(
+                q=query,
+                cx=self.google_engine_id,
+            )
+            .execute()
+        )
 
         return full_res["items"][0 : k + 1]
 
@@ -96,11 +103,11 @@ class QueryExecutor:
 
         Extracts the plain text from the URL using Beautiful Soup.
         If the resulting plain text is longer than 10,000 characters, it is truncated.
-        Only the text in the <p> tags is processed. 
+        Only the text in the <p> tags is processed.
 
-        Parameters: 
+        Parameters:
             url (str) - the URL to process
-        Returns: 
+        Returns:
             List[str] - the list of tokens
         """
 
@@ -142,8 +149,8 @@ class QueryExecutor:
     def parseResult(self, result: Dict[str, str]) -> None:
         """
         Parse the result of a query.
-        Exposed function for use by main function. 
-        Parameters: 
+        Exposed function for use by main function.
+        Parameters:
             result (dict) - one item as returned as the result of a query
         Returns:
             None
@@ -174,7 +181,7 @@ class QueryExecutor:
         If no such y tuple exists, then stop/return None.
         (ISE has "stalled" before retrieving k high-confidence tuples.)
 
-        Parameters: 
+        Parameters:
             None
         Returns:
             query (str) if available; else None
@@ -201,8 +208,8 @@ class QueryExecutor:
                 self.extractor.relations.items(), key=lambda item: item[1], reverse=True
             )
             # TODO: remove after testing
-            pp = pprint.PrettyPrinter(indent=4)
-            pp.pprint(rels)
+            # pp = pprint.PrettyPrinter(indent=4)
+            # pp.pprint(rels)
 
             queryNotFound = True
             i = 0
