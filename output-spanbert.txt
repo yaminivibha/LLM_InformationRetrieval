@@ -1,0 +1,224 @@
+Loading pre-trained spanBERT from ./SpanBERT/pretrained_spanbert
+Parameters:
+Client key      = AIzaSyDQTz-AzhWHv-Qbk3ADyPG4hFb3Z6PkLHM
+Engine key      = 45add40315937647f
+OpenAI key      = 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
+Relation        = Work_For
+Method          = spanbert
+Threshold       = 0.7
+Query           = bill gates microsoft
+# of Tuples     = 10
+Loading necessary libraries; This should take a minute or so ...
+
+=========== Iteration: 0 - Query: bill gates microsoft ===========
+URL ( 1 / 10): https://en.wikipedia.org/wiki/Bill_Gates
+        Fetching text from url ...
+        Trimming webpage content from 48680 to 10000 characters
+        Webpage length (num characters): 10000
+        Annotating the webpage using spacy...
+        Extracted 64 sentences. Processing each sentence one by one to check for presence of right pair of named entity types; if so, will run the second pipeline ...
+                === Extracted Relation ===
+                Input tokens: ['founder', 'of', 'Microsoft', ',', 'along', 'with', 'his', 'late', 'childhood', 'friend', 'Paul', 'Allen.[2][3', ']']
+                Output Confidence: 0.8564815521240234 ; Subject: Paul Allen.[2][3 ; Object: Microsoft ;
+                ==========
+        Processed 5 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['he', 'and', 'Allen', 'founded', 'Microsoft', 'in', 'Albuquerque', ',']
+                Output Confidence: 0.9881677627563477 ; Subject: Allen ; Object: Microsoft ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'transitioned', 'to', 'a', 'part', '-', 'time', 'role', 'at', 'Microsoft', 'and', 'full', '-', 'time', 'work', 'at', 'the', 'Bill', '&', 'Melinda', 'Gates', 'Foundation', ',', 'the', 'private', 'charitable', 'foundation', 'he', 'and', 'his', 'then', '-', 'wife', 'Melinda', 'established', 'in', '2000.[10', ']']
+                Output Confidence: 0.9498459100723267 ; Subject: Melinda ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'transitioned', 'to', 'a', 'part', '-', 'time', 'role', 'at', 'Microsoft', 'and', 'full', '-', 'time', 'work', 'at', 'the', 'Bill', '&', 'Melinda', 'Gates', 'Foundation', ',', 'the', 'private', 'charitable', 'foundation', 'he', 'and', 'his', 'then', '-', 'wife', 'Melinda', 'established', 'in', '2000.[10', ']']
+                Output Confidence: 0.8871971964836121 ; Subject: Melinda ; Object: Microsoft ;
+                ==========
+        Processed 10 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['He', 'stepped', 'down', 'as', 'chairman', 'of', 'the', 'board', 'of', 'Microsoft', 'in', 'February', '2014', 'and', 'assumed', 'a', 'new', 'post', 'as', 'technology', 'adviser', 'to', 'support', 'the', 'newly', 'appointed', 'CEO', 'Satya', 'Nadella.[11', ']']
+                Output Confidence: 0.9970707893371582 ; Subject: Satya ; Object: Microsoft ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'left', 'his', 'board', 'positions', 'at', 'Microsoft', 'and', 'Berkshire', 'Hathaway', 'to', 'focus', 'on', 'his', 'philanthropic', 'efforts', 'on', 'climate', 'change', ',']
+                Output Confidence: 0.9044393301010132 ; Subject: Hathaway ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'left', 'his', 'board', 'positions', 'at', 'Microsoft', 'and', 'Berkshire', 'Hathaway', 'to', 'focus', 'on', 'his', 'philanthropic', 'efforts', 'on', 'climate', 'change', ',']
+                Output Confidence: 0.8837416768074036 ; Subject: Hathaway ; Object: Microsoft ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['he', 'was', 'surpassed', 'by', 'Amazon', 'founder', 'and', 'CEO', 'Jeff', 'Bezos', ',']
+                Output Confidence: 0.9970470070838928 ; Subject: Jeff Bezos ; Object: Amazon ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['he', 'was', 'surpassed', 'by', 'Amazon', 'founder', 'and', 'CEO', 'Jeff', 'Bezos', ',']
+                Output Confidence: 0.9961498379707336 ; Subject: Jeff Bezos ; Object: Gates ;
+                ==========
+        Processed 15 / 64 sentences
+        Processed 20 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['Gates', "'s", 'maternal', 'grandfather', 'was', 'J.', 'W.', 'Maxwell', ',']
+                Output Confidence: 0.978203535079956 ; Subject: J. W. Maxwell ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'has', 'an', 'older', 'sister', 'Kristi', '(']
+                Output Confidence: 0.8117229342460632 ; Subject: Kristi ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'has', 'an', 'older', 'sister', 'Kristi', '(']
+                Output Confidence: 0.9607895016670227 ; Subject: Kristianne ; Object: Gates ;
+                ==========
+        Processed 25 / 64 sentences
+        Processed 30 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['One', 'of', 'these', 'systems', 'was', 'a', 'PDP-10', 'belonging', 'to', 'Computer', 'Center', 'Corporation', '(', 'CCC', ')', 'which', 'banned', 'Gates', ',', 'Paul', 'Allen', ',']
+                Output Confidence: 0.9985000491142273 ; Subject: Paul Allen ; Object: Computer Center Corporation ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['One', 'of', 'these', 'systems', 'was', 'a', 'PDP-10', 'belonging', 'to', 'Computer', 'Center', 'Corporation', '(', 'CCC', ')', 'which', 'banned', 'Gates', ',', 'Paul', 'Allen', ',']
+                Output Confidence: 0.9970765113830566 ; Subject: Kent Evans ; Object: Computer Center Corporation ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['One', 'of', 'these', 'systems', 'was', 'a', 'PDP-10', 'belonging', 'to', 'Computer', 'Center', 'Corporation', '(', 'CCC', ')', 'which', 'banned', 'Gates', ',', 'Paul', 'Allen', ',']
+                Output Confidence: 0.9986733794212341 ; Subject: Paul Allen ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['One', 'of', 'these', 'systems', 'was', 'a', 'PDP-10', 'belonging', 'to', 'Computer', 'Center', 'Corporation', '(', 'CCC', ')', 'which', 'banned', 'Gates', ',', 'Paul', 'Allen', ',']
+                Output Confidence: 0.9992392659187317 ; Subject: Kent Evans ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['One', 'of', 'these', 'systems', 'was', 'a', 'PDP-10', 'belonging', 'to', 'Computer', 'Center', 'Corporation', '(', 'CCC', ')', 'which', 'banned', 'Gates', ',', 'Paul', 'Allen', ',']
+                Output Confidence: 0.9881017804145813 ; Subject: Paul Allen ; Object: Gates ;
+                Duplicate with lower confidence than existing record. Ignoring this.
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['One', 'of', 'these', 'systems', 'was', 'a', 'PDP-10', 'belonging', 'to', 'Computer', 'Center', 'Corporation', '(', 'CCC', ')', 'which', 'banned', 'Gates', ',', 'Paul', 'Allen', ',']
+                Output Confidence: 0.999517560005188 ; Subject: Kent Evans ; Object: Gates ;
+                Duplicate with higher confidence than existing record. Updating record.
+                ==========
+        Processed 35 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['a', 'Lakeside', 'teacher', 'enlisted', 'Gates', 'and', 'Evans', 'to', 'automate', 'the', 'school', "'s", 'class', '-']
+                Output Confidence: 0.9978251457214355 ; Subject: Evans ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Evans', 'was', 'killed', 'in', 'a', 'mountain', 'climbing', 'accident', ',', 'which', 'Gates', 'has', 'described', 'as', 'one', 'of', 'the', 'saddest', 'days', 'of', 'his', 'life', '.']
+                Output Confidence: 0.9996004700660706 ; Subject: Evans ; Object: Gates ;
+                Duplicate with higher confidence than existing record. Updating record.
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'formed', 'a', 'venture', 'with', 'Allen', 'called', 'Traf', '-']
+                Output Confidence: 0.9996281266212463 ; Subject: Allen ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'formed', 'a', 'venture', 'with', 'Allen', 'called', 'Traf', '-']
+                Output Confidence: 0.9960177540779114 ; Subject: Traf-O-Data ; Object: Gates ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'formed', 'a', 'venture', 'with', 'Allen', 'called', 'Traf', '-']
+                Output Confidence: 0.9998369216918945 ; Subject: Allen ; Object: Intel ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'formed', 'a', 'venture', 'with', 'Allen', 'called', 'Traf', '-']
+                Output Confidence: 0.9998226165771484 ; Subject: Traf-O-Data ; Object: Intel ;
+                ==========
+        Processed 40 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['While', 'at', 'Harvard', ',', 'he', 'met', 'fellow', 'student', 'Steve', 'Ballmer', '.']
+                Output Confidence: 0.989259660243988 ; Subject: Steve Ballmer ; Object: Harvard ;
+                ==========
+        Processed 45 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'remained', 'in', 'contact', 'with', 'Paul', 'Allen', 'and', 'joined', 'him', 'at', 'Honeywell', 'during', 'the', 'summer', 'of', '1974.[50', ']']
+                Output Confidence: 0.9970356225967407 ; Subject: Paul Allen ; Object: Honeywell ;
+                ==========
+        Processed 50 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['the', 'MITS', 'Altair', '8800', 'was', 'released', 'based', 'on', 'the', 'Intel', '8080', 'CPU', ',', 'and', 'Gates', 'and', 'Allen', 'saw', 'the', 'opportunity', 'to', 'start', 'their', 'own', 'computer', 'software', 'company.[51', ']']
+                Output Confidence: 0.9996290802955627 ; Subject: Allen ; Object: Intel ;
+                Duplicate with lower confidence than existing record. Ignoring this.
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['the', 'MITS', 'Altair', '8800', 'was', 'released', 'based', 'on', 'the', 'Intel', '8080', 'CPU', ',', 'and', 'Gates', 'and', 'Allen', 'saw', 'the', 'opportunity', 'to', 'start', 'their', 'own', 'computer', 'software', 'company.[51', ']']
+                Output Confidence: 0.9994489550590515 ; Subject: Allen ; Object: CPU ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['the', 'MITS', 'Altair', '8800', 'was', 'released', 'based', 'on', 'the', 'Intel', '8080', 'CPU', ',', 'and', 'Gates', 'and', 'Allen', 'saw', 'the', 'opportunity', 'to', 'start', 'their', 'own', 'computer', 'software', 'company.[51', ']']
+                Output Confidence: 0.9786645174026489 ; Subject: Allen ; Object: Gates ;
+                Duplicate with lower confidence than existing record. Ignoring this.
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['the', 'MITS', 'Altair', '8800', 'was', 'released', 'based', 'on', 'the', 'Intel', '8080', 'CPU', ',', 'and', 'Gates', 'and', 'Allen', 'saw', 'the', 'opportunity', 'to', 'start', 'their', 'own', 'computer', 'software', 'company.[51', ']']
+                Output Confidence: 0.9777455925941467 ; Subject: Allen ; Object: Gates ;
+                Duplicate with lower confidence than existing record. Ignoring this.
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['the', 'MITS', 'Altair', '8800', 'was', 'released', 'based', 'on', 'the', 'Intel', '8080', 'CPU', ',', 'and', 'Gates', 'and', 'Allen', 'saw', 'the', 'opportunity', 'to', 'start', 'their', 'own', 'computer', 'software', 'company.[51', ']']
+                Output Confidence: 0.9920986890792847 ; Subject: Allen ; Object: Harvard ;
+                ==========
+        Processed 55 / 64 sentences
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'and', 'Allen', 'did', 'not', 'have', 'an', 'Altair', 'and', 'had', 'not', 'written', 'code', 'for', 'it', ';']
+                Output Confidence: 0.9998140335083008 ; Subject: Allen ; Object: Gates ;
+                Duplicate with higher confidence than existing record. Updating record.
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'and', 'Allen', 'did', 'not', 'have', 'an', 'Altair', 'and', 'had', 'not', 'written', 'code', 'for', 'it', ';']
+                Output Confidence: 0.9985781311988831 ; Subject: Allen ; Object: Altair ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Gates', 'and', 'Allen', 'did', 'not', 'have', 'an', 'Altair', 'and', 'had', 'not', 'written', 'code', 'for', 'it', ';']
+                Output Confidence: 0.9996767640113831 ; Subject: Allen ; Object: MITS ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['MITS', 'president', 'Ed', 'Roberts', 'agreed', 'to', 'meet', 'them', 'for', 'a', 'demonstration', ',', 'and', 'over', 'the', 'course', 'of', 'a', 'few', 'weeks', 'they', 'developed', 'an', 'Altair', 'emulator', 'that', 'ran', 'on', 'a', 'minicomputer', ',']
+                Output Confidence: 0.9998540878295898 ; Subject: Ed Roberts ; Object: Altair ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['MITS', 'president', 'Ed', 'Roberts', 'agreed', 'to', 'meet', 'them', 'for', 'a', 'demonstration', ',', 'and', 'over', 'the', 'course', 'of', 'a', 'few', 'weeks', 'they', 'developed', 'an', 'Altair', 'emulator', 'that', 'ran', 'on', 'a', 'minicomputer', ',']
+                Output Confidence: 0.9998664855957031 ; Subject: Ed Roberts ; Object: BASIC ;
+                ==========
+                === Extracted Relation ===
+                Input tokens: ['Allen', 'named', 'their', 'partnership', '"', 'Micro', '-', 'Soft', '"']
+                Output Confidence: 0.9987838268280029 ; Subject: Allen ; Object: Micro-Soft ;
+                ==========
+        Processed 60 / 64 sentences
+Extracted annotations for  21  out of total  64  sentences
+Relations extracted from this website: 41 (Overall: 30)
+================== ALL RELATIONS for Work_For ( 30 ) =================
++------------+------------------+-----------------------------+
+| Confidence |     Subject      |            Object           |
++------------+------------------+-----------------------------+
+| 0.9998665  |    Ed Roberts    |            BASIC            |
+| 0.9998541  |    Ed Roberts    |            Altair           |
+| 0.9998369  |      Allen       |            Intel            |
+| 0.9998226  |   Traf-O-Data    |            Intel            |
+| 0.99981403 |      Allen       |            Gates            |
+| 0.99967676 |      Allen       |             MITS            |
+| 0.99960047 |      Evans       |            Gates            |
+| 0.99951756 |    Kent Evans    |            Gates            |
+| 0.99944896 |      Allen       |             CPU             |
+| 0.9987838  |      Allen       |          Micro-Soft         |
+| 0.9986734  |    Paul Allen    |            Gates            |
+| 0.99857813 |      Allen       |            Altair           |
+| 0.99850005 |    Paul Allen    | Computer Center Corporation |
+| 0.9970765  |    Kent Evans    | Computer Center Corporation |
+| 0.9970708  |      Satya       |          Microsoft          |
+|  0.997047  |    Jeff Bezos    |            Amazon           |
+| 0.9970356  |    Paul Allen    |          Honeywell          |
+| 0.99614984 |    Jeff Bezos    |            Gates            |
+| 0.99601775 |   Traf-O-Data    |            Gates            |
+| 0.9920987  |      Allen       |           Harvard           |
+| 0.98925966 |  Steve Ballmer   |           Harvard           |
+| 0.98816776 |      Allen       |          Microsoft          |
+| 0.97820354 |  J. W. Maxwell   |            Gates            |
+| 0.9607895  |    Kristianne    |            Gates            |
+| 0.9498459  |     Melinda      |            Gates            |
+| 0.90443933 |     Hathaway     |            Gates            |
+| 0.8871972  |     Melinda      |          Microsoft          |
+| 0.8837417  |     Hathaway     |          Microsoft          |
+| 0.85648155 | Paul Allen.[2][3 |          Microsoft          |
+| 0.81172293 |      Kristi      |            Gates            |
++------------+------------------+-----------------------------+
+Total # of iterations = 1
