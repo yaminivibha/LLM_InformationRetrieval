@@ -1,7 +1,3 @@
-# ReadMe
-
-Status: In progress
-
 # Information Extraction from Natural Language on the Web using LLMs and Iterative Set Expansion
 
 **Yamini Ananth, Erin Liang** 
@@ -95,7 +91,7 @@ bash setup.sh
 
 ### Running The Program
 
-Make sure you are in the base repository (which should be the case if following the library installation instructions
+Make sure you are in the base repository (which should be the case if following the library installation instructions)
 
 ```markdown
 $ pwd
@@ -133,7 +129,7 @@ Example commands with the two different types of annotators (`-spanbert` and `-g
 - extract at least 5 relations of the form Schools_Attended with minimum confidence of 0.7, using spanBERT to annotate the text. “mark zuckerberg harvard” is given as an example tuple that satisfies the desired relation.
 
 ```bash
-python3 SpanBERT/main.py -spanbert AIzaSyDQTz-AzhWHv-Qbk3ADyPG4hFb3Z6PkLHM  45add40315937647f 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 1 0.7 "mark zuckerberg harvard" 5 
+python3 SpanBERT/main.py -spanbert AIzaSyDQTz-AzhWHv-Qbk3ADyPG4hFb3Z6PkLHM  45add40315937647f <openai_secret_key> 1 0.7 "mark zuckerberg harvard" 5 
 ```
 
 - extract at least 35 relations of the form **Work_For**, using GPT3 to annotate the web text. “sundar pichai google” is given as an example tuple that satisfies the desired relation.
