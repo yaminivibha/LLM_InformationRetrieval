@@ -25,18 +25,19 @@ Currently four types of relations are supported: **Schools_Attended, Work_for, L
 └── SpanBertExtractor.py
 ├── README.md <-- You're here now!
 └── setup.sh
+```
 
 | Filename                       | Description                                                                                     
-|--------------------------------|-----------------------------------------------------------------------------------------------------                                                                |
+|--------------------------------|----------------------------------------------------------------------------------------------------|
 | `setup.sh`                     | Bash script for setting up environment                                                             |   
 | `GPT3Extractor.py`             | Creates objects that process text using spaCy and extract using GPT3                               |
 | `SpanBertExtractor.py`         | Creates objects that process text using spaCy and extract using spanBERT                           |
-| `QueryExecutor.py`             | Creates class for query execution, response handling, and input processing                         |      |
+| `QueryExecutor.py`             | Creates class for query execution, response handling, and input processing                         |      
 | `main.py`                      | Main function that handles the control flow                                                        | 
 | `utils.py`                     | Utilities for processing documents + urls                                                          |
 | `spacy_help_functions.py`      | Utilities for processing documents w/ spaCy                                                        |
-|                                | sourced from [[here]](http://www.cs.columbia.edu/~gravano/cs6111/Proj2/spacy_help_functions.py)                                                              |
-```
+|                                | sourced from [here](http://www.cs.columbia.edu/~gravano/cs6111/Proj2/spacy_help_functions.py)      |
+
 
 # How To Run
 
