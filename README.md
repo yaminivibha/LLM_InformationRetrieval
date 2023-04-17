@@ -25,17 +25,18 @@ Currently four types of relations are supported: **Schools_Attended, Work_for, L
 └── SpanBertExtractor.py
 ├── README.md <-- You're here now!
 └── setup.sh
-```
+
 | Filename                       | Description                                                                                     
-|--------------------------------|----------------------------------------------------------------------------------------------------|
+|--------------------------------|-----------------------------------------------------------------------------------------------------                                                                |
 | `setup.sh`                     | Bash script for setting up environment                                                             |   
 | `GPT3Extractor.py`             | Creates objects that process text using spaCy and extract using GPT3                               |
 | `SpanBertExtractor.py`         | Creates objects that process text using spaCy and extract using spanBERT                           |
-| `QueryExecutor.py`             | Creates class for query execution, response handling, and input processing                         |      
+| `QueryExecutor.py`             | Creates class for query execution, response handling, and input processing                         |      |
 | `main.py`                      | Main function that handles the control flow                                                        | 
 | `utils.py`                     | Utilities for processing documents + urls                                                          |
 | `spacy_help_functions.py`      | Utilities for processing documents w/ spaCy                                                        |
-|                                | sourced from [[here]](http://www.cs.columbia.edu/~gravano/cs6111/Proj2/spacy_help_functions.py)    |
+|                                | sourced from [[here]](http://www.cs.columbia.edu/~gravano/cs6111/Proj2/spacy_help_functions.py)                                                              |
+```
 
 # How To Run
 
@@ -107,6 +108,25 @@ usage: SpanBERT/main.py [-h] (-spanbert | -gpt3)
 
 - For our `Google Custom Search Engine JSON API Key` and `Google Engine ID` to run the project, see [Credentials section](https://www.notion.so/ReadMe-2aaf81e050e246ddbb4a69246850c768).
 
+Example commands with the two different types of annotators (`-spanbert` and `-gpt3`)
+
+- extract at least 5 relations of the form Schools_Attended with minimum confidence of 0.7, using spanBERT to annotate the text. “mark zuckerberg harvard” is given as an example tuple that satisfies the desired relation.
+    - openAI key is ignored since we are using spanBERT
+
+```bash
+python3 SpanBERT/main.py -spanbert AIzaSyDQTz-AzhWHv-Qbk3ADyPG4hFb3Z6PkLHM  45add40315937647f 00000 1 0.7 "mark zuckerberg harvard" 5 
+```
+
+- extract at least 35 relations of the form **Work_For**, using GPT3 to annotate the web text. “sundar pichai google” is given as an example tuple that satisfies the desired relation.
+    - confidence value is ignored because the gpt3 model is used.
+
+```bash
+python3 main.py -gpt3 \
+AIzaSyA2-F4UJII_nMxcwkFAY3232hIztCCnJ5U  \
+02f24d49c72384af0 <openai_secret_key> \
+2 0.7 "sundar pichai google" 35
+```
+
 ## Parameters
 
 | Parameter | Meaning | Context |
@@ -122,24 +142,6 @@ usage: SpanBERT/main.py [-h] (-spanbert | -gpt3)
 | q | seed query  | list of words in double quotes corresponding to a plausible tuple for the relation to extract (e.g., "bill gates microsoft" for relation Work_For) |
 | k | num requested tuples | integer greater than 0;
 number of tuples that we request in the output |
-
-Example commands with the two different types of annotators (`-spanbert` and `-gpt3`)
-
-- extract at least 5 relations of the form Schools_Attended with minimum confidence of 0.7, using spanBERT to annotate the text. “mark zuckerberg harvard” is given as an example tuple that satisfies the desired relation.
-
-```bash
-python3 SpanBERT/main.py -spanbert AIzaSyDQTz-AzhWHv-Qbk3ADyPG4hFb3Z6PkLHM  45add40315937647f <openai_secret_key> 1 0.7 "mark zuckerberg harvard" 5 
-```
-
-- extract at least 35 relations of the form **Work_For**, using GPT3 to annotate the web text. “sundar pichai google” is given as an example tuple that satisfies the desired relation.
-    - confidence value is ignored because the gpt3 model is used.
-
-```bash
-python3 main.py -gpt3 \
-AIzaSyA2-F4UJII_nMxcwkFAY3232hIztCCnJ5U  \
-02f24d49c72384af0 <openai_secret_key> \
-2 0.7 "sundar pichai google" 35
-```
 
 # Internal Design Description
 
