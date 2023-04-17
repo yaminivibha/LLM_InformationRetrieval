@@ -1,7 +1,3 @@
-# ReadMe
-
-Status: In progress
-
 # Information Extraction from Natural Language on the Web using LLMs and Iterative Set Expansion
 
 **Yamini Ananth, Erin Liang** 
