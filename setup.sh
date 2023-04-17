@@ -28,7 +28,7 @@ mv lib ./SpanBERT/lib
 # File directory setup. These files need to be in the
 # same directory as the SpanBERT directory.
 mv GPT3Extractor.py ./SpanBERT
-mv project2.py ./SpanBERT
+mv main.py ./SpanBERT
 mv QueryExecutor.py ./SpanBERT
 mv SpanBertExtractor.py ./SpanBERT
 

@@ -1,3 +1,7 @@
+# ReadMe
+
+Status: In progress
+
 # Information Extraction from Natural Language on the Web using LLMs and Iterative Set Expansion
 
 **Yamini Ananth, Erin Liang** 
@@ -16,15 +20,14 @@ Currently four types of relations are supported: **Schools_Attended, Work_for, L
 # File Structure
 
 ```markdown
-├── proj2
+├── llm_ise
 │   ├── lib
-│		│		├── SpanBERT
 │   │   └── utils.py
-│   ├── project2.py
-│   ├── EntityExtractor.py
-│   ├── QueryExecutor.py
-|   └── SpanBertExtractor.py
-├── README.pdf <-- You're here now!
+├── main.py
+├── EntityExtractor.py
+├── QueryExecutor.py
+└── SpanBertExtractor.py
+├── README.md <-- You're here now!
 └── setup.sh
 
 | Filename                       | Description                                                                                     
@@ -33,7 +36,7 @@ Currently four types of relations are supported: **Schools_Attended, Work_for, L
 | `GPT3Extractor.py`             | Creates objects that process text using spaCy and extract using GPT3                               |
 | `SpanBertExtractor.py`         | Creates objects that process text using spaCy and extract using spanBERT                           |
 | `QueryExecutor.py`             | Creates class for query execution, response handling, and input processing                         |      |
-| `main.py`                  | Main function that handles the control flow                                                        | 
+| `main.py`                      | Main function that handles the control flow                                                        | 
 | `utils.py`                     | Utilities for processing documents + urls                                                          |
 | `spacy_help_functions.py`      | Utilities for processing documents w/ spaCy                                                        |
 |                                | sourced from [[here]](http://www.cs.columbia.edu/~gravano/cs6111/Proj2/spacy_help_functions.py)                                                              |
@@ -48,12 +51,17 @@ Currently four types of relations are supported: **Schools_Attended, Work_for, L
 
 ### Installing Dependencies
 
-- Note: It is advised that you run the setup scripts in a virtual environment to manage your python library versions. For creating and activating virtual environments with the specific VM instances for this class (Ubuntu 18.04 LTS), see [this guide](https://linuxize.com/post/how-to-create-python-virtual-environments-on-ubuntu-18-04/).
+- Note: It is advised that you run the setup scripts in a virtual environment to manage your python library versions. For creating and activating virtual environments with the OS we used on VM instances in developing this project (Ubuntu 18.04 LTS), see [this guide](https://linuxize.com/post/how-to-create-python-virtual-environments-on-ubuntu-18-04/). Please start with a completely fresh environment. 
+- Note: running this code will *not work* locally on M1 Macs because of limitations with the packages we are using! Using a VM with Ubuntu is your best bet here. 
 
-Navigate to the repository:
+Clone and navigate to the repository:
 
 ```bash
-cd <your/path/to/proj2>
+git clone https://github.com/yaminivibha/llm_ise.git
+```
+
+```bash
+cd <your/path/to/llm_ise>
 ```
 
 Make sure the setup script is executable by changing the file permissions:
@@ -68,25 +76,24 @@ From the top level repository, run the setup script:
 bash setup.sh
 ```
 
-- This setup script will install all the requirements and also create the correct file directory structure* for running the program.
+- This setup script will install all the requirements and also create the correct file directory structure* for running the program. 
     - **We need to move our scripts around because the main file must be in the same folder as the SpanBERT and helper functions. There are a number of relative paths inside the SpanBERT module that will fail otherwise.*
 - The script creates the following directory structure:
 
 ```markdown
 ├── proj2
 │   └── SpanBERT
-│				  ├── lib
+│		  ├── lib
 │         │    └── utils.py
-│         ├── main.py    
-|  			  ├── EntityExtractor.py
+│         ├── project2.py    
+|  	      ├── EntityExtractor.py
 │         ├── QueryExecutor.py
 |         └── SpanBertExtractor.py
-├── requirements.txt
-├── README.pdf <-- You're here now!
+├── README.md <-- You're here now!
 └── setup.sh
 ```
 
-### Actually Running The Program
+### Running The Program
 
 Make sure you are in the base repository (which should be the case if following the library installation instructions
 
@@ -98,7 +105,7 @@ $ pwd
 Then run the project with:
 
 ```bash
-usage: SpanBERT/project2.py [-h] (-spanbert | -gpt3)
+usage: SpanBERT/main.py [-h] (-spanbert | -gpt3)
                    custom_search_key google_engine_id openai_secret_key r t q
                    k
 ```
@@ -126,17 +133,14 @@ Example commands with the two different types of annotators (`-spanbert` and `-g
 - extract at least 5 relations of the form Schools_Attended with minimum confidence of 0.7, using spanBERT to annotate the text. “mark zuckerberg harvard” is given as an example tuple that satisfies the desired relation.
 
 ```bash
-python3 SpanBERT/project2.py -spanbert \
-AIzaSyDQTz-AzhWHv-Qbk3ADyPG4hFb3Z6PkLHM  \
-45add40315937647f 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 \
-1 0.7 "mark zuckerberg harvard" 5 
+python3 SpanBERT/main.py -spanbert AIzaSyDQTz-AzhWHv-Qbk3ADyPG4hFb3Z6PkLHM  45add40315937647f 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 1 0.7 "mark zuckerberg harvard" 5 
 ```
 
 - extract at least 35 relations of the form **Work_For**, using GPT3 to annotate the web text. “sundar pichai google” is given as an example tuple that satisfies the desired relation.
     - confidence value is ignored because the gpt3 model is used.
 
 ```bash
-python3 project2.py -gpt3 \
+python3 main.py -gpt3 \
 AIzaSyA2-F4UJII_nMxcwkFAY3232hIztCCnJ5U  \
 02f24d49c72384af0 <openai_secret_key> \
 2 0.7 "sundar pichai google" 35
@@ -165,7 +169,7 @@ AIzaSyA2-F4UJII_nMxcwkFAY3232hIztCCnJ5U  \
 
 # Program Control Flow
 
-1. In `main.py` , user-inputted arguments are parsed and used to initialize a QueryExecutor object. Depending on which switch is called (`-gpt3` vs `-spanbert` ) the appropriate `Extractor` is created (`GPT3Extractor` or `SpanBertExtractor` ). 
+1. In `main.py` , user-inputted arguments are parsed and used to initialize a QueryExecutor object. Depending on which switch is called (`-gpt3` vs `-spanbert` ) the appropriate `Extractor` is created (`GPT3Extractor` or `SpanBertExtractor`). 
 2. For the first iteration, the top 10 results are generated using the seed query. For each of the top 10 results, plain text and entities are extracted as described in detail below. 
 3. If *k* valid relations are extracted, then the program terminates, printing a table of all extracted relations. Else, it goes onto another iteration using a newly generated query (as described below for each respective `Extractor`) to find and parse 10 more results . 
 4. In the case where *k* tuples have not been found, but all possible queries have been exhausted, the program terminates gracefully. 
@@ -174,7 +178,7 @@ AIzaSyA2-F4UJII_nMxcwkFAY3232hIztCCnJ5U  \
 
 - Get the full HTML of a webpage using `requests.get`, setting a max timeout limit of 5 seconds.
 - Pass the URL to a `BeautifulSoup` object for processing.
-- Find all `<p>` blocks and extract the text. Given that the goal of the pipeline is to extract entity relations from sentences, excluding headers and section titles would have minimal impact. However, we can consider exploring the [impact of including these in future work.](https://www.notion.so/ReadMe-2aaf81e050e246ddbb4a69246850c768)
+- Find all `<p>` blocks and extract the text. Given that the goal of the pipeline is to extract entity relations from sentences, excluding headers and section titles would have minimal impact. However, we can consider exploring the [impact of including these in future work.](#future-work-👋)
 - Truncate the text to its first 10,000 characters (for efficiency) and discard the rest.
 - On the truncated text, remove all whitespace and trailing characters as outlined by Zheng Hui [here](https://edstem.org/us/courses/34785/discussion/2831362).
 - If a URL times out or has a processing error, move on to the next URL (even if it means processing < 10 URLs in one iteration).
@@ -182,7 +186,7 @@ AIzaSyA2-F4UJII_nMxcwkFAY3232hIztCCnJ5U  \
 ## Extracting Entities Using spaCy
 
 - For a given document of text, after being pre-processed, we follow a different entity relation extraction process for SpanBERT and for GPT-3
-- For SpanBERT, we largely follow the NER extraction process as outlined by the [example relation extraction code available here](http://www.cs.columbia.edu/~gravano/cs6111/Proj2/#:~:text=example_relations.py) and filter out the entities based on the target entities of interest that were given in the user’s command line arguments.
+- For SpanBERT, we largely follow the NER extraction process as outlined by [example relation extraction code](http://www.cs.columbia.edu/~gravano/cs6111/Proj2/#:~:text=example_relations.py) and filter out the entities based on the target entities of interest that were given in the user’s command line arguments.
 - Because extracting relations is expensive downstream, we verify that named entity pairs extracted by spaCy have the correct entity types for the relation before passing them on (for example: “Work_For” requires a PERSON as a subject and an ORGANIZATION as an object).
 
 ## SpanBERT (and SpanBertExtractor)
@@ -195,7 +199,7 @@ AIzaSyA2-F4UJII_nMxcwkFAY3232hIztCCnJ5U  \
 Subject: Zuckerberg	Object: Y Combinator's Startup School	Relation: no_relation	Confidence: 1.00
 Subject: Zuckerberg	Object: Stanford University	Relation: no_relation	Confidence: 0.76
 Subject: Zuckerberg	Object: CFO	Relation: no_relation	Confidence: 1.00
-Subject: Facebook.[42	Object: CFO	Relation: no_relation	Confidence: 1.00
+Subject: Facebook.	Object: CFO	Relation: no_relation	Confidence: 1.00
 Subject: Zuckerberg	Object: Facebook	Relation: no_relation	Confidence: 1.00
 Subject: Zuckerberg	Object: MIT Technology Review's	Relation: no_relation	Confidence: 0.99
 Subject: Zuckerberg	Object: 35.[46]	Relation: no_relation	Confidence: 1.00
