@@ -42,14 +42,13 @@ Currently four types of relations are supported: **Schools_Attended, Work_for, L
 # How To Run
 
 <aside>
-🍞 All commands necessary to install the required software, dependencies, and run the program.
+🍞 All commands necessary to install the required software, dependencies, and run the program.  Note: this code will *not work* locally on M1 Macs because of limitations with the spaCy implementation we are using! Using a VM with Ubuntu is your best bet here. 
 
 </aside>
 
 ### Installing Dependencies
 
 - Note: It is advised that you run the setup scripts in a virtual environment to manage your python library versions. For creating and activating virtual environments with the OS we used on VM instances in developing this project (Ubuntu 18.04 LTS), see [this guide](https://linuxize.com/post/how-to-create-python-virtual-environments-on-ubuntu-18-04/). Please start with a completely fresh environment. 
-- Note: running this code will *not work* locally on M1 Macs because of limitations with the packages we are using! Using a VM with Ubuntu is your best bet here. 
 
 Clone and navigate to the repository:
 
@@ -295,7 +294,7 @@ Subject: Zuckerberg	Object: Vanity Fair	Relation: no_relation	Confidence: 1.00
 ```
 
 - We attempted to add more natural language in our prompts (see below)
-    - but this increased the amount of iterations the program took to find **k** tuples to extract, even though the tuples that it did extract were more accurate. Because terminating with a lesser number of iterations is the primary grading criteria, we decided to stick with the previous prompt.
+    - but this increased the amount of iterations the program took to find **k** tuples to extract, even though the tuples that it did extract were more accurate. Because terminating with a lesser number of iterations is the primary goal, we decided to stick with the previous prompt.
 
 ```bash
 "Extract the name of a school where a person attended. 
